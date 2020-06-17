@@ -1,0 +1,136 @@
+.footerInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    background-color: #f8f8f8;
+    /*box-shadow: 0 0 9px rgba(0,0,0,0.4);*/
+    height: 150px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
+}
+
+.logoInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+    margin-right: 10px;
+}
+
+.logoIcon{
+    width: 40px;
+    height: auto;
+}
+
+.logoTitle{
+    font-weight: bold;
+    color: #333333;
+    font-size: 18px;
+}
+
+.logoTitle span{
+    color: #f38181;
+}
+
+.logoText{
+    color: #333333;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.linksInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+    margin-bottom: 15px;
+}
+
+.link{
+    text-decoration: none;
+    color: #333333;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    /*border-bottom: 2px solid transparent;*/
+}
+
+.link:after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    margin: 0px auto 0px auto;
+    background-color: #f38181;
+    transition: width 0.5s ease;
+}
+
+.link:hover:after{
+    width: 100%;
+}
+
+.link:hover{
+    /*border-bottom: 2px solid #f38181;
+    transition: border 0.5s ease;*/
+}
+
+.contactsInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.contactsText{
+    color: #333333;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+    margin-right: 10px;
+}
+
+.contactIcon{
+    width: 28px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.contactText{
+    color: #333333;
+    font-size: 16px;
+}
+
+/*
+.text:after{
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 10px auto;
+    background-color: #f38181;
+}*/

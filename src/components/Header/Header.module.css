@@ -1,0 +1,27 @@
+.header{
+    flex: 0 0 auto;
+    position: sticky;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    /*box-shadow: 0 0 9px rgba(0,0,0,0.4);*/
+    z-index: 10;
+    top: 0;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+}

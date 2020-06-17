@@ -1,0 +1,51 @@
+.userInfoInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.userWrapper{
+
+}
+
+.authInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.authText{
+    text-decoration: none;
+    color: #333333;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.authText:after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    margin: 0px auto 0px auto;
+    background-color: #f38181;
+    transition: width 0.5s ease;
+}
+
+.authText:hover:after{
+    width: 100%;
+}
+
+.userInfo{
+    background: url("male.svg");
+    background-size: contain;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+.icon{
+}
+
+.num{
+}

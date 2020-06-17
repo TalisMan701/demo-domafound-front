@@ -1,0 +1,90 @@
+.container{
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tariffs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.cardsRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.card{
+    margin: 20px;
+    width: 275px;
+    height: 275px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.days{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    margin-bottom: 20px;
+}
+
+.daysCount{
+    text-align: center;
+    font-weight: bold;
+    font-size: 96px;
+    color: #333333;
+    margin-bottom: -25px;
+}
+
+.daysText{
+    font-weight: bold;
+    font-size: 45px;
+    line-height: 83.69%;
+    color: #37D9B2;
+}
+
+.price{
+    font-weight: bold;
+    font-size: 35px;
+    color: #333333;
+}
+
+.button{
+    cursor: pointer;
+    width: 175px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #37D9B2;
+    background-color: #37D9B2;
+    border-radius: 7px;
+    transition: background-color 0.3s ease;
+}
+
+.buttonText{
+    font-weight: bold;
+    font-size: 28px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.button:hover{
+    background-color: #ffffff;
+    border-radius: 7px;
+}
+
+.buttonText:hover{
+    color: #37D9B2;
+}

@@ -1,0 +1,117 @@
+.infoWrapper{
+    position: relative;
+}
+
+.infoUnion{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    filter: drop-shadow(0px -5px 8px #95e1d3);
+}
+
+.info{
+    position: relative;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.bg{
+
+}
+
+.container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mainInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.mainText{
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    font-size: 100px;
+    line-height: 0.7;
+}
+
+.mainText span{
+    text-align: center;
+    font-weight: normal;
+    color: white;
+    font-size: 50px;
+}
+
+.scrollLinks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+    padding-top: 30px;
+}
+
+.scrollLinkItem{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    width: 245px;
+    height: 80px;
+    border: 6px solid white;
+    border-radius: 50px;
+    margin: 0 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    padding-bottom: 30px;
+}
+
+.scrollLinkItem:hover{
+    box-shadow: 0px 0px 20px 5px #95e1d3;
+}
+
+.scrollLinkItem:hover img{
+    animation-duration: 1s;
+    animation-name: moveDown;
+    animation-iteration-count: infinite;
+}
+
+.scrollLinkItem img{
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: auto;
+    fill: #ffffff;
+}
+
+@keyframes moveDown {
+    from {
+        top: 60%;
+    }
+
+    to {
+        top: 60%;
+    }
+
+    50% {
+        top: 75%;
+    }
+}

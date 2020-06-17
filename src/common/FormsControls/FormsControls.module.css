@@ -1,0 +1,49 @@
+.input{
+    max-width: 270px;
+    z-index: 2;
+    border-right: 0;
+    width: 100%;
+    line-height: 1.1;
+    height: 40px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+    margin-top: 10px;
+}
+
+.input::placeholder{
+    color: #ccc;
+}
+
+.input:focus{
+    outline: 0;
+    border: 2px solid #95e1d3;
+    border-radius: 5px;
+}
+
+.errorInner{
+    position: relative;
+    background-color: #f38181;
+    padding: 5px 12px;
+}
+
+.errorInnerTriangle{
+    position: absolute;
+    width: 20px;
+    z-index: 10;
+    top: -12px;
+    right: 12px;
+}
+
+.errorText{
+    color: white;
+}
+
+/*
+.input:focus{
+    outline: 0;
+    border: 2px solid #95e1d3;
+}*/

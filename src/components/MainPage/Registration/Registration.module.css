@@ -1,0 +1,105 @@
+.registration{
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    margin-bottom: 20px;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text{
+    color: #333;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.arrow{
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: auto;
+    animation-duration: 1s;
+    animation-name: moveDown;
+    animation-iteration-count: infinite;
+    animation-delay: 2s;
+}
+
+@keyframes moveDown {
+    from {
+        top: 55%;
+    }
+
+    to{
+        top: 55%;
+    }
+
+    50% {
+        top: 75%;
+    }
+}
+
+.buttonInner{
+    position: relative;
+    margin: 10px 0px 40px 0px;
+    height: 40px;
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+.button{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid #95e1d3;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.button:hover{
+    width: 270px;
+    height: 70px;
+}
+
+.button:hover .button__text{
+    font-size: 20px;
+}
+
+.button__text{
+    color: #333333;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+}
+
+/*
+.text:after{
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 10px auto;
+    background-color: #f38181;
+}*/
