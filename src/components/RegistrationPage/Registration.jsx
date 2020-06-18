@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {Input} from "../../common/FormsControls/FormsControls";
+import {Input, InputNumber} from "../../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import classes from "./Registration.module.css";
 import {
@@ -19,7 +19,7 @@ const RegistrationValidatePhoneForm = (props) =>{
             <div>
                 <Field placeholder={"Номер телефона"} name={"number"} type={"text"}
                         validate={[required]}
-                        component={Input}/>
+                        component={InputNumber}/>
             </div>
             { props.error &&
             <div className={classes.formSummaryError}>

@@ -1,0 +1,82 @@
+.property{
+    background-color: #f8f8f8;
+/*    border-radius: 10px;*/
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 10px;
+}
+
+.imgs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    width: 170px;
+    height: 170px;
+    margin-right: 40px;
+}
+
+.content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    color: #333333;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.description{
+    font-size: 14px;
+}
+
+.descriptionTitle{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.descriptionText{
+
+}
+
+.phoneNumber{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.phoneNumberTitle{
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.phone{
+    margin-right: 10px;
+}
+
+.phoneNumberShow{
+    font-size: 14px;
+}
+.btns{
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+}
+
+.btn{
+    background-color: #95e1d3;
+    padding: 5px;
+    color: #ffffff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 10px;
+}

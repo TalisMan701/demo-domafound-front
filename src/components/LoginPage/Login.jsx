@@ -3,7 +3,7 @@ import classes from "./Login.module.css";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
-import {Input} from "../../common/FormsControls/FormsControls";
+import {Input, InputNumber} from "../../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
 
@@ -13,7 +13,7 @@ const LoginForm = (props) =>{
             <div>
                 <Field placeholder={"Номер телефона"} name={"number"} type={"phone"}
                         validate={[required]}
-                        component={Input}/>
+                        component={InputNumber}/>
             </div>
             <div>
                 <Field placeholder={"Пароль"} name={"password"} type={"password"}

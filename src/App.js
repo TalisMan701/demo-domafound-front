@@ -13,6 +13,7 @@ import Registration from "./components/RegistrationPage/Registration";
 import {connect} from "react-redux";
 import {getAuthUserData} from "./redux/auth-reducer";
 import Tariffs from "./components/TariffsPage/Tariffs";
+import FindProperty from "./components/FindProperty/FindProperty";
 
 class App extends React.Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class App extends React.Component {
                     <Route path='/login' render={() => <Login/>}/>
                     <Route path='/registration' render={() => <Registration/>}/>
                     <Route path='/tariffs' render={() => <Tariffs/>}/>
+                    <Route path='/find_property' render={() => <FindProperty/>}/>
                 </div>
                 <Footer></Footer>
 
