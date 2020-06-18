@@ -7,6 +7,8 @@ let initialState = {
     userId: null,
     email: null,
     number: null,
+    countDays: null,
+    isTariff: false,
     isAuth: false
 };
 

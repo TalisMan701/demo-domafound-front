@@ -15,7 +15,10 @@ class UserInfoContainer extends React.Component{
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    login: state.auth.login
+    login: state.auth.login,
+    number: state.auth.number,
+    countDays: state.auth.countDays,
+    isTariff: state.auth.isTariff,
 });
 
 export default connect(mapStateToProps, {getAuthUserData, logout})(UserInfoContainer);

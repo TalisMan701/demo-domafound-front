@@ -3,10 +3,27 @@
     justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
+    border: 1px solid #cccccc;
+    border-radius: 7px;
+    padding: 3px 5px;
 }
 
 .userWrapper{
 
+}
+
+.userInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
 }
 
 .authInner{
@@ -37,15 +54,51 @@
     width: 100%;
 }
 
-.userInfo{
-    background: url("male.svg");
-    background-size: contain;
-    position: relative;
-    width: 30px;
-    height: 30px;
-}
-.icon{
+.logoutText,
+.buyTariff,
+.countDays{
+    text-decoration: none;
+    color: #333333;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.num{
+.logoutText:after,
+.buyTariff:after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    margin: 0px auto 0px auto;
+    background-color: #f38181;
+    transition: width 0.5s ease;
+}
+
+.logoutText:hover:after,
+.buyTariff:hover:after{
+    width: 100%;
+}
+
+.buyTariff,
+.countDays{
+    color: #f38181;
+    margin: 0;
+}
+
+.countDays span{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.userPhone{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.icon{
+    margin-right: 5px;
+    width: 32px;
+    height: 32px;
 }
