@@ -2,7 +2,7 @@ import * as axios from "axios";
 
 const instanceWithToken = () => axios.create({
     withCredentials: true,
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: "http://82.146.35.84/api/",
     headers: {
         "authorization": "Token "+localStorage.getItem("token")
     }
@@ -10,7 +10,7 @@ const instanceWithToken = () => axios.create({
 
 const instance = () => axios.create({
     withCredentials: true,
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: "http://82.146.35.84/api/",
 });
 
 export const authAPI = {
@@ -34,5 +34,11 @@ export const registrationAPI ={
     },
     registration(email, number, password){
         return instance().post(`auth/registration/me/`, {email, number, password})
+    }
+}
+
+export const findPropertyAPI ={
+    getBase(){
+        return instanceWithToken().get(`get_base/`)
     }
 }

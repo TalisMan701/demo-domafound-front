@@ -3,10 +3,12 @@ import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import registrationReducer from "./registration-reducer";
+import findPropertyReducer from "./findProperty-reducer";
 
 let reducers = combineReducers({
     registration: registrationReducer,
     auth: authReducer,
+    findProperty: findPropertyReducer,
     form: formReducer
 });
 
