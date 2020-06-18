@@ -32,12 +32,12 @@ const registrationReducer = (state = initialState, action) => {
                 ...state,
                 isRegistrated: true
             }
-/*        case END_REGISTRATION:{
-            return {
-                ...state,
-                isRegistrated: false
-            }
-        }*/
+        /*        case END_REGISTRATION:{
+                    return {
+                        ...state,
+                        isRegistrated: false
+                    }
+                }*/
         case SET_USER_FINAL:
             return {
                 ...initialState
@@ -47,26 +47,26 @@ const registrationReducer = (state = initialState, action) => {
     }
 }
 
-const setUserPhone = (number, validatePhone) => ({type: SET_USER_PHONE,data: {number, validatePhone}});
+const setUserPhone = (number, validatePhone) => ({type: SET_USER_PHONE, data: {number, validatePhone}});
 
-export const registrationValidatePhone = (number) => (dispatch) =>{
+export const registrationValidatePhone = (number) => (dispatch) => {
     registrationAPI.validatePhone(number)
         .then(response => {
-            if(response.data.status === true){
+            if (response.data.status === true) {
                 dispatch(setUserPhone(number, true))
-            } else{
+            } else {
                 let message = response.data.detail.length > 0 ? response.data.detail : "Some error";
                 dispatch(stopSubmit("registrationValidatePhone", {_error: message}));
             }
         })
 }
 
-export const registrationValidatePhoneResend = (number) => (dispatch) =>{
+export const registrationValidatePhoneResend = (number) => (dispatch) => {
     registrationAPI.validatePhone(number)
         .then(response => {
-            if(response.data.status === true){
+            if (response.data.status === true) {
                 dispatch(setUserPhone(number, true))
-            } else{
+            } else {
                 let message = response.data.detail.length > 0 ? response.data.detail : "Some error";
                 dispatch(stopSubmit("registrationValidatePhone", {_error: message}));
             }
@@ -75,10 +75,10 @@ export const registrationValidatePhoneResend = (number) => (dispatch) =>{
 
 const setUserOTP = () => ({type: SET_USER_OTP})
 
-export const registrationValidateOTP = (code, number) => (dispatch) =>{
+export const registrationValidateOTP = (code, number) => (dispatch) => {
     registrationAPI.validateOTP(code, number)
         .then(response => {
-            if(response.data.status === true){
+            if (response.data.status === true) {
                 dispatch(setUserOTP())
             } else {
                 let message = response.data.detail.length > 0 ? response.data.detail : "Some error";
@@ -87,19 +87,22 @@ export const registrationValidateOTP = (code, number) => (dispatch) =>{
         })
 }
 
-const setIsRegistred = () => ({type:SET_IS_REGISTERED})
+const setIsRegistred = () => ({type: SET_IS_REGISTERED})
 
 /*export const endRegistration = () => ({type:END_REGISTRATION})*/
 
-export const setUserFinal = () => ({type:SET_USER_FINAL})
+export const setUserFinal = () => ({type: SET_USER_FINAL})
 
-export const registration = (email, number, password) => (dispatch) =>{
-    registrationAPI.registration(email,number,password)
+export const registration = (email, number, password) => (dispatch) => {
+    registrationAPI.registration(email, number, password)
         .then(response => {
-            if(response.data.status === true){
+            if (response.data.status === true) {
                 dispatch(setIsRegistred())
             }
-        })
+        }).catch((error) => {
+        let message = error.response.data.email[0].length > 0 ? error.response.data.email[0] : "Some error";
+        dispatch(stopSubmit("registration", {_error: message}));
+    })
 }
 
 

@@ -5,7 +5,6 @@ import {Input} from "../../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import classes from "./Registration.module.css";
 import {
-    endRegistration,
     registration,
     registrationValidateOTP,
     registrationValidatePhone, registrationValidatePhoneResend, setIsRegistred,
@@ -96,6 +95,11 @@ const RegistrationForm = (props) =>{
                        validate={[required]}
                        component={Input}/>
             </div>
+            { props.error &&
+            <div className={classes.formSummaryError}>
+                {props.error}
+            </div>
+            }
             <div>
                 <button className={classes.button} >Зарегистрироваться</button>
             </div>
