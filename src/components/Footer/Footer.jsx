@@ -40,13 +40,13 @@ const Footer = () =>{
                     <div className={classes.contact}>
                         <img className={classes.contactIcon} src={phone} alt="phone"/>
                         <div className={classes.contactText}>
-                            +7-992-007-71-62
+                            +7-(932)-323-02-86
                         </div>
                     </div>
                     <div className={classes.contact}>
                         <img className={classes.contactIcon} src={mail} alt="mail"/>
                         <div className={classes.contactText}>
-                            boss.kompaneec@mail.ru
+                            domafound@mail.ru
                         </div>
                     </div>
                 </div>
