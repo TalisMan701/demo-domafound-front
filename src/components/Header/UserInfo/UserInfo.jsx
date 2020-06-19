@@ -13,12 +13,14 @@ const UserInfo = (props) => {
         <div className={classes.userWrapper}>
             {props.isAuth ?
                 <div className={classes.userInfoInner}>
-                    <img className={classes.icon} src={icon} alt=""/>
+                    <NavLink to="/office">
+                        <img className={classes.icon} src={icon} alt=""/>
+                    </NavLink>
                     <div className={classes.userInfo}>
-                        {props.isTariff &&
+                        {props.isSubscription &&
                         <div className={classes.countDays}>Осталось дней: <span>{props.countDays}</span></div>
                         }
-                        {!props.isTariff &&
+                        {!props.isSubscription &&
                         <NavLink to='/tariffs' className={classes.buyTariff}>Приобрести тариф</NavLink>
                         }
                         <div className={classes.user}>

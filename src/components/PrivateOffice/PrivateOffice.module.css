@@ -1,0 +1,93 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 210px);
+}
+
+.officeInnner{
+    margin: 30px 0;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+.title{
+    text-align: center;
+    color: #333333;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.title:after{
+    content: "";
+    display: block;
+    width: 120px;
+    height: 2px;
+    margin: 5px auto;
+    background-color: #f38181;
+}
+
+.userInfo{
+    color: #333333;
+    margin-bottom: 15px;
+    width: 100%;
+    font-weight: 500;
+}
+
+.phone > span,
+.email > span,
+.countDays > span,
+.referrals > span{
+    font-weight: normal;
+}
+
+.countDaysInner{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.buySubscription{
+    text-decoration: none;
+    color: #cccccc;
+    margin: 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.buySubscription:hover{
+    color: #333333;
+}
+
+.userInfo > div{
+    margin-bottom: 5px;
+}
+
+
+.btns{
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+}
+
+.btn{
+    background-color: #95e1d3;
+    padding: 5px;
+    color: #ffffff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btnFavorites{
+    margin-right: 10px;
+}
+

@@ -13,7 +13,7 @@ class FindProperty extends React.Component {
 
 
     render() {
-        /*if(!this.props.isTariff){
+        /*if(!this.props.isSubscription){
             alert("Купите тариф, чтобы воспользоваться поиском недвижимости")
             return <Redirect to={'/tariffs'}/>
         }*/
@@ -33,7 +33,7 @@ class FindProperty extends React.Component {
 
 const mapStateToProps = (state) => ({
     property: state.findProperty.property,
-    isTariff: state.auth.isTariff
+    isSubscription: state.auth.isSubscription
 })
 
 export default connect(mapStateToProps,{getProperty})(FindProperty);

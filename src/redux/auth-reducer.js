@@ -7,8 +7,9 @@ let initialState = {
     userId: null,
     email: null,
     number: null,
+    referralsCount: 0,
     countDays: null,
-    isTariff: false,
+    isSubscription: false,
     isAuth: false
 };
 
@@ -24,8 +25,8 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-const setAuthUserData = (userId, email, number, isAuth) => ({type: SET_USER_DATA, data:
-        {userId, email, number, isAuth}});
+const setAuthUserData = (userId, email, number, isSubscription, countDays, isAuth) => ({type: SET_USER_DATA, data:
+        {userId, email, number, isSubscription, countDays, isAuth}});
 
 export const getAuthUserData = () => (dispatch) => {
     authAPI.me()
@@ -35,7 +36,10 @@ export const getAuthUserData = () => (dispatch) => {
                     response.data.id,
                     response.data.email,
                     response.data.phone,
-                    true));
+                    response.data.is_subscribe,
+                    response.data.subscribe_days_count,
+                    true,
+                    ));
             }
         });
 }

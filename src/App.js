@@ -14,6 +14,7 @@ import {connect} from "react-redux";
 import {getAuthUserData} from "./redux/auth-reducer";
 import Tariffs from "./components/TariffsPage/Tariffs";
 import FindProperty from "./components/FindProperty/FindProperty";
+import PrivateOffice from "./components/PrivateOffice/PrivateOffice";
 
 class App extends React.Component {
     componentDidMount() {
@@ -39,6 +40,7 @@ class App extends React.Component {
                     <Route path='/registration' render={() => <Registration/>}/>
                     <Route path='/tariffs' render={() => <Tariffs/>}/>
                     <Route path='/find_property' render={() => <FindProperty/>}/>
+                    <Route path='/office' render={() => <PrivateOffice/>}/>
                 </div>
                 <Footer></Footer>
 

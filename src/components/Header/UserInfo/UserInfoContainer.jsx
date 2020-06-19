@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
     login: state.auth.login,
     number: state.auth.number,
     countDays: state.auth.countDays,
-    isTariff: state.auth.isTariff,
+    isSubscription: state.auth.isSubscription,
 });
 
 export default connect(mapStateToProps, {getAuthUserData, logout})(UserInfoContainer);
