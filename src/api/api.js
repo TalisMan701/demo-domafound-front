@@ -41,8 +41,8 @@ export const findPropertyAPI ={
     reparseBase(){
         return instanceWithToken().get(`base/reparse/`)
     },
-    getBase(){
-        return instanceWithToken().get(`base/get_base/`)
+    getBase(pageSize, page){
+        return instanceWithToken().get(`base/get_base/${pageSize}?page=${page}`)
     },
     getHouse(id){
         return instanceWithToken().get(`base/get_house/${id}/`)

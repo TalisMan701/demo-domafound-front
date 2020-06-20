@@ -7,14 +7,17 @@ const SET_TOTAL_PROPERTY_COUNT = "SET_TOTAL_PROPERTY_COUNT";
 const REMOVE_FROM_PROPERTY = "REMOVE_FROM_PROPERTY";
 const SET_IGNORE_LIST = "SET_IGNORE_LIST";
 const REMOVE_FROM_IGNORE_PROPERTY = "REMOVE_FROM_IGNORE_PROPERTY";
+const SET_IS_NEXT = "SET_IS_NEXT";
+const DELETE_PROPERTY_STATE = "DELETE_PROPERTY_STATE";
 
 
 let initialState = {
     property: [],
     ignoreList:[],
-    pageSize: 10,
+    pageSize: 5,
     totalPropertyCount: 0,
-    currentPage: 1,
+    isNext: null,
+    page: 1,
     isFetching: true
 };
 
@@ -23,7 +26,8 @@ const foundPropertyReducer = (state = initialState, action) => {
         case SET_PROPERTY:
             return {
                 ...state,
-                property: action.property
+                page: state.page+1,
+                property: [...state.property, ...action.property]
             }
         case SET_IGNORE_LIST:{
             return {
@@ -36,6 +40,12 @@ const foundPropertyReducer = (state = initialState, action) => {
                 ...state,
                 totalPropertyCount: action.count
             }
+        case SET_IS_NEXT:{
+            return {
+                ...state,
+                isNext: action.isNext
+            }
+        }
         case REMOVE_FROM_PROPERTY:{
             return {
                 ...state,
@@ -53,6 +63,11 @@ const foundPropertyReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching}
         }
+        case DELETE_PROPERTY_STATE:{
+            return {
+                ...initialState
+            }
+        }
         default:
             return state;
     }
@@ -60,22 +75,20 @@ const foundPropertyReducer = (state = initialState, action) => {
 export const setProperty = (property) => ({type: SET_PROPERTY, property })
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching })
 export const setTotalPropertyCount = (totalPropertyCount) => ({type: SET_TOTAL_PROPERTY_COUNT, count: totalPropertyCount })
+export const setIsNext = (isNext) => ({type: SET_IS_NEXT, isNext })
+export const deletePropertyState = () => ({type: DELETE_PROPERTY_STATE})
 
 export const setIgnoreList = (ignoreList) => ({type: SET_IGNORE_LIST, ignoreList })
 export const removeFromProperty = (house_id) => ({type: REMOVE_FROM_PROPERTY, house_id})
 export const removeFromIgnoreProperty = (house_id) => ({type: REMOVE_FROM_IGNORE_PROPERTY, house_id})
 
-export const getProperty = () => {
+export const getProperty = (pageSize, page) => {
     return (dispatch) => {
-        dispatch(toggleIsFetching(true));
-
-        findPropertyAPI.getBase()
+        findPropertyAPI.getBase(pageSize, page)
             .then(data => {
-            if (data.data.status === true){
-                dispatch(toggleIsFetching(false));
-                dispatch(setProperty(data.data.data));
-            }
-            /*dispatch(setTotalUsersCount(data.totalCount));*/
+                dispatch(setProperty(data.data.results));
+                dispatch(setTotalPropertyCount(data.data.count));
+                dispatch(setIsNext(data.data.next));
         });
     }
 }

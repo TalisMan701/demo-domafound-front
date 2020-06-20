@@ -2,7 +2,13 @@ import React from "react";
 import classes from "./FindProperty.module.css";
 import Property from "./Property/Property";
 import {connect} from "react-redux";
-import {getIgnoreList, getProperty, removeToIgnoreList, setToIgnoreList} from "../../redux/findProperty-reducer";
+import {
+    deletePropertyState,
+    getIgnoreList,
+    getProperty,
+    removeToIgnoreList,
+    setToIgnoreList
+} from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import PrivateOffice from "../PrivateOffice/PrivateOffice";
 import {compose} from "redux";
@@ -11,8 +17,19 @@ import IgnoreProperty from "./IgnoreProperty/IgnoreProperty";
 class FindProperty extends React.Component {
 
     componentDidMount() {
-        this.props.getProperty();
+        this.props.getProperty(this.props.pageSize, this.props.page);
         this.props.getIgnoreList();
+    }
+
+    componentWillUnmount(){
+        console.log("Poka")
+        this.props.deletePropertyState()
+    }
+
+    onPageChanged = () => {
+        if(this.props.isNext !== null){
+            this.props.getProperty(this.props.pageSize, this.props.page);
+        }
     }
 
 
@@ -32,6 +49,9 @@ class FindProperty extends React.Component {
                             {this.props.property.map(p =>
                                 <Property item={p} setToIgnoreList={this.props.setToIgnoreList}/>
                             )}
+                            <div onClick={()=>{this.onPageChanged()}} className={classes.showMore}>
+                                Show More
+                            </div>
                         </Route>
                         <Route path={`${this.props.match.path}/ignore_list`}>
                             {this.props.ignoreList.map(p =>
@@ -48,10 +68,13 @@ class FindProperty extends React.Component {
 const mapStateToProps = (state) => ({
     property: state.findProperty.property,
     ignoreList: state.findProperty.ignoreList,
-    isSubscription: state.auth.isSubscription
+    isSubscription: state.auth.isSubscription,
+    pageSize: state.findProperty.pageSize,
+    page: state.findProperty.page,
+    isNext: state.findProperty.isNext
 })
 
 export default compose(
-    connect(mapStateToProps,{getProperty, setToIgnoreList, getIgnoreList, removeToIgnoreList}),
+    connect(mapStateToProps,{getProperty, setToIgnoreList, getIgnoreList, removeToIgnoreList, deletePropertyState}),
     withRouter
 )(FindProperty);
