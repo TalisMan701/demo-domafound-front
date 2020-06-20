@@ -4,3 +4,10 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.showMore{
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}

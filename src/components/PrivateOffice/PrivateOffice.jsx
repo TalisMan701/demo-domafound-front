@@ -30,7 +30,7 @@ class PrivateOffice extends React.Component {
                             <div className={classes.referrals}>Мои рефералы: <span>{this.props.referralsCount}</span></div>
                         </div>
                         <div className={classes.btns}>
-                            <div className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</div>
+                            <NavLink to='/find_property/favorite_list' className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</NavLink>
                             <NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>
                         </div>
                     </div>

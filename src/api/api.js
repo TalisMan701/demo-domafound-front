@@ -68,10 +68,10 @@ export const findPropertyAPI ={
     getFavoriteList(){
         return instanceWithToken().get(`base/get_fav/`)
     },
-    setToFavoriteList(id){
-        return instanceWithToken().post(`base/fav/`, {id})
+    setToFavoriteList(house_id){
+        return instanceWithToken().post(`base/fav/`, {house_id})
     },
-    removeToFavoriteList(id){
-        return instanceWithToken().delete(`base/fav/`, {id})
+    removeToFavoriteList(house_id){
+        return instanceWithToken().delete(`base/fav/`, { data: {house_id}})
     },
 }

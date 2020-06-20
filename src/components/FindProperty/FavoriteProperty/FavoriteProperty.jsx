@@ -1,25 +1,25 @@
 import React from "react";
-import classes from "./Property.module.css";
+import classes from "./FavoriteProperty.module.css";
 import closeIcon from "./close.svg";
 
-const Property = (props) => {
+const FavoriteProperty = (props) => {
     return (
         <div className={classes.property}>
             <div className={classes.imgs}>
                 <img className={classes.img} src="https://api.interior.ru/media/images/setka/2020_02_12/VladaSteblina_kvartira_dlya_sebya_1_1920_full.jpg" alt="img"/>
             </div>
             <div className={classes.content}>
-                <div className={classes.title}>{props.item.items.title}</div>
+                <div className={classes.title}>{props.item.title}</div>
                 <div className={classes.description}>
                     <div className={classes.descriptionTitle}>Описание</div>
                     <div className={classes.descriptionText}>
-                        Адресс: {props.item.items.address},
+                        Адресс: {props.item.address},
                         <br/>
                         {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                        Цена: {props.item.items.price}₽
+                        Цена: {props.item.price}₽
                         <br/>
-                        Ссылка: <a href={props.item.items.link}>Посетить</a>
+                        Ссылка: <a href={props.item.link}>Посетить</a>
                     </div>
                 </div>
                 <div className={classes.phoneNumber}>
@@ -28,17 +28,12 @@ const Property = (props) => {
                     <div className={classes.phoneNumberShow}>Смотреть</div>
                 </div>
                 <div className={classes.btns}>
-                    {!props.item.is_fav &&
-                    <div onClick={() => {props.setToFavoriteList(props.item.items.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в избранное</div>
-                    }
-                    {props.item.is_fav &&
-                    <div onClick={() => {props.removeToFavoriteList(props.item.items.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Удалить из избранных</div>
-                    }
-                    <img onClick={() => {props.setToIgnoreList(props.item.items.id)}} className={classes.closeIcon} src={closeIcon} alt="Add to ignore list"/>
+                    <div onClick={() => {props.setToIgnoreList(props.item.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в игнор лист</div>
+                    <img onClick={() => {props.removeToFavoriteList(props.item.id)}} className={classes.closeIcon} src={closeIcon} alt="Add to ignore list"/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Property;
+export default FavoriteProperty;
