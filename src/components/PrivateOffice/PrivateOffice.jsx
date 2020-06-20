@@ -1,12 +1,13 @@
 import React from "react";
 import classes from "./PrivateOffice.module.css";
 import {connect} from "react-redux";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
+import {getIgnoreList} from "../../redux/findProperty-reducer";
+import FindProperty from "../FindProperty/FindProperty";
 
 class PrivateOffice extends React.Component {
-
-
     render() {
+
         return (
             <div className={classes.privateOffice}>
                 <div className={classes.container}>
@@ -30,7 +31,7 @@ class PrivateOffice extends React.Component {
                         </div>
                         <div className={classes.btns}>
                             <div className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</div>
-                            <div className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</div>
+                            <NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>
                         </div>
                     </div>
                 </div>
@@ -47,4 +48,4 @@ const mapStateToProps = (state) => ({
     isSubscription: state.auth.isSubscription
 })
 
-export default connect(mapStateToProps,{})(PrivateOffice);
+export default connect(mapStateToProps,{getIgnoreList})(PrivateOffice);

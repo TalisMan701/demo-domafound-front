@@ -79,6 +79,7 @@
 }
 
 .btn{
+    text-decoration: none;
     background-color: #95e1d3;
     padding: 5px;
     color: #ffffff;

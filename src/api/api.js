@@ -2,7 +2,7 @@ import * as axios from "axios";
 
 const instanceWithToken = () => axios.create({
     withCredentials: true,
-    baseURL: "http://82.146.35.84/api/",
+    baseURL: "http://127.0.0.1:8000/api/",
     headers: {
         "authorization": "Token "+localStorage.getItem("token")
     }
@@ -10,7 +10,7 @@ const instanceWithToken = () => axios.create({
 
 const instance = () => axios.create({
     withCredentials: true,
-    baseURL: "http://82.146.35.84/api/",
+    baseURL: "http://127.0.0.1:8000/api/",
 });
 
 export const authAPI = {
@@ -38,7 +38,40 @@ export const registrationAPI ={
 }
 
 export const findPropertyAPI ={
+    reparseBase(){
+        return instanceWithToken().get(`base/reparse/`)
+    },
     getBase(){
-        return instanceWithToken().get(`get_base/`)
-    }
+        return instanceWithToken().get(`base/get_base/`)
+    },
+    getHouse(id){
+        return instanceWithToken().get(`base/get_house/${id}/`)
+    },
+    getIgnoreList(){
+        return instanceWithToken().get(`base/get_ignore/`)
+    },
+    setToIgnoreList(house_id){
+        return instanceWithToken().post(`base/ignore/`, {house_id})
+    },
+    removeToIgnoreList(house_id){
+        return instanceWithToken().delete(`base/ignore/`,{ data: {house_id}})
+    },
+    getWatchList(){
+        return instanceWithToken().get(`base/get_watch/`)
+    },
+    setToWatchList(house_id){
+        return instanceWithToken().post(`base/watch/`, {house_id})
+    },
+    removeToWatchList(house_id){
+        return instanceWithToken().delete(`base/watch/`, {house_id})
+    },
+    getFavoriteList(){
+        return instanceWithToken().get(`base/get_fav/`)
+    },
+    setToFavoriteList(id){
+        return instanceWithToken().post(`base/fav/`, {id})
+    },
+    removeToFavoriteList(id){
+        return instanceWithToken().delete(`base/fav/`, {id})
+    },
 }
