@@ -1,0 +1,97 @@
+.propertyPage{
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    margin-top: 20px;
+}
+
+.propertyInfo{
+    margin-left: 20px;
+}
+
+.sliderInner{
+    width: 350px;
+}
+
+.img{
+    width: 350px !important;
+    height: 350px !important;
+}
+
+.imgInner{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 30px;
+    color: #333333;
+    font-weight: bold;
+}
+
+.content{
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.description{
+    font-size: 14px;
+}
+
+.descriptionTitle{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.descriptionText{
+
+}
+
+.phoneNumber{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.phoneNumberTitle{
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.phone{
+    margin-right: 10px;
+}
+
+.phoneNumberShow{
+    font-size: 14px;
+}
+.btns{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.btn{
+    background-color: #95e1d3;
+    padding: 5px;
+    color: #ffffff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btnBack{
+    text-decoration: none;
+}
+
+.closeIcon{
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+}
+

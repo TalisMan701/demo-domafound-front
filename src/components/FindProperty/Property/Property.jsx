@@ -25,7 +25,7 @@ const Property = (props) => {
                 </div>
                 <div className={classes.phoneNumber}>
                     <div className={classes.phoneNumberTitle}>Номер телефона</div>
-                    <div className={classes.phone}>+7-992-007-71-62</div>
+                    <div className={classes.phone}>+{props.item.items.house_info.phone}</div>
                     <div className={classes.phoneNumberShow}>Смотреть</div>
                 </div>
                 <div className={classes.btns}>

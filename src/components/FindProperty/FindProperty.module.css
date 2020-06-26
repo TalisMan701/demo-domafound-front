@@ -11,3 +11,15 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.preloaderInner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloader{
+    height: 50px;
+    width: 50px;
+}

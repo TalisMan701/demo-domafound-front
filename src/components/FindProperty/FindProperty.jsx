@@ -19,6 +19,8 @@ import {SidebarComponent} from "@syncfusion/ej2-react-navigations";
 import FiltersProperty from "./FiltersProperty/FiltersProperty";
 import {SliderComponent} from "@syncfusion/ej2-react-inputs";
 import FiltersPropertyWidgetsForm from "./FiltersProperty/FiltersProperty";
+import Preloader from "../../common/Preloader/Preloader";
+import preloader from "../../common/Preloader/Preloader.svg";
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -66,7 +68,9 @@ class FindProperty extends React.Component {
             alert("Купите тариф, чтобы воспользоваться поиском недвижимости")
             return <Redirect to={'/tariffs'}/>
         }*/
-
+        /*if(this.props.isFetching) {
+            return <Preloader/>
+        }*/
         console.log(this.props)
         return (
             <div className={classes.findProperty}>
@@ -89,11 +93,19 @@ class FindProperty extends React.Component {
                                                   removeToFavoriteList={this.props.removeToFavoriteList}
                                                   setToFavoriteList={this.props.setToFavoriteList}/>
                                     )}
-                                    <div onClick={() => {
-                                        this.onPageChanged()
-                                    }} className={classes.showMore}>
-                                        Показать ещё
-                                    </div>
+                                    {this.props.isFetching &&
+                                        <div className={classes.preloaderInner}>
+                                            <img src={preloader} className={classes.preloader} />
+                                        </div>
+                                    }
+                                    {!this.props.isFetching &&
+                                        <div onClick={() => {
+                                            this.onPageChanged()
+                                        }} className={classes.showMore}>
+                                            Показать ещё
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </Route>
@@ -122,7 +134,8 @@ const mapStateToProps = (state) => ({
     pageSize: state.findProperty.pageSize,
     page: state.findProperty.page,
     isNext: state.findProperty.isNext,
-    favoriteList: state.findProperty.favoriteList
+    favoriteList: state.findProperty.favoriteList,
+    isFetching: state.findProperty.isFetching
 })
 
 export default compose(

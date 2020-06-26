@@ -122,11 +122,14 @@ export const removeFromFavoriteList = (house_id) => ({type: REMOVE_FROM_FAVORITE
 
 export const getProperty = (pageSize, page) => {
     return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
         findPropertyAPI.getBase(pageSize, page)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
                 dispatch(setIsNext(data.data.next));
+                dispatch(toggleIsFetching(false));
         });
     }
 }
