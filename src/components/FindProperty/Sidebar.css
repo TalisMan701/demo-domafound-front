@@ -1,0 +1,16 @@
+@import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-react-navigations/styles/material.css";
+
+/*
+#default-sidebar{
+    height: calc(100vh - 210px);
+}*/
+
+#default-sidebar{
+    padding: 25px;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column nowrap;
+}

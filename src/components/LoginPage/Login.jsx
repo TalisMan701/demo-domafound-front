@@ -37,7 +37,6 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 const Login = (props) =>{
 
     const onSubmit = (formData) => {
-        console.log("debuger ebanat");
         props.login(formData.number, formData.password);
     }
 

@@ -29,8 +29,15 @@
 }
 
 .title{
+    text-decoration: none;
+    color: #333333;
     font-size: 24px;
     font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.title:hover{
+    color: #f38181;
 }
 
 .description{

@@ -15,33 +15,45 @@ import {getAuthUserData} from "./redux/auth-reducer";
 import Tariffs from "./components/TariffsPage/Tariffs";
 import FindProperty from "./components/FindProperty/FindProperty";
 import PrivateOffice from "./components/PrivateOffice/PrivateOffice";
+import PropertyPageContainer from "./components/PropertyPage/PropertyPageContainer";
 
 class App extends React.Component {
     componentDidMount() {
         this.props.getAuthUserData();
     }
 
-
-
     render() {
         return (
             <div className="app">
                 <Header/>
-                <div className='content'>
-                    <Route exact path='/' render={() => <div>
-                        <Info></Info>
-                        <Advantages></Advantages>
-                        <MainText text={"для риелторов"} scrollPathId={"forRealtors"}></MainText>
-                        <ForRealtors></ForRealtors>
-                        <MainText text={"для оценщиков"} scrollPathId={"forAppraisers"}></MainText>
-                        <ForAppraisers></ForAppraisers>
-                    </div>}/>
-                    <Route path='/login' render={() => <Login/>}/>
-                    <Route path='/registration' render={() => <Registration/>}/>
-                    <Route path='/tariffs' render={() => <Tariffs/>}/>
-                    <Route path='/find_property' render={() => <FindProperty/>}/>
-                    <Route path='/office' render={() => <PrivateOffice/>}/>
-                </div>
+                <Route exact path='/' render={() => <div>
+                    <Info></Info>
+                    <Advantages></Advantages>
+                    <MainText text={"для риелторов"} scrollPathId={"forRealtors"}></MainText>
+                    <ForRealtors></ForRealtors>
+                    <MainText text={"для оценщиков"} scrollPathId={"forAppraisers"}></MainText>
+                    <ForAppraisers></ForAppraisers>
+                </div>}/>
+
+                <Route path='/login' render={() =>
+                    <div className='content'><Login/></div>
+                    }/>
+                <Route path='/registration' render={() =>
+                    <div className='content'><Registration/></div>
+                }/>
+                <Route path='/tariffs' render={() =>
+                    <div className='content'><Tariffs/></div>
+                }/>
+                <Route path='/find_property' render={() =>
+                    <div className='content'><FindProperty/></div>
+                }/>
+                <Route path='/office' render={() =>
+                    <div className='content'><PrivateOffice/></div>
+                }/>
+                <Route path='/propertyPage/:propertyId?' render={() =>
+                    <div className='content'><PropertyPageContainer/></div>
+                }/>
+
                 <Footer></Footer>
 
             </div>

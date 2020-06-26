@@ -1,15 +1,16 @@
 import React from "react";
 import classes from "./Property.module.css";
 import closeIcon from "./close.svg";
+import {NavLink} from "react-router-dom";
 
 const Property = (props) => {
     return (
         <div className={classes.property}>
-            <div className={classes.imgs}>
-                <img className={classes.img} src="https://api.interior.ru/media/images/setka/2020_02_12/VladaSteblina_kvartira_dlya_sebya_1_1920_full.jpg" alt="img"/>
-            </div>
+            <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
+                <img className={classes.img} src={props.item.items.title_image}/>
+            </NavLink>
             <div className={classes.content}>
-                <div className={classes.title}>{props.item.items.title}</div>
+                <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.title}>{props.item.items.title}</NavLink>
                 <div className={classes.description}>
                     <div className={classes.descriptionTitle}>Описание</div>
                     <div className={classes.descriptionText}>

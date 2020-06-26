@@ -7,6 +7,26 @@
 
 .tariffs{
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+.cards{
+
+}
+
+.calcInner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc{
+    width: 66%;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column nowrap;
@@ -16,13 +36,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
 }
 
 .card{
-    margin: 20px;
-    width: 275px;
-    height: 275px;
+    margin: 10px;
+    width: 175px;
+    height: 175px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,28 +62,29 @@
 .daysCount{
     text-align: center;
     font-weight: bold;
-    font-size: 96px;
+    font-size: 66px;
     color: #333333;
     margin-bottom: -25px;
 }
 
 .daysText{
     font-weight: bold;
-    font-size: 45px;
-    line-height: 83.69%;
+    font-size: 30px;
+    line-height: 110%;
     color: #95e1d3;
 }
 
 .price{
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
     color: #333333;
+    margin-top: -10px;
 }
 
 .button{
     cursor: pointer;
-    width: 175px;
-    height: 40px;
+    width: 125px;
+    height: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,11 +92,12 @@
     background-color: #95e1d3;
     border-radius: 7px;
     transition: background-color 0.3s ease;
+    margin-bottom: 10px;
 }
 
 .buttonText{
     font-weight: bold;
-    font-size: 28px;
+    font-size: 20px;
     color: #ffffff;
     transition: color 0.3s ease;
 }
@@ -87,4 +109,11 @@
 
 .buttonText:hover{
     color: #95e1d3;
+}
+
+.inputDaysCount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
 }

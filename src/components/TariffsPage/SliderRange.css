@@ -1,0 +1,25 @@
+@import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-react-inputs/styles/material.css";
+
+
+/*Дорожка слайдера*/
+.e-control-wrapper.e-slider-container.e-horizontal .e-slider-track  {
+    background: #007bff;
+    height: 10px;
+}
+
+/*Ползунок*/
+.e-control-wrapper.e-slider-container .e-slider .e-handle {
+    background-color: #f9920b;
+    border-radius: 50%;
+    border: 0;
+}
+
+/*Кнопки*/
+.e-control-wrapper.e-slider-container .e-slider-button {
+    background: #f38181 !important;
+    height: 25px;
+    width: 25px;
+}
