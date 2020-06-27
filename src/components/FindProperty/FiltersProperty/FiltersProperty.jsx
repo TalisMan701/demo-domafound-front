@@ -23,7 +23,7 @@ const typeProperty = ['Комнаты и Пансионаты', 'Дома/Кот
 const FiltersPropertyForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>Filters</div>
+            <div>Фильтры</div>
             {/*<div>
                 <label>Тип сделки:</label>
                 <Field
@@ -41,11 +41,26 @@ const FiltersPropertyForm = (props) => {
                 />
             </div>*/}
             <div>
+                <label>Номер телефона</label>
+                <Field
+                    name="phone"
+                    component={"input"}
+                    placeholder={"79009009090"}
+                />
+            </div>
+            <div>
+                <label>ID недвижимости</label>
+                <Field
+                    name="id"
+                    component={"input"}
+                />
+            </div>
+            <div>
                 <label>Количество комнат</label>
                 <Field
                     name="countRoom"
                     component={renderMultiselect}
-                    data={['1-к.', '2-к.', '3-к.', '4-к.', '5-к. и более']}
+                    data={['1к', '2к', '3к', '4к', '5+к', 'студии']}
                 />
             </div>
             <div>
@@ -109,7 +124,8 @@ const FiltersPropertyForm = (props) => {
                 </FormSection>
             </div>
             <div>
-                <button type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Reset Values</button>
+                <button>Применить фильтры</button>
+                <button type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Сбросить фильтры</button>
             </div>
         </form>
     )

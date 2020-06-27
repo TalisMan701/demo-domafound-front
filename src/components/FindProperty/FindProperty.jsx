@@ -6,8 +6,8 @@ import "./Sidebar.css"
 import {
     deletePropertyState, getFavoriteList,
     getIgnoreList,
-    getProperty, removeToFavoriteList,
-    removeToIgnoreList, setToFavoriteList,
+    getProperty, getPropertyWithFilters, removeToFavoriteList,
+    removeToIgnoreList, setFilters, setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -46,7 +46,7 @@ class FindProperty extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getProperty(this.props.pageSize, this.props.page);
+        this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         this.props.getIgnoreList();
         this.props.getFavoriteList();
     }
@@ -58,8 +58,41 @@ class FindProperty extends React.Component {
 
     onPageChanged = () => {
         if (this.props.isNext !== null) {
-            this.props.getProperty(this.props.pageSize, this.props.page);
+            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }
+    }
+
+    onSubmit = (formData) =>{
+        let filters = ""
+        if(typeof formData["area"] !== "undefined"){
+            filters += `&min_area=${formData.area.start}&max_area=${formData.area.end}`
+        }
+        if(typeof formData["price"] !== "undefined"){
+            filters += `&min_price=${formData.price.start}&max_price=${formData.price.end}`
+        }
+        if(typeof formData["floor"] !== "undefined"){
+            filters += `&min_floor=${formData.floor.start}&max_floor=${formData.floor.end}`
+        }
+        if(typeof formData["numberOfStoreys"] !== "undefined"){
+            filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.end}`
+        }
+        if(typeof formData["phone"] !== "undefined"){
+            filters += `&phone=${formData.phone}`
+        }
+        if(typeof formData["id"] !== "undefined"){
+            filters += `&id=${formData.id}`
+        }
+        if(typeof formData["countRoom"] !== "undefined"){
+            formData.countRoom.map(room => {
+                if(room == "5+к"){
+                    filters += `&num_of_rooms=5к`
+                }else{
+                    filters += `&num_of_rooms=${room}`
+                }
+            })
+        }
+        this.sidebarObj.hide();
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters);
     }
 
 
@@ -81,7 +114,7 @@ class FindProperty extends React.Component {
                                 <SidebarComponent id="default-sidebar" ref={Sidebar => this.sidebarObj = Sidebar}
                                                   type={this.type} created={this.onCreate}
                                                   showBackdrop={this.showBackdrop} style={{visibility: "hidden"}}>
-                                    <FiltersPropertyWidgetsForm props={this.props}/>
+                                    <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props}/>
                                     <button onClick={this.closeClick} id="close" className="e-btn close-btn">Закрыть
                                     </button>
                                 </SidebarComponent>
@@ -135,14 +168,15 @@ const mapStateToProps = (state) => ({
     page: state.findProperty.page,
     isNext: state.findProperty.isNext,
     favoriteList: state.findProperty.favoriteList,
-    isFetching: state.findProperty.isFetching
+    isFetching: state.findProperty.isFetching,
+    filters: state.findProperty.filters
 })
 
 export default compose(
     connect(mapStateToProps, {
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
-        setToFavoriteList, removeToFavoriteList
+        setToFavoriteList, removeToFavoriteList, getPropertyWithFilters
     }),
     withRouter
 )(FindProperty);

@@ -12,6 +12,7 @@ const DELETE_PROPERTY_STATE = "DELETE_PROPERTY_STATE";
 const SET_FAVORITE_LIST = "SET_FAVORITE_LIST";
 const ADD_TO_FAVORITE_LIST = "ADD_TO_FAVORITE_LIST";
 const REMOVE_FROM_FAVORITE_LIST = "REMOVE_FROM_FAVORITE_LIST";
+const SET_FILTERS = "SET_FILTERS";
 
 
 let initialState = {
@@ -22,7 +23,8 @@ let initialState = {
     totalPropertyCount: 0,
     isNext: null,
     page: 1,
-    isFetching: true
+    isFetching: true,
+    filters: ""
 };
 
 const foundPropertyReducer = (state = initialState, action) => {
@@ -102,6 +104,18 @@ const foundPropertyReducer = (state = initialState, action) => {
                 ...initialState
             }
         }
+        case SET_FILTERS:{
+            return {
+                ...state,
+                property: [],
+                pageSize: 5,
+                totalPropertyCount: 0,
+                isNext: null,
+                page: 1,
+                isFetching: true,
+                filters: action.filters
+            }
+        }
         default:
             return state;
     }
@@ -120,17 +134,34 @@ export const setFavoriteList = (favoriteList) => ({type: SET_FAVORITE_LIST, favo
 export const addToFavoriteList = (house_id) => ({type: ADD_TO_FAVORITE_LIST, house_id })
 export const removeFromFavoriteList = (house_id) => ({type: REMOVE_FROM_FAVORITE_LIST, house_id })
 
-export const getProperty = (pageSize, page) => {
+export const setFilters = (filters) => ({type:SET_FILTERS, filters})
+
+export const getProperty = (pageSize, page, filters) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
 
-        findPropertyAPI.getBase(pageSize, page)
+        findPropertyAPI.getBase(pageSize, page, filters)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
                 dispatch(setIsNext(data.data.next));
                 dispatch(toggleIsFetching(false));
         });
+    }
+}
+
+export const getPropertyWithFilters = (pageSize, page, filters) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        dispatch(setFilters(filters))
+
+        findPropertyAPI.getBase(pageSize, page, filters)
+            .then(data => {
+                dispatch(setProperty(data.data.results));
+                dispatch(setTotalPropertyCount(data.data.count));
+                dispatch(setIsNext(data.data.next));
+                dispatch(toggleIsFetching(false));
+            });
     }
 }
 
