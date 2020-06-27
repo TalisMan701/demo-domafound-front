@@ -52,7 +52,12 @@ const PropertyPage = (props) => {
                         </div>
                         <div className={classes.phoneNumber}>
                             <div className={classes.phoneNumberTitle}>Номер телефона</div>
+                            {props.property.house.house_info !== null &&
                             <div className={classes.phone}>+{props.property.house.house_info.phone}</div>
+                            }
+                            {props.property.house.house_info === null &&
+                            <div className={classes.phone}>Номер добавляется в базу</div>
+                            }
                             <div className={classes.phoneNumberShow}>Смотреть</div>
                         </div>
                     </div>

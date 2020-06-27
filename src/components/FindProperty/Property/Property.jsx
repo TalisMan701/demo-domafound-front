@@ -25,8 +25,14 @@ const Property = (props) => {
                 </div>
                 <div className={classes.phoneNumber}>
                     <div className={classes.phoneNumberTitle}>Номер телефона</div>
-                    <div className={classes.phone}>+{props.item.items.house_info.phone}</div>
-                    <div className={classes.phoneNumberShow}>Смотреть</div>
+                    {props.item.items.house_info !== null &&
+                        <div className={classes.phone}>+{props.item.items.house_info.phone}</div>
+                    }
+                    {props.item.items.house_info === null &&
+                    <div className={classes.phone}>Номер добавляется в базу</div>
+                    }
+
+                    {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                 </div>
                 <div className={classes.btns}>
                     {!props.item.is_fav &&
