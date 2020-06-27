@@ -7,7 +7,7 @@
 /*Дорожка слайдера*/
 .e-control-wrapper.e-slider-container.e-horizontal .e-slider-track  {
     background: #007bff;
-    height: 10px;
+    height: 4px !important;
 }
 
 /*Ползунок*/

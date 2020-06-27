@@ -89,8 +89,8 @@ class Tariffs extends React.Component {
 
 
     ticks = {
-        placement: "After",
-        largeStep: 31,
+        placement: "Before",
+        largeStep: 24,
         smallStep: 1,
         showSmallTicks: true
     };
@@ -128,6 +128,40 @@ class Tariffs extends React.Component {
                                 </div>
                             </div>
                         </div>
+
+                        <div className={classes.calcInner}>
+                            <div className={classes.calc}>
+                                <div className={classes.title}>Калькулятор дней</div>
+                                <SliderComponent
+                                    id="slider"
+                                    value={this.state.value}
+                                    min={7}
+                                    max={31}
+                                    step={1}
+                                    change={this.onChange.bind(this)}
+                                    showButtons={false}
+                                    tooltip={this.tooltip}
+                                    ticks={this.ticks}
+                                />
+                                <div className={classes.inputDaysCount}>
+                                    <div>Количество дней:</div>
+                                    <input type="number" id="daysCount"
+                                           name="daysCount" min="7" max="31"
+                                           onChange={this.handleChange.bind(this)}
+                                           onBlur={this.onBlurInput.bind(this)}
+                                           value={this.state.value}
+                                           placeholder={"7"}
+                                    />
+                                </div>
+
+                                <div>Цена: {this.state.price} рублей</div>
+                                <div className={classes.button}>
+                                    <div className={classes.buttonText}>
+                                        Купить
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className={classes.cardsRow}>
                             <div className={classes.card}>
                                 <div className={classes.days}>
@@ -153,35 +187,6 @@ class Tariffs extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className={classes.calcInner}>
-                        <div className={classes.calc}>
-                            <SliderComponent
-                                id="slider"
-                                value={this.state.value}
-                                min={7}
-                                max={31}
-                                step={1}
-                                change={this.onChange.bind(this)}
-                                showButtons={true}
-                                tooltip={this.tooltip}
-                                ticks={this.ticks}
-                            />
-                            <div className={classes.inputDaysCount}>
-                                <div>Количество дней:</div>
-                                <input type="number" id="daysCount"
-                                       name="daysCount" min="7" max="31"
-                                       onChange={this.handleChange.bind(this)}
-                                       onBlur={this.onBlurInput.bind(this)}
-                                       value={this.state.value}
-                                       placeholder={"7"}
-                                />
-                            </div>
-
-                            <div>Цена: {this.state.price} рублей</div>
-                            {/*<DaysFormRedux value={this.state.value}/>*/}
-
                         </div>
                     </div>
                 </div>

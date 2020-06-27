@@ -7,21 +7,21 @@ import {getPropertyOne} from "../../redux/property-reducer";
 import PropertyPage from "./PropertyPage";
 
 class PropertyPageContainer extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
         let propertyId = this.props.match.params.propertyId;
         this.props.getPropertyOne(propertyId)
     }
 
     render() {
         return(
-            <PropertyPage  property={this.props.property} isFetching={this.props.isFetching}/>
+            <PropertyPage  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}/>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
     property: state.property.property,
-    isFetching: state.property.isFetching
+    isFetchingOnePage: state.property.isFetchingOnePage
 })
 
 export default compose(

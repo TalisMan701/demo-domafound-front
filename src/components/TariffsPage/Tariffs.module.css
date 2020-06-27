@@ -7,13 +7,17 @@
 
 .tariffs{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
     width: 100%;
 }
 
 .cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
 
 }
 
@@ -22,14 +26,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
+
 }
 
 .calc{
-    width: 66%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column nowrap;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.title{
+    font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .cardsRow{

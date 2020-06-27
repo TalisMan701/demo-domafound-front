@@ -24,7 +24,7 @@ const FiltersPropertyForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>Filters</div>
-            <div>
+            {/*<div>
                 <label>Тип сделки:</label>
                 <Field
                     name="typeTransaction"
@@ -39,7 +39,7 @@ const FiltersPropertyForm = (props) => {
                     component={renderMultiselect}
                     data={['Комнаты и Пансионаты', 'Дома/Коттеджи/Дачи', 'Коммерческая', 'Земля']}
                 />
-            </div>
+            </div>*/}
             <div>
                 <label>Количество комнат</label>
                 <Field
@@ -47,6 +47,21 @@ const FiltersPropertyForm = (props) => {
                     component={renderMultiselect}
                     data={['1-к.', '2-к.', '3-к.', '4-к.', '5-к. и более']}
                 />
+            </div>
+            <div>
+                <label>Этаж</label>
+                <FormSection name={"floor"}>
+                    <Field
+                        name="start"
+                        component={"input"}
+                        placeholder={"от"}
+                    />
+                    <Field
+                        name="end"
+                        component={"input"}
+                        placeholder={"до"}
+                    />
+                </FormSection>
             </div>
             <div>
                 <label>Этажность</label>
