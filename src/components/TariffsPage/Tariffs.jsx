@@ -4,6 +4,8 @@ import {SliderComponent} from "@syncfusion/ej2-react-inputs";
 import "./SliderRange.css"
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
+import audioURL from "./all.mp3"
+import {Redirect} from "react-router-dom";
 
 const DaysForm = (props) =>{
     return(
@@ -28,9 +30,16 @@ class Tariffs extends React.Component {
         super(props);
         this.state = {
             value: null,
-            price: 700
+            price: 700,
+            isAnimation: true
         }
     }
+
+    playSound(){
+        const audio = new Audio(audioURL)
+        audio.play()
+    }
+
 
     handleChange(event) {
         let price=0;
@@ -83,7 +92,8 @@ class Tariffs extends React.Component {
         }else{
             price = (args.value - 21)*60+1900
         }
-        this.setState({value: args.value, price})
+        this.playSound()
+        this.setState({value: args.value, price, isAnimation: false})
     }
 
 
@@ -98,6 +108,10 @@ class Tariffs extends React.Component {
     tooltip = { placement: "Before", isVisible: true, showOn: "Always" };
 
     render() {
+        if(!this.props.isAuth){
+            return <Redirect to={'/login'}/>
+        }
+
         return (
             <div className={classes.container}>
                 <div className={classes.tariffs}>
@@ -132,6 +146,9 @@ class Tariffs extends React.Component {
                         <div className={classes.calcInner}>
                             <div className={classes.calc}>
                                 <div className={classes.title}>Калькулятор дней</div>
+                                {this.state.isAnimation &&
+                                    <div className="handleAnimate"></div>
+                                }
                                 <SliderComponent
                                     id="slider"
                                     value={this.state.value}
@@ -140,7 +157,7 @@ class Tariffs extends React.Component {
                                     step={1}
                                     change={this.onChange.bind(this)}
                                     showButtons={false}
-                                    tooltip={this.tooltip}
+                                    /*tooltip={this.tooltip}*/
                                     ticks={this.ticks}
                                 />
                                 <div className={classes.inputDaysCount}>
@@ -196,6 +213,7 @@ class Tariffs extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
 })
 
 export default connect(mapStateToProps,{})(Tariffs);

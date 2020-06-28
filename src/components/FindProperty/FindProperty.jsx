@@ -21,6 +21,7 @@ import {SliderComponent} from "@syncfusion/ej2-react-inputs";
 import FiltersPropertyWidgetsForm from "./FiltersProperty/FiltersProperty";
 import Preloader from "../../common/Preloader/Preloader";
 import preloader from "../../common/Preloader/Preloader.svg";
+import {loadFilters} from "../../redux/filters-reducer";
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -65,16 +66,40 @@ class FindProperty extends React.Component {
     onSubmit = (formData) =>{
         let filters = ""
         if(typeof formData["area"] !== "undefined"){
-            filters += `&min_area=${formData.area.start}&max_area=${formData.area.end}`
+            if (typeof formData.area["start"] === "undefined"){
+                filters += `&min_area=${formData.area.end}&max_area=${formData.area.end}`
+            }else if(typeof formData.area["end"] === "undefined"){
+                filters += `&min_area=${formData.area.start}&max_area=${formData.area.start}`
+            }else{
+                filters += `&min_area=${formData.area.start}&max_area=${formData.area.end}`
+            }
         }
         if(typeof formData["price"] !== "undefined"){
-            filters += `&min_price=${formData.price.start}&max_price=${formData.price.end}`
+            if (typeof formData.price["start"] === "undefined"){
+                filters += `&min_price=${formData.price.end}&min_price=${formData.price.end}`
+            }else if(typeof formData.price["end"] === "undefined"){
+                filters += `&min_price=${formData.price.start}&min_price=${formData.price.start}`
+            }else{
+                filters += `&min_price=${formData.price.start}&max_price=${formData.price.end}`
+            }
         }
         if(typeof formData["floor"] !== "undefined"){
-            filters += `&min_floor=${formData.floor.start}&max_floor=${formData.floor.end}`
+            if (typeof formData.floor["start"] === "undefined"){
+                filters += `&min_floor=${formData.floor.end}&min_floor=${formData.floor.end}`
+            }else if(typeof formData.floor["end"] === "undefined"){
+                filters += `&min_floor=${formData.floor.start}&min_floor=${formData.floor.start}`
+            }else{
+                filters += `&min_floor=${formData.floor.start}&max_floor=${formData.floor.end}`
+            }
         }
         if(typeof formData["numberOfStoreys"] !== "undefined"){
-            filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.end}`
+            if (typeof formData.numberOfStoreys["start"] === "undefined"){
+                filters += `&min_floor_count=${formData.numberOfStoreys.end}&min_floor_count=${formData.numberOfStoreys.end}`
+            }else if(typeof formData.numberOfStoreys["end"] === "undefined"){
+                filters += `&min_floor_count=${formData.numberOfStoreys.start}&min_floor_count=${formData.numberOfStoreys.start}`
+            }else{
+                filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.end}`
+            }
         }
         if(typeof formData["phone"] !== "undefined"){
             filters += `&phone=${formData.phone}`
@@ -83,13 +108,36 @@ class FindProperty extends React.Component {
             filters += `&id=${formData.id}`
         }
         if(typeof formData["countRoom"] !== "undefined"){
-            formData.countRoom.map(room => {
-                if(room == "5+к"){
-                    filters += `&num_of_rooms=5к`
-                }else{
-                    filters += `&num_of_rooms=${room}`
+            if(typeof formData.countRoom["k1"] !== "undefined"){
+                if(formData.countRoom.k1 === true){
+                    filters += `&num_of_rooms=1к`
                 }
-            })
+            }
+            if(typeof formData.countRoom["k2"] !== "undefined"){
+                if(formData.countRoom.k2 === true){
+                    filters += `&num_of_rooms=2к`
+                }
+            }
+            if(typeof formData.countRoom["k3"] !== "undefined"){
+                if(formData.countRoom.k3 === true){
+                    filters += `&num_of_rooms=3к`
+                }
+            }
+            if(typeof formData.countRoom["k4"] !== "undefined"){
+                if(formData.countRoom.k4 === true){
+                    filters += `&num_of_rooms=4к`
+                }
+            }
+            if(typeof formData.countRoom["k5"] !== "undefined"){
+                if(formData.countRoom.k5 === true){
+                    filters += `&num_of_rooms=5к`
+                }
+            }
+            if(typeof formData.countRoom["studii"] !== "undefined"){
+                if(formData.countRoom.studii === true){
+                    filters += `&num_of_rooms=студии`
+                }
+            }
         }
         this.sidebarObj.hide();
         this.props.getPropertyWithFilters(this.props.pageSize, 1, filters);
@@ -97,10 +145,13 @@ class FindProperty extends React.Component {
 
 
     render() {
-        /*if(!this.props.isSubscription){
+        if(!this.props.isAuth){
+            return <Redirect to={'/login'}/>
+        }
+        if(!this.props.isSubscription){
             alert("Купите тариф, чтобы воспользоваться поиском недвижимости")
             return <Redirect to={'/tariffs'}/>
-        }*/
+        }
         /*if(this.props.isFetching) {
             return <Preloader/>
         }*/
@@ -169,7 +220,8 @@ const mapStateToProps = (state) => ({
     isNext: state.findProperty.isNext,
     favoriteList: state.findProperty.favoriteList,
     isFetching: state.findProperty.isFetching,
-    filters: state.findProperty.filters
+    filters: state.findProperty.filters,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(

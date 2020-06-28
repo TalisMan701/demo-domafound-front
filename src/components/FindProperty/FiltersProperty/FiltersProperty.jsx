@@ -7,6 +7,7 @@ import Multiselect from 'react-widgets/lib/Multiselect';
 import {MultiSelectComponent} from "@syncfusion/ej2-react-dropdowns";
 import {Field, FormSection, reduxForm} from "redux-form";
 import 'react-widgets/dist/css/react-widgets.css'
+import {Checkbox} from "../../../common/FormsControls/FormsControls";
 
 const renderMultiselect = ({ input, data, valueField, textField }) =>
     <Multiselect {...input}
@@ -57,11 +58,57 @@ const FiltersPropertyForm = (props) => {
             </div>
             <div>
                 <label>Количество комнат</label>
-                <Field
+                {/*<Field
                     name="countRoom"
                     component={renderMultiselect}
                     data={['1к', '2к', '3к', '4к', '5+к', 'студии']}
-                />
+                />*/}
+                <FormSection name={"countRoom"}>
+                    <div className={classes.checkboxs}>
+                        <Field
+                            name="k1"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="1k"
+                            title={"1к"}
+                        />
+                        <Field
+                            name="k2"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="2k"
+                            title={"2к"}
+                        />
+                        <Field
+                            name="k3"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="3k"
+                            title={"3к"}
+                        />
+                        <Field
+                            name="k4"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="4k"
+                            title={"4к"}
+                        />
+                        <Field
+                            name="k5"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="5k"
+                            title={"5+к"}
+                        />
+                        <Field
+                            name="studii"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="studii"
+                            title={"Студии"}
+                        />
+                    </div>
+                </FormSection>
             </div>
             <div>
                 <label>Этаж</label>
@@ -132,7 +179,8 @@ const FiltersPropertyForm = (props) => {
 };
 
 const FiltersPropertyWidgetsForm = reduxForm({
-    form: 'filters'  // a unique identifier for this form
+    form: 'filters',  // a unique identifier for this form
+    enableReinitialize: true
 })(FiltersPropertyForm)
 
 export default FiltersPropertyWidgetsForm;

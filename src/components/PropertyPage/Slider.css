@@ -19,6 +19,7 @@
 
 .slick-dots {
     background-color: #f8f8f859;
+    bottom: 0px;
 }
 
 .slick-dots li {

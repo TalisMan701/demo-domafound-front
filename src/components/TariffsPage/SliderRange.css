@@ -6,7 +6,6 @@
 
 /*Дорожка слайдера*/
 .e-control-wrapper.e-slider-container.e-horizontal .e-slider-track  {
-    background: #007bff;
     height: 4px !important;
 }
 
@@ -15,6 +14,24 @@
     background-color: #f9920b;
     border-radius: 50%;
     border: 0;
+}
+
+.handleAnimate {
+    top: 34.5%;
+    left: 2%;
+    z-index: 100;
+    position: absolute;
+    height: 35px;
+    width: 35px;
+    background-image: url("./touch.svg");
+    background-size: 35px 35px;
+    animation: 2s ease-in-out moveHandRight infinite;
+}
+
+@keyframes moveHandRight {
+    100%{
+        left: 88%;
+    }
 }
 
 /*Кнопки*/

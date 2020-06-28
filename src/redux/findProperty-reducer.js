@@ -1,5 +1,4 @@
-import {authAPI, findPropertyAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
+import {findPropertyAPI} from "../api/api";
 
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const SET_PROPERTY = "SET_PROPERTY";
@@ -101,14 +100,14 @@ const foundPropertyReducer = (state = initialState, action) => {
         }
         case DELETE_PROPERTY_STATE:{
             return {
-                ...initialState
+                ...initialState,
+                filters: state.filters
             }
         }
         case SET_FILTERS:{
             return {
                 ...state,
                 property: [],
-                pageSize: 5,
                 totalPropertyCount: 0,
                 isNext: null,
                 page: 1,
@@ -120,19 +119,19 @@ const foundPropertyReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const setProperty = (property) => ({type: SET_PROPERTY, property })
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching })
-export const setTotalPropertyCount = (totalPropertyCount) => ({type: SET_TOTAL_PROPERTY_COUNT, count: totalPropertyCount })
+const setProperty = (property) => ({type: SET_PROPERTY, property })
+const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching })
+const setTotalPropertyCount = (totalPropertyCount) => ({type: SET_TOTAL_PROPERTY_COUNT, count: totalPropertyCount })
 export const setIsNext = (isNext) => ({type: SET_IS_NEXT, isNext })
 export const deletePropertyState = () => ({type: DELETE_PROPERTY_STATE})
 
-export const setIgnoreList = (ignoreList) => ({type: SET_IGNORE_LIST, ignoreList })
-export const removeFromProperty = (house_id) => ({type: REMOVE_FROM_PROPERTY, house_id})
-export const removeFromIgnoreProperty = (house_id) => ({type: REMOVE_FROM_IGNORE_PROPERTY, house_id})
+const setIgnoreList = (ignoreList) => ({type: SET_IGNORE_LIST, ignoreList })
+const removeFromProperty = (house_id) => ({type: REMOVE_FROM_PROPERTY, house_id})
+const removeFromIgnoreProperty = (house_id) => ({type: REMOVE_FROM_IGNORE_PROPERTY, house_id})
 
-export const setFavoriteList = (favoriteList) => ({type: SET_FAVORITE_LIST, favoriteList })
-export const addToFavoriteList = (house_id) => ({type: ADD_TO_FAVORITE_LIST, house_id })
-export const removeFromFavoriteList = (house_id) => ({type: REMOVE_FROM_FAVORITE_LIST, house_id })
+const setFavoriteList = (favoriteList) => ({type: SET_FAVORITE_LIST, favoriteList })
+const addToFavoriteList = (house_id) => ({type: ADD_TO_FAVORITE_LIST, house_id })
+const removeFromFavoriteList = (house_id) => ({type: REMOVE_FROM_FAVORITE_LIST, house_id })
 
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
 

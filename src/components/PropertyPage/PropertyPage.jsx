@@ -17,67 +17,83 @@ const PropertyPage = (props) => {
         slidesToScroll: 1
     }
 
-    if(props.isFetchingOnePage){
+    if (props.isFetchingOnePage) {
         return (
             <Preloader/>
         )
-    }else{
-        return(
+    } else {
+        return (
             <div className={classes.propertyPage}>
-                <div className={classes.sliderInner}>
-                    <Slider {...settings}>
-                        {props.property.house.image_set.map(img =>
-                            <div className={classes.imgInner}>
-                                <img className={classes.img} src={img.image_link} alt=""/>
-                            </div>
+                <div className={classes.row}>
+                    <div className={classes.sliderInner}>
+                        <Slider {...settings}>
+                            {props.property.house.image_set.map(img =>
+                                <div className={classes.imgInner}>
+                                    <img className={classes.img} src={img.image_link} alt=""/>
+                                </div>
+                            )}
+                        </Slider>
+                    </div>
+                    <div className={classes.propertyInfo}>
+                        <div className={classes.title}>{props.property.house.title}</div>
 
-                        )}
-                    </Slider>
-                </div>
-                <div className={classes.propertyInfo}>
-                    <div className={classes.title} >{props.property.house.title}</div>
-
-                    <div className={classes.content}>
-                        <div className={classes.description}>
-                            <div className={classes.descriptionTitle}>Описание</div>
-                            <div className={classes.descriptionText}>
-                                Адресс: {props.property.house.address},
-                                <br/>
-                                {/*Выложено: {props.item.items.data},
+                        <div className={classes.content}>
+                            <div className={classes.description}>
+                                <div className={classes.descriptionTitle}>Описание</div>
+                                <div className={classes.descriptionText}>
+                                    Адресс: {props.property.house.address},
+                                    <br/>
+                                    {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                                Цена: {props.property.house.price}₽
-                                <br/>
-                                Ссылка: <a href={props.property.house.link}>Посетить</a>
+                                    Цена: {props.property.house.price}₽
+                                    <br/>
+                                    Ссылка: <a href={props.property.house.link}>Посетить</a>
+                                </div>
+                            </div>
+                            <div className={classes.phoneNumber}>
+                                <div className={classes.phoneNumberTitle}>Номер телефона</div>
+                                {props.property.house.house_info !== null &&
+                                <div className={classes.phone}>+{props.property.house.house_info.phone}</div>
+                                }
+                                {props.property.house.house_info === null &&
+                                <div className={classes.phone}>Номер добавляется в базу</div>
+                                }
+                                {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                             </div>
                         </div>
-                        <div className={classes.phoneNumber}>
-                            <div className={classes.phoneNumberTitle}>Номер телефона</div>
-                            {props.property.house.house_info !== null &&
-                            <div className={classes.phone}>+{props.property.house.house_info.phone}</div>
-                            }
-                            {props.property.house.house_info === null &&
-                            <div className={classes.phone}>Номер добавляется в базу</div>
-                            }
-                            <div className={classes.phoneNumberShow}>Смотреть</div>
+                        {props.property.house.house_info !== null &&
+                        <div className={classes.content}>
+                            <div>Этаж: <span>{props.property.house.house_info.floor}</span></div>
+                            <div>Этажность: <span>{props.property.house.house_info.floor_count}</span></div>
+                            <div>Тип дома: <span>{props.property.house.house_info.house_type}</span></div>
+                            <div>ID недвижимости: <span>{props.property.house.house_info.house_id}</span></div>
+                            <div>Количество комнат: <span>{props.property.house.house_info.num_of_rooms}</span></div>
+                            <div>Площадь: <span>{props.property.house.house_info.total_area}</span>м²</div>
                         </div>
+                        }
+                        {props.property.house.house_info === null &&
+                            <div className={classes.content}>
+                                <div>Информация ещё записывается в базу</div>
+                            </div>
+                        }
                     </div>
-                    <div className={classes.content}>
-                        <div className={classes.mainInfo}>
-                            {props.property.house.data}
-                        </div>
+                </div>
+                <div className={classes.content}>
+                    <div className={classes.mainInfo}>
+                        {props.property.house.data}
                     </div>
-                    <div className={classes.btns}>
-                        {/*{!props.property.is_fav &&
+                </div>
+                <div className={classes.btns}>
+                    {!props.property.is_fav &&
                     <div onClick={() => {props.setToFavoriteList(props.property.house.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в избранное</div>
                     }
                     {props.property.is_fav &&
                     <div onClick={() => {props.removeToFavoriteList(props.property.house.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Удалить из избранных</div>
                     }
-                    <img onClick={() => {props.setToIgnoreList(props.property.house.id)}} className={classes.closeIcon} src={closeIcon} alt="Add to ignore list"/>*/}
-                        <NavLink className={`${classes.btnBack} ${classes.btn}`} to={"/find_property"}>
-                            Вернуться
-                        </NavLink>
-                    </div>
+                    {/*<img onClick={() => {props.setToIgnoreList(props.property.house.id)}} className={classes.closeIcon} src={closeIcon} alt="Add to ignore list"/>*/}
+                    <NavLink className={`${classes.btnBack} ${classes.btn}`} to={"/find_property"}>
+                        Вернуться
+                    </NavLink>
                 </div>
             </div>
         )

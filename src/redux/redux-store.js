@@ -5,12 +5,14 @@ import { reducer as formReducer } from 'redux-form';
 import registrationReducer from "./registration-reducer";
 import findPropertyReducer from "./findProperty-reducer";
 import propertyReducer from "./property-reducer";
+import filtersReducer from "./filters-reducer";
 
 let reducers = combineReducers({
     registration: registrationReducer,
     auth: authReducer,
     findProperty: findPropertyReducer,
     property: propertyReducer,
+    filters: filtersReducer,
     form: formReducer
 });
 
