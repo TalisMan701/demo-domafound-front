@@ -87,7 +87,7 @@
     margin: 0;
 }
 
-.countDays span{
+.countDays div span{
     font-size: 16px;
     font-weight: bold;
 }

@@ -66,6 +66,13 @@ const FiltersPropertyForm = (props) => {
                 <FormSection name={"countRoom"}>
                     <div className={classes.checkboxs}>
                         <Field
+                            name="studii"
+                            component={Checkbox}
+                            type="checkbox"
+                            id="studii"
+                            title={"Студии"}
+                        />
+                        <Field
                             name="k1"
                             component={Checkbox}
                             type="checkbox"
@@ -99,13 +106,6 @@ const FiltersPropertyForm = (props) => {
                             type="checkbox"
                             id="5k"
                             title={"5+к"}
-                        />
-                        <Field
-                            name="studii"
-                            component={Checkbox}
-                            type="checkbox"
-                            id="studii"
-                            title={"Студии"}
                         />
                     </div>
                 </FormSection>

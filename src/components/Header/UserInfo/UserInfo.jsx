@@ -18,7 +18,14 @@ const UserInfo = (props) => {
                     </NavLink>
                     <div className={classes.userInfo}>
                         {props.isSubscription &&
-                        <div className={classes.countDays}>Осталось дней: <span>{props.countDays}</span></div>
+                        <div className={classes.countDays}>
+                            {props.countDays >0 &&
+                                <div>Осталось дней: <span>{props.countDays}</span></div>
+                            }
+                            {props.countDays == 0 &&
+                                <div>Осталось часов: <span>{props.countHours}</span></div>
+                            }
+                        </div>
                         }
                         {!props.isSubscription &&
                         <NavLink to='/tariffs' className={classes.buyTariff}>Приобрести тариф</NavLink>

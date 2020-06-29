@@ -116,33 +116,6 @@ class Tariffs extends React.Component {
             <div className={classes.container}>
                 <div className={classes.tariffs}>
                     <div className={classes.cards}>
-                        <div className={classes.cardsRow}>
-                            <div className={classes.card}>
-                                <div className={classes.days}>
-                                    <div className={classes.daysCount}>7</div>
-                                    <div className={classes.daysText}>дней</div>
-                                </div>
-                                <div className={classes.price}>700₽</div>
-                                <div className={classes.button}>
-                                    <div className={classes.buttonText}>
-                                        Купить
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={classes.card}>
-                                <div className={classes.days}>
-                                    <div className={classes.daysCount}>14</div>
-                                    <div className={classes.daysText}>дней</div>
-                                </div>
-                                <div className={classes.price}>1300₽</div>
-                                <div className={classes.button}>
-                                    <div className={classes.buttonText}>
-                                        Купить
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div className={classes.calcInner}>
                             <div className={classes.calc}>
                                 <div className={classes.title}>Калькулятор дней</div>
@@ -180,6 +153,30 @@ class Tariffs extends React.Component {
                             </div>
                         </div>
                         <div className={classes.cardsRow}>
+                            <div className={classes.card}>
+                                <div className={classes.days}>
+                                    <div className={classes.daysCount}>7</div>
+                                    <div className={classes.daysText}>дней</div>
+                                </div>
+                                <div className={classes.price}>700₽</div>
+                                <div className={classes.button}>
+                                    <div className={classes.buttonText}>
+                                        Купить
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={classes.card}>
+                                <div className={classes.days}>
+                                    <div className={classes.daysCount}>14</div>
+                                    <div className={classes.daysText}>дней</div>
+                                </div>
+                                <div className={classes.price}>1300₽</div>
+                                <div className={classes.button}>
+                                    <div className={classes.buttonText}>
+                                        Купить
+                                    </div>
+                                </div>
+                            </div>
                             <div className={classes.card}>
                                 <div className={classes.days}>
                                     <div className={classes.daysCount}>21</div>

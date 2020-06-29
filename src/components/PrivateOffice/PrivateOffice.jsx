@@ -18,20 +18,45 @@ class PrivateOffice extends React.Component {
                             <div className={classes.email}>Email: <span>{this.props.email}</span></div>
                             <div className={classes.subscription}>
                                 {this.props.isSubscription &&
-                                    <div className={classes.countDaysInner}>
-                                        <div className={classes.countDays}>Осталось дней: <span>{this.props.countDays}</span></div>
-                                        <NavLink className={classes.buySubscription} to="/tariffs">Продлить</NavLink>
+                                <div className={classes.countDaysInner}>
+                                    <div className={classes.countDays}>
+                                        Осталось дней: <span>{this.props.countDays}</span>
+                                        <br/>
+                                        Осталось часов: <span>{this.props.countHours}</span>
                                     </div>
+                                    <NavLink className={classes.buySubscription} to="/tariffs">Продлить</NavLink>
+                                </div>
                                 }
                                 {!this.props.isSubscription &&
                                 <NavLink to='/tariffs' className={classes.buySubscription}>Приобрести тариф</NavLink>
                                 }
                             </div>
-                            <div className={classes.referrals}>Мои рефералы: <span>{this.props.referralsCount}</span></div>
+                            <div className={classes.referralsInner}>
+                                <div className={classes.referralsCodeInner}>
+                                    <div>Реферальный код:</div>
+                                    {this.props.isPartner &&
+                                    <div className={classes.referralsCode}>{this.props.referralCode}</div>
+                                    }
+                                    {!this.props.isPartner &&
+                                    <div className={classes.referralsCode}>нет</div>
+                                    }
+                                </div>
+                                {!this.props.isPartner &&
+                                <div>Чтобы получить реферальный код, продлите подписку до 31 дня.</div>
+                                }
+                                {this.props.isPartner &&
+                                <div>
+                                    <div className={classes.referrals}>Мои
+                                        рефералы: <span>{this.props.user_set.length}</span></div>
+                                    {this.props.user_set.map(u => <div>{u.phone} дней: {u.subscribe_days_count}</div>)}
+                                </div>
+                                }
+                            </div>
                         </div>
                         <div className={classes.btns}>
-                            <NavLink to='/find_property/favorite_list' className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</NavLink>
-                            <NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>
+                            <NavLink to='/find_property/favorite_list'
+                                     className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</NavLink>
+                            {/*<NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>*/}
                         </div>
                     </div>
                 </div>
@@ -45,7 +70,11 @@ const mapStateToProps = (state) => ({
     email: state.auth.email,
     countDays: state.auth.countDays,
     referralsCount: state.auth.referralsCount,
-    isSubscription: state.auth.isSubscription
+    isSubscription: state.auth.isSubscription,
+    countHours: state.auth.countHours,
+    isPartner: state.auth.isPartner,
+    referralCode: state.auth.referralCode,
+    user_set: state.auth.user_set
 })
 
-export default connect(mapStateToProps,{getIgnoreList})(PrivateOffice);
+export default connect(mapStateToProps, {getIgnoreList})(PrivateOffice);

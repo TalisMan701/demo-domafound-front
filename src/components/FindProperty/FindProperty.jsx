@@ -47,9 +47,23 @@ class FindProperty extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
-        this.props.getIgnoreList();
-        this.props.getFavoriteList();
+        if(this.props.isAuth){
+            if(this.props.location.pathname == "/find_property"){
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
+            }else{
+                this.props.getIgnoreList();
+                this.props.getFavoriteList();
+            }
+        }
+    }
+    //КОООООСТТЫЫЫЫЫЛЬЬЬЬЬЬЬЬЬЬЬЬ нужно избавиться от этого метода, любые проблемы - вопросы к этому методу!!!
+    componentWillReceiveProps(nextProps){
+        if(nextProps.location.pathname != this.props.location.pathname){
+            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
+            return nextProps;
+        } else {
+            return false
+        }
     }
 
     componentWillUnmount() {

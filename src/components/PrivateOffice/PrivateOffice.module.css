@@ -49,6 +49,7 @@
 
 .countDaysInner{
     display: flex;
+    align-items: center;
     flex-flow: row nowrap;
 }
 
@@ -74,14 +75,14 @@
 
 .btns{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     flex-flow: row nowrap;
 }
 
 .btn{
     text-decoration: none;
     background-color: #95e1d3;
-    padding: 5px;
+    padding: 5px 15px;
     color: #ffffff;
     border-radius: 5px;
     font-weight: 500;
@@ -92,3 +93,25 @@
     margin-right: 10px;
 }
 
+/*.subscription{
+    background-color: #f8f8f8;
+}*/
+
+.referralsInner{
+    /*background-color: #f8f8f8;*/
+}
+
+.referralsCodeInner{
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 5px;
+}
+
+.referralsCode{
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.referrals{
+    margin-bottom: 5px;
+}
