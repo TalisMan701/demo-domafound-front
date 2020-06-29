@@ -11,14 +11,22 @@ import {
 import PropertyPage from "./PropertyPage";
 
 class PropertyPageContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.goBack=this.goBack.bind(this)
+    }
     componentDidMount() {
         let propertyId = this.props.match.params.propertyId;
         this.props.getPropertyOne(propertyId)
     }
 
+    goBack(){
+        this.props.history.goBack();
+    }
+
     render() {
         return(
-            <PropertyPage  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}
+            <PropertyPage goBack={this.goBack}  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}
                            setToFavoriteList={this.props.setToFavoriteListPropertyPage} removeToFavoriteList={this.props.removeToFavoriteListPropertyPage}/>
         );
     }

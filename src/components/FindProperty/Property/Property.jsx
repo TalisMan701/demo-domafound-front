@@ -7,7 +7,16 @@ const Property = (props) => {
     return (
         <div className={classes.property}>
             <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
-                <img className={classes.img} src={props.item.items.title_image}/>
+                {props.item.items.title_image !== null &&
+                    <img className={classes.img} src={props.item.items.title_image}/>
+                }
+                {props.item.items.title_image === null &&
+                    <div className={classes.noImg}>
+                        <div>
+                            Изображения нет
+                        </div>
+                    </div>
+                }
             </NavLink>
             <div className={classes.content}>
                 <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.title}>{props.item.items.title}</NavLink>
@@ -20,16 +29,16 @@ const Property = (props) => {
                         <br/>*/}
                         Цена: {props.item.items.price}₽
                         <br/>
-                        Ссылка: <a href={props.item.items.link}>Посетить</a>
+                        Ссылка: <a className={classes.link}  href={props.item.items.link}>Посетить</a>
                     </div>
                 </div>
                 <div className={classes.phoneNumber}>
-                    <div className={classes.phoneNumberTitle}>Номер телефона</div>
+                    <div className={classes.phoneNumberTitle}>Номер телефона:</div>
                     {props.item.items.house_info !== null &&
                         <div className={classes.phone}>+{props.item.items.house_info.phone}</div>
                     }
                     {props.item.items.house_info === null &&
-                    <div className={classes.phone}>Номер добавляется в базу</div>
+                    <div className={classes.phone}>Добавляется в базу.</div>
                     }
 
                     {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}

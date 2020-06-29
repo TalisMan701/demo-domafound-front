@@ -30,7 +30,7 @@ class Tariffs extends React.Component {
         super(props);
         this.state = {
             value: null,
-            price: 700,
+            price: 0,
             isAnimation: true
         }
     }
@@ -46,9 +46,11 @@ class Tariffs extends React.Component {
         let value= event.target.valueAsNumber;
         if(value === 7){
             price = 700
+        }else if(Number.isNaN(value)){
+            value=null;
+            price = 0;
         }else if(value < 7){
-            value = null
-            price= 700
+            price= 100*value
         }else if(value === 14){
             price = 1300
         }else if(value === 21){
@@ -58,9 +60,6 @@ class Tariffs extends React.Component {
             price = 2500
         }else if(value <21){
             price = (value - 7)*85+700
-        }else if(Number.isNaN(value)){
-            value=null;
-            price = 700;
         }else{
             price = (value - 21)*60+1900
         }
@@ -71,8 +70,7 @@ class Tariffs extends React.Component {
         let price=0;
         let value= event.target.valueAsNumber;
         if(value<7){
-            value=7
-            price=700
+            price=100*value
             this.setState({value, price})
         }
     }
@@ -81,14 +79,16 @@ class Tariffs extends React.Component {
         let price=0;
         if(args.value === 7){
             price = 700
+        }else if(args.value < 7){
+            price = args.value*100
+        }else if(args.value <21){
+            price = (args.value - 7)*85+700
         }else if(args.value === 14){
             price = 1300
         }else if(args.value === 21){
             price = 1900
         }else if(args.value === 31){
             price = 2500
-        }else if(args.value <21){
-            price = (args.value - 7)*85+700
         }else{
             price = (args.value - 21)*60+1900
         }
@@ -100,7 +100,7 @@ class Tariffs extends React.Component {
 
     ticks = {
         placement: "Before",
-        largeStep: 24,
+        largeStep: 30,
         smallStep: 1,
         showSmallTicks: true
     };
@@ -152,7 +152,7 @@ class Tariffs extends React.Component {
                                 <SliderComponent
                                     id="slider"
                                     value={this.state.value}
-                                    min={7}
+                                    min={1}
                                     max={31}
                                     step={1}
                                     change={this.onChange.bind(this)}
@@ -163,11 +163,11 @@ class Tariffs extends React.Component {
                                 <div className={classes.inputDaysCount}>
                                     <div>Количество дней:</div>
                                     <input type="number" id="daysCount"
-                                           name="daysCount" min="7" max="31"
+                                           name="daysCount" min="1" max="31"
                                            onChange={this.handleChange.bind(this)}
                                            onBlur={this.onBlurInput.bind(this)}
                                            value={this.state.value}
-                                           placeholder={"7"}
+                                           placeholder={"1-31"}
                                     />
                                 </div>
 

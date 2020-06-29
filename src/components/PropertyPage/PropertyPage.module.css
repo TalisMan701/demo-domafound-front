@@ -2,9 +2,10 @@
     display: flex;
     justify-content: center;
     flex-flow: column nowrap;
+    width: 100%;
+    max-width: 900px;
     margin: 0 auto;
     margin-top: 20px;
-    width: 75%;
 }
 
 .row{
@@ -15,6 +16,7 @@
 
 .propertyInfo{
     margin-left: 20px;
+    width: 100%;
 }
 
 .sliderInner{
@@ -78,6 +80,7 @@
     font-size: 14px;
 }
 .btns{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -101,5 +104,28 @@
     margin-left: 10px;
     width: 18px;
     height: 18px;
+}
+
+.link{
+    text-decoration: none;
+    color: #333333;
+    transition: color 0.2s ease;
+}
+
+.link:hover{
+    text-decoration: none;
+    color: #f38181;
+}
+
+.loadInfo{
+    padding: 50px 0;
+}
+
+.noImg{
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 

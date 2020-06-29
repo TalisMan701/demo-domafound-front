@@ -26,13 +26,27 @@ const PropertyPage = (props) => {
             <div className={classes.propertyPage}>
                 <div className={classes.row}>
                     <div className={classes.sliderInner}>
-                        <Slider {...settings}>
-                            {props.property.house.image_set.map(img =>
-                                <div className={classes.imgInner}>
-                                    <img className={classes.img} src={img.image_link} alt=""/>
+                        {props.property.house.image_set.length !== 0 &&
+                            <Slider {...settings}>
+                                {props.property.house.image_set.map(img =>
+                                    <div className={classes.imgInner}>
+                                        <img className={classes.img} src={img.image_link} alt=""/>
+                                    </div>
+                                )}
+                            </Slider>
+                        }
+                        {props.property.house.image_set.length === 0 && props.property.house.title_image === null &&
+                            <div className={classes.noImg}>
+                                <div>
+                                    Изображений нет
                                 </div>
-                            )}
-                        </Slider>
+                            </div>
+                        }
+                        {props.property.house.image_set.length === 0 && props.property.house.title_image !== null &&
+                            <div className={classes.imgInner}>
+                                <img className={classes.img} src={props.property.house.title_image} alt=""/>
+                            </div>
+                        }
                     </div>
                     <div className={classes.propertyInfo}>
                         <div className={classes.title}>{props.property.house.title}</div>
@@ -47,33 +61,33 @@ const PropertyPage = (props) => {
                         <br/>*/}
                                     Цена: {props.property.house.price}₽
                                     <br/>
-                                    Ссылка: <a href={props.property.house.link}>Посетить</a>
+                                    Ссылка: <a className={classes.link} href={props.property.house.link}>Посетить</a>
                                 </div>
                             </div>
                             <div className={classes.phoneNumber}>
-                                <div className={classes.phoneNumberTitle}>Номер телефона</div>
+                                <div className={classes.phoneNumberTitle}>Номер телефона:</div>
                                 {props.property.house.house_info !== null &&
                                 <div className={classes.phone}>+{props.property.house.house_info.phone}</div>
                                 }
                                 {props.property.house.house_info === null &&
-                                <div className={classes.phone}>Номер добавляется в базу</div>
+                                <div className={classes.phone}>Добавляется в базу.</div>
                                 }
                                 {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                             </div>
                         </div>
                         {props.property.house.house_info !== null &&
                         <div className={classes.content}>
-                            <div>Этаж: <span>{props.property.house.house_info.floor}</span></div>
-                            <div>Этажность: <span>{props.property.house.house_info.floor_count}</span></div>
-                            <div>Тип дома: <span>{props.property.house.house_info.house_type}</span></div>
                             <div>ID недвижимости: <span>{props.property.house.house_info.house_id}</span></div>
+                            <div>Тип дома: <span>{props.property.house.house_info.house_type}</span></div>
+                            <div>Этажность: <span>{props.property.house.house_info.floor_count}</span></div>
                             <div>Количество комнат: <span>{props.property.house.house_info.num_of_rooms}</span></div>
+                            <div>Этаж: <span>{props.property.house.house_info.floor}</span></div>
                             <div>Площадь: <span>{props.property.house.house_info.total_area}</span>м²</div>
                         </div>
                         }
                         {props.property.house.house_info === null &&
                             <div className={classes.content}>
-                                <div>Информация ещё записывается в базу</div>
+                                <div className={classes.loadInfo}>Идёт запись информации в базу</div>
                             </div>
                         }
                     </div>
@@ -91,9 +105,12 @@ const PropertyPage = (props) => {
                     <div onClick={() => {props.removeToFavoriteList(props.property.house.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Удалить из избранных</div>
                     }
                     {/*<img onClick={() => {props.setToIgnoreList(props.property.house.id)}} className={classes.closeIcon} src={closeIcon} alt="Add to ignore list"/>*/}
-                    <NavLink className={`${classes.btnBack} ${classes.btn}`} to={"/find_property"}>
+                    {/*<NavLink className={`${classes.btnBack} ${classes.btn}`} to={'/find_property'}>
                         Вернуться
-                    </NavLink>
+                    </NavLink>*/}
+                    <div className={`${classes.btnBack} ${classes.btn}`} onClick={props.goBack}>
+                        Вернуться
+                    </div>
                 </div>
             </div>
         )

@@ -58,6 +58,7 @@ class FindProperty extends React.Component {
     }
 
     onPageChanged = () => {
+        debugger
         if (this.props.isNext !== null) {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }
