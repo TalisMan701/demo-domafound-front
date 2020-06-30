@@ -20,6 +20,7 @@
     width: 170px;
     height: 170px;
     margin-right: 40px;
+    border-radius: 5px;
 }
 
 .content{
@@ -95,6 +96,7 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #333333;
+    border-radius: 5px;
 }
 .btns{
     display: flex;
@@ -104,16 +106,38 @@
 }
 
 .btn{
-    background-color: #95e1d3;
-    padding: 5px;
-    color: #ffffff;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 15px;
+    color: #333333;
     font-weight: 500;
+    width: 100%;
+    height: 30px;
+    max-width: 250px;
+    background-color: #ffffff;
+    border: 1.5px solid #95e1d3;
+    border-radius: 10px;
     cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.btn:hover{
+    max-width: 270px;
+
 }
 
 .closeIcon{
     margin-left: 10px;
     width: 18px;
     height: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.closeIcon:hover{
+    width: 20px;
+    height: 20px;
 }

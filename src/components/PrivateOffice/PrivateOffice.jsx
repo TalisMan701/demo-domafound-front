@@ -55,7 +55,7 @@ class PrivateOffice extends React.Component {
                         </div>
                         <div className={classes.btns}>
                             <NavLink to='/find_property/favorite_list'
-                                     className={`${classes.btnFavorites} ${classes.btn}`}>Избранные</NavLink>
+                                     className={`${classes.btnFavorites} ${classes.btn}`}><div className={classes.btnText}>Избранные</div></NavLink>
                             {/*<NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>*/}
                         </div>
                     </div>

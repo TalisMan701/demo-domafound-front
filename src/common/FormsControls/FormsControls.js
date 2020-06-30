@@ -46,7 +46,15 @@ export const Checkbox = ({input, meta, ...props}) => {
     return(
         <div className={classes.checkboxInner}>
             <input className={classes.checkboxCustom} {...input} {...props} />
-            <label className={classes.label} for={props.id}>{props.title}</label>
+            <label className={classes.label} for={props.id}><div>{props.title}</div></label>
         </div>
+    )
+}
+
+export const InputForFilters = ({input, meta, ...props}) => {
+    return(
+            <div className={classes.inputInner}>
+                <input className={classes.inputForFilters} {...input} {...props} />
+            </div>
     )
 }

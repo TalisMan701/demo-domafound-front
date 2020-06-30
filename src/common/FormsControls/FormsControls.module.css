@@ -24,6 +24,32 @@
     border-radius: 5px;
 }
 
+.inputForFilters{
+    max-width: 200px;
+    z-index: 2;
+    width: 100%;
+    line-height: 1.1;
+    height: 30px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.inputForFilters::placeholder{
+    color: #ccc;
+}
+
+.inputForFilters:focus{
+    outline: 0;
+    border: 2px solid #95e1d3;
+    border-radius: 5px;
+}
+
 .errorInner{
     position: relative;
     background-color: #f38181;
@@ -54,18 +80,28 @@
     opacity: 0;
 }
 
-.label{
+.label div{
     width: 60px;
     height: 25px;
     display: inline-flex;
     align-items: center;
     user-select: none;
-    background-color: #cccccc;
+    background-color: #ffffff;
+    border: 1px solid #e7e7e7;
     padding: 5px;
-    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    color: #333333;
 }
 
-.checkboxCustom:checked+label{
-    background-color: #0b76ef;
+.label:hover div{
+    background-color: #95e1d3;
+    color: #ffffff;
+}
+
+.checkboxCustom:checked+label div{
+    background-color: #95e1d3;
     color: white;
+    font-weight: 500;
 }

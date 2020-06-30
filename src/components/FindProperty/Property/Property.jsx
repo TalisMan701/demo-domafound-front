@@ -29,7 +29,7 @@ const Property = (props) => {
                         <br/>*/}
                         Цена: {props.item.items.price}₽
                         <br/>
-                        Ссылка: <a className={classes.link}  href={props.item.items.link}>Посетить</a>
+                        Источник: {props.item.items.host} <a className={classes.link}  href={props.item.items.link}>Посетить</a>
                     </div>
                 </div>
                 <div className={classes.phoneNumber}>

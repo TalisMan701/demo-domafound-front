@@ -80,13 +80,27 @@
 }
 
 .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
-    background-color: #95e1d3;
+    text-align: center;
     padding: 5px 15px;
-    color: #ffffff;
-    border-radius: 5px;
+    color: #333333;
     font-weight: 500;
+    width: 100%;
+    height: 40px;
+    max-width: 200px;
+    background-color: white;
+    border: 2px solid #95e1d3;
+    border-radius: 100px;
     cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.btn:hover{
+    max-width: 220px;
+
 }
 
 .btnFavorites{

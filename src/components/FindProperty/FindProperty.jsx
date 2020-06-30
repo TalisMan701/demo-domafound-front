@@ -187,8 +187,27 @@ class FindProperty extends React.Component {
                                     <button onClick={this.closeClick} id="close" className="e-btn close-btn">Закрыть
                                     </button>
                                 </SidebarComponent>
-                                <div>
-                                    <button onClick={this.toggleClick} id="toggle" className="e-btn e-info">Добавить фильтры
+                                <div className={classes.propertyInner}>
+                                    <button className={classes.btnOpenSB} onClick={this.toggleClick} id="toggle" >
+                                            <div className={classes.oneWord}>
+                                                <div className={classes.symbol}>Д</div>
+                                                <div className={classes.symbol}>о</div>
+                                                <div className={classes.symbol}>б</div>
+                                                <div className={classes.symbol}>а</div>
+                                                <div className={classes.symbol}>в</div>
+                                                <div className={classes.symbol}>и</div>
+                                                <div className={classes.symbol}>т</div>
+                                                <div className={classes.symbol}>ь</div>
+                                            </div>
+                                            <div className={classes.twoWord}>
+                                                <div className={classes.symbol}>ф</div>
+                                                <div className={classes.symbol}>и</div>
+                                                <div className={classes.symbol}>л</div>
+                                                <div className={classes.symbol}>ь</div>
+                                                <div className={classes.symbol}>т</div>
+                                                <div className={classes.symbol}>р</div>
+                                                <div className={classes.symbol}>ы</div>
+                                            </div>
                                     </button>
                                     {this.props.property.map(p =>
                                         <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
@@ -207,7 +226,6 @@ class FindProperty extends React.Component {
                                             Показать ещё
                                         </div>
                                     }
-
                                 </div>
                             </div>
                         </Route>
