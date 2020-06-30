@@ -5,6 +5,16 @@
     margin: 0 auto;
 }
 
+.items{
+    position: relative;
+    min-height: calc(100vh - 210px);
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 5px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .showMore{
     cursor: pointer;
     text-align: center;
@@ -24,16 +34,22 @@
     width: 50px;
 }
 
-.propertyInner{
+.propertyInner {
     position: relative;
     padding: 0 25px;
 }
 
+.contentForStaticEl{
+    position: relative;
+}
+
 .btnOpenSB{
-    position: absolute;
+    position: fixed;
     width: 25px;
-    top: 0;
-    left: -5px;
+    z-index: 100;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0px;
     background-color: #f38181;
     padding: 5px 0;
     cursor: pointer;
@@ -44,7 +60,8 @@
 }
 
 .btnOpenSB:hover{
-    padding: 10px 0;
+    padding: 10px;
+    width: 50px;
     opacity: 1;
 }
 

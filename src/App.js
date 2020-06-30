@@ -45,7 +45,7 @@ class App extends React.Component {
                     <div className='content'><Tariffs/></div>
                 }/>
                 <Route path='/find_property' render={() =>
-                    <div className='content'><FindProperty/></div>
+                    <div className='contentForStaticEl'><FindProperty/></div>
                 }/>
                 <Route path='/office' render={() =>
                     <div className='content'><PrivateOffice/></div>

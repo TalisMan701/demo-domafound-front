@@ -13,6 +13,12 @@
   margin: 0 auto;
 }
 
+.contentForStaticEl{
+  min-height: calc(100vh - 210px);
+  flex: 1 0 auto;
+  width: 100%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
