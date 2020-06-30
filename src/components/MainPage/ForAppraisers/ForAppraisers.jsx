@@ -21,7 +21,7 @@ const ForAppraisers = () =>{
                     <div className={classes.item}>
                         <img className={classes.icon} src={icon} alt="icon"/>
                         <div className={classes.title}>Выписки ЕГРН</div>
-                        <div className={classes.text}>Возможность приобрести выписки ЕГРН!</div>
+                        <div className={classes.text}>Возможность приобрести выписку из ЕГРН!</div>
                     </div>
                     <div className={classes.item}>
                         <img className={classes.icon} src={icon} alt="icon"/>

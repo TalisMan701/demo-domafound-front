@@ -7,10 +7,10 @@ const Property = (props) => {
     return (
         <div className={classes.property}>
             <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
-                {props.item.items.title_image !== null &&
-                    <img className={classes.img} src={props.item.items.title_image}/>
+                {props.item.items.image_link !== null &&
+                    <img className={classes.img} src={props.item.items.image_link}/>
                 }
-                {props.item.items.title_image === null &&
+                {props.item.items.image_link === null &&
                     <div className={classes.noImg}>
                         <div>
                             Изображения нет
@@ -34,10 +34,10 @@ const Property = (props) => {
                 </div>
                 <div className={classes.phoneNumber}>
                     <div className={classes.phoneNumberTitle}>Номер телефона:</div>
-                    {props.item.items.house_info !== null &&
-                        <div className={classes.phone}>+{props.item.items.house_info.phone}</div>
+                    {props.item.items.phone !== null &&
+                        <div className={classes.phone}>+{props.item.items.phone}</div>
                     }
-                    {props.item.items.house_info === null &&
+                    {props.item.items.phone === null &&
                     <div className={classes.phone}>Добавляется в базу.</div>
                     }
 

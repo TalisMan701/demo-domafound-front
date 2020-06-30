@@ -58,7 +58,7 @@ class FindProperty extends React.Component {
     }
     //КОООООСТТЫЫЫЫЫЛЬЬЬЬЬЬЬЬЬЬЬЬ нужно избавиться от этого метода, любые проблемы - вопросы к этому методу!!!
     componentWillReceiveProps(nextProps){
-        if(nextProps.location.pathname != this.props.location.pathname){
+        if(nextProps.location.pathname != this.props.location.pathname || nextProps.isFetchingAuth != this.props.isFetchingAuth){
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
             return nextProps;
         } else {
@@ -72,7 +72,6 @@ class FindProperty extends React.Component {
     }
 
     onPageChanged = () => {
-        debugger
         if (this.props.isNext !== null) {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }
@@ -160,6 +159,10 @@ class FindProperty extends React.Component {
 
 
     render() {
+        if(this.props.isFetchingAuth){
+            return <Preloader/>
+        }
+
         if(!this.props.isAuth){
             return <Redirect to={'/login'}/>
         }
@@ -236,7 +239,8 @@ const mapStateToProps = (state) => ({
     favoriteList: state.findProperty.favoriteList,
     isFetching: state.findProperty.isFetching,
     filters: state.findProperty.filters,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    isFetchingAuth: state.auth.isFetchingAuth
 })
 
 export default compose(

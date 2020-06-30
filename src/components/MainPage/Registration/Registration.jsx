@@ -12,7 +12,7 @@ const Registration = (props) => {
         <div id="testScroll" className={classes.registration}>
             <div className={classes.container}>
                 <div className={classes.text}>
-                    Получи пробный период на 3 дня и убедись в нашей правоте!
+                    Получи пробный период на 3 часа и убедись в нашей правоте!
                 </div>
                 <img className={classes.arrow} src={arrow} alt="arrow"/>
             </div>

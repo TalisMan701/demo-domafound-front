@@ -2,6 +2,7 @@ import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
 
 let initialState = {
     userId: null,
@@ -14,7 +15,8 @@ let initialState = {
     countHours: 0,
     isPartner: false,
     referralCode: 0,
-    user_set:[]
+    user_set:[],
+    isFetchingAuth: true,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -24,6 +26,12 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 ...action.data
             }
+        case TOGGLE_IS_FETCHING_AUTH:{
+            return {
+                ...state,
+                isFetchingAuth: action.isFetchingAuth
+            }
+        }
         default:
             return state;
     }
@@ -32,7 +40,10 @@ const authReducer = (state = initialState, action) => {
 const setAuthUserData = (userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth) => ({type: SET_USER_DATA, data:
         {userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth}});
 
+const toggleIsFetchingAuth = (isFetchingAuth) => ({type: TOGGLE_IS_FETCHING_AUTH, isFetchingAuth })
+
 export const getAuthUserData = () => (dispatch) => {
+    dispatch(toggleIsFetchingAuth(true))
     authAPI.me()
         .then(response => {
             if(response.status === 200){
@@ -48,6 +59,7 @@ export const getAuthUserData = () => (dispatch) => {
                     response.data.user_set,
                     true,
                     ));
+                dispatch(toggleIsFetchingAuth(false))
             }
         });
 }

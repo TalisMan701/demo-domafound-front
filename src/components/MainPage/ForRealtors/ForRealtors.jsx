@@ -26,7 +26,7 @@ const ForRealtors = () =>{
                     <div className={classes.item}>
                         <img className={classes.icon} src={icon} alt="icon"/>
                         <div className={classes.title}>Крупная сеть оценщиков</div>
-                        <div className={classes.text}>Теперь не нужно искать оценщиков, так как мы работаем с крупной сетью, для Вас будет назначена значительная скидка!</div>
+                        <div className={classes.text}>Партнёрский канал с аккредитованными оценочными компаниями. Скидки и самые короткие сроки выполнения оценки!</div>
                     </div>
                     <div className={classes.item}>
                         <img className={classes.icon} src={icon} alt="icon"/>
