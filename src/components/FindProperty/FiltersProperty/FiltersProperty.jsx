@@ -44,6 +44,29 @@ const FiltersPropertyForm = (props) => {
             </div>*/}
                 <div>
                     <label>
+                        <div className={classes.labelTitle}>Тип недвижимости</div>
+                    </label>
+                    <FormSection name={"typeProperty"}>
+                        <div className={classes.checkboxs}>
+                            <Field
+                                name="vtor"
+                                component={Checkbox}
+                                type="checkbox"
+                                id="vtor"
+                                title={"Вторичные"}
+                            />
+                            <Field
+                                name="newbuild"
+                                component={Checkbox}
+                                type="checkbox"
+                                id="newbuild"
+                                title={"Новостройки"}
+                            />
+                        </div>
+                    </FormSection>
+                </div>
+                <div>
+                    <label>
                         <div className={classes.labelTitle}>Номер телефона</div>
                     </label>
                     <Field
@@ -157,9 +180,47 @@ const FiltersPropertyForm = (props) => {
                 </div>
                 <div>
                     <label>
-                        <div className={classes.labelTitle}>Площадь</div>
+                        <div className={classes.labelTitle}>Общая площадь</div>
                     </label>
                     <FormSection name={"area"}>
+                        <div className={classes.formSection}>
+                            <Field
+                                name="start"
+                                component={InputForFilters}
+                                placeholder={"от"}
+                            />
+                            <Field
+                                name="end"
+                                component={InputForFilters}
+                                placeholder={"до"}
+                            />
+                        </div>
+                    </FormSection>
+                </div>
+                <div>
+                    <label>
+                        <div className={classes.labelTitle}>Площадь кухни</div>
+                    </label>
+                    <FormSection name={"kitchenArea"}>
+                        <div className={classes.formSection}>
+                            <Field
+                                name="start"
+                                component={InputForFilters}
+                                placeholder={"от"}
+                            />
+                            <Field
+                                name="end"
+                                component={InputForFilters}
+                                placeholder={"до"}
+                            />
+                        </div>
+                    </FormSection>
+                </div>
+                <div>
+                    <label>
+                        <div className={classes.labelTitle}>Жилая площадь</div>
+                    </label>
+                    <FormSection name={"livingArea"}>
                         <div className={classes.formSection}>
                             <Field
                                 name="start"

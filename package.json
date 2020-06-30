@@ -13,6 +13,7 @@
     "react": "^16.13.1",
     "react-compound-slider": "^2.5.0",
     "react-dom": "^16.13.1",
+    "react-js-pagination": "^3.0.3",
     "react-notification-badge": "^1.5.1",
     "react-number-format": "^4.4.1",
     "react-parallax": "^3.0.3",

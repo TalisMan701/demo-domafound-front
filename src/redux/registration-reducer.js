@@ -93,8 +93,8 @@ const setIsRegistred = () => ({type: SET_IS_REGISTERED})
 
 export const setUserFinal = () => ({type: SET_USER_FINAL})
 
-export const registration = (email, number, password) => (dispatch) => {
-    registrationAPI.registration(email, number, password)
+export const registration = (email, number, password, ref_code) => (dispatch) => {
+    registrationAPI.registration(email, number, password, ref_code)
         .then(response => {
             if (response.data.status === true) {
                 dispatch(setIsRegistred())

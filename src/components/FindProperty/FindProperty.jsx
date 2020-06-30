@@ -7,7 +7,7 @@ import {
     deletePropertyState, getFavoriteList,
     getIgnoreList,
     getProperty, getPropertyWithFilters, removeToFavoriteList,
-    removeToIgnoreList, setFilters, setToFavoriteList,
+    removeToIgnoreList, setFilters, setPage, setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -22,6 +22,8 @@ import FiltersPropertyWidgetsForm from "./FiltersProperty/FiltersProperty";
 import Preloader from "../../common/Preloader/Preloader";
 import preloader from "../../common/Preloader/Preloader.svg";
 import {loadFilters} from "../../redux/filters-reducer";
+import Pagination from "react-js-pagination";
+import "./Pagination.css"
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -71,11 +73,12 @@ class FindProperty extends React.Component {
         this.props.deletePropertyState()
     }
 
-    onPageChanged = () => {
+    onPageChanged = (pageNumber) => {
         /*if (this.props.isNext !== null) {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }*/
-        this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
+        this.props.setPage(pageNumber)
+        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters);
     }
 
     onSubmit = (formData) =>{
@@ -116,6 +119,24 @@ class FindProperty extends React.Component {
                 filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.end}`
             }
         }
+        if(typeof formData["kitchenArea"] !== "undefined"){
+            if (typeof formData.kitchenArea["start"] === "undefined"){
+                filters += `&min_kitchen_area=${formData.kitchenArea.end}&min_kitchen_area=${formData.kitchenArea.end}`
+            }else if(typeof formData.kitchenArea["end"] === "undefined"){
+                filters += `&min_kitchen_area=${formData.kitchenArea.start}&min_kitchen_area=${formData.kitchenArea.start}`
+            }else{
+                filters += `&min_kitchen_area=${formData.kitchenArea.start}&max_kitchen_area=${formData.kitchenArea.end}`
+            }
+        }
+        if(typeof formData["livingArea"] !== "undefined"){
+            if (typeof formData.livingArea["start"] === "undefined"){
+                filters += `&min_living_area=${formData.livingArea.end}&min_living_area=${formData.livingArea.end}`
+            }else if(typeof formData.livingArea["end"] === "undefined"){
+                filters += `&min_living_area=${formData.livingArea.start}&min_living_area=${formData.livingArea.start}`
+            }else{
+                filters += `&min_living_area=${formData.livingArea.start}&max_living_area=${formData.livingArea.end}`
+            }
+        }
         if(typeof formData["phone"] !== "undefined"){
             filters += `&phone=${formData.phone}`
         }
@@ -151,6 +172,18 @@ class FindProperty extends React.Component {
             if(typeof formData.countRoom["studii"] !== "undefined"){
                 if(formData.countRoom.studii === true){
                     filters += `&num_of_rooms=студии`
+                }
+            }
+        }
+        if(typeof formData["typeProperty"] !== "undefined") {
+            if (typeof formData.typeProperty["vtor"] !== "undefined") {
+                if (formData.typeProperty.vtor === true) {
+                    filters += `&type_house=Вторичка`
+                }
+            }
+            if (typeof formData.typeProperty["newbuild"] !== "undefined") {
+                if (formData.typeProperty.newbuild === true) {
+                    filters += `&type_house=Новостройки`
                 }
             }
         }
@@ -227,11 +260,23 @@ class FindProperty extends React.Component {
                                             <img src={preloader} className={classes.preloader} />
                                         </div>
                                     }
-                                    {!this.props.isFetching && this.props.isNext !== null &&
+                                    {/*{!this.props.isFetching && this.props.isNext !== null &&
                                         <div onClick={() => {
                                             this.onPageChanged()
                                         }} className={classes.showMore}>
                                             Показать ещё
+                                        </div>
+                                    }*/}
+                                    {this.props.property.length !== 0 &&
+                                        <div className={classes.paginationInner}>
+                                            <Pagination
+                                                activePage={this.props.page}
+                                                itemsCountPerPage={this.props.pageSize}
+                                                totalItemsCount={this.props.totalPropertyCount}
+                                                pageRangeDisplayed={5}
+                                                onChange={this.onPageChanged}
+                                            />
+                                            <div className={classes.paginationTotalCount}>Всего объявлений: <span>{this.props.totalPropertyCount}</span></div>
                                         </div>
                                     }
                                 </div>
@@ -266,14 +311,16 @@ const mapStateToProps = (state) => ({
     isFetching: state.findProperty.isFetching,
     filters: state.findProperty.filters,
     isAuth: state.auth.isAuth,
-    isFetchingAuth: state.auth.isFetchingAuth
+    isFetchingAuth: state.auth.isFetchingAuth,
+    totalPropertyCount: state.findProperty.totalPropertyCount
 })
 
 export default compose(
     connect(mapStateToProps, {
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
-        setToFavoriteList, removeToFavoriteList, getPropertyWithFilters
+        setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
+        setPage,
     }),
     withRouter
 )(FindProperty);

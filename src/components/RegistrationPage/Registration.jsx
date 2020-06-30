@@ -95,6 +95,10 @@ const RegistrationForm = (props) =>{
                        validate={[required]}
                        component={Input}/>
             </div>
+            <div>
+                <Field placeholder={"Введите промокод"} name={"referralCode"} type={"text"}
+                       component={Input}/>
+            </div>
             { props.error &&
             <div className={classes.formSummaryError}>
                 {props.error}
@@ -121,7 +125,7 @@ const Registration = (props) =>{
     }
 
     const registration = (formData) => {
-        props.registration(formData.email, props.number, formData.password);
+        props.registration(formData.email, props.number, formData.password, formData.referralCode);
     }
     //ошибка в isRegistrated, после регистрации не обнулсяется и если выйти, то кидает на логин
     if(props.isRegistrated){

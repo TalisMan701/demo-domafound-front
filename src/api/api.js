@@ -32,8 +32,8 @@ export const registrationAPI ={
     validateOTP(code, number){
         return instance().post(`auth/registration/validate_otp/`, {code, number})
     },
-    registration(email, number, password){
-        return instance().post(`auth/registration/me/`, {email, number, password})
+    registration(email, number, password, ref_code){
+        return instance().post(`auth/registration/me/`, {email, number, password, ref_code})
     }
 }
 

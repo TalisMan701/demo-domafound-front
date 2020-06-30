@@ -28,7 +28,7 @@ const Footer = () =>{
                     <Link className={classes.link}>
                         Документация
                     </Link>
-                    <Link className={classes.link}>
+                    <Link to={'/politic'} className={classes.link}>
                         Политика конфиденциальности
                     </Link>
                 </div>

@@ -33,7 +33,7 @@ class PrivateOffice extends React.Component {
                             </div>
                             <div className={classes.referralsInner}>
                                 <div className={classes.referralsCodeInner}>
-                                    <div>Реферальный код:</div>
+                                    <div>Промокод:</div>
                                     {this.props.isPartner &&
                                     <div className={classes.referralsCode}>{this.props.referralCode}</div>
                                     }
@@ -42,7 +42,7 @@ class PrivateOffice extends React.Component {
                                     }
                                 </div>
                                 {!this.props.isPartner &&
-                                <div>Чтобы получить реферальный код, продлите подписку до 31 дня.</div>
+                                <div>Чтобы получить промокод, продлите подписку до 31 дня.</div>
                                 }
                                 {this.props.isPartner &&
                                 <div>

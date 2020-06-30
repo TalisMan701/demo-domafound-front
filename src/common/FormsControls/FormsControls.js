@@ -30,7 +30,7 @@ export const InputNumber = ({input, meta, ...props}) => {
         <div className={classes.formControl + " " + (hasError ? classes.error : "")}>
             <div className={classes.inputInner}>
                 {/*<input className={classes.input} {...input} {...props} />*/}
-                <NumberFormat format="+7-(###)-###-##-##" mask="_" className={classes.input} {...input} {...props}/>
+                <NumberFormat format="+7(###)-###-##-##" mask="_" className={classes.input} {...input} {...props}/>
                 { hasError && <div className={classes.errorInner}>
                     <div className={classes.errorText}>
                         { meta.error }

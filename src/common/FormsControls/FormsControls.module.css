@@ -80,18 +80,21 @@
     opacity: 0;
 }
 
+.label{
+}
+
 .label div{
-    width: 60px;
+    width: calc(100% - 5px);
+    min-width: 60px;
     height: 25px;
-    display: inline-flex;
-    align-items: center;
+    display: block;
     user-select: none;
     background-color: #ffffff;
     border: 1px solid #e7e7e7;
     padding: 5px;
+    margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
-    margin-right: 5px;
     color: #333333;
 }
 

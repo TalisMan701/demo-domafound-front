@@ -14,6 +14,7 @@ const REMOVE_FROM_FAVORITE_LIST = "REMOVE_FROM_FAVORITE_LIST";
 const SET_FILTERS = "SET_FILTERS";
 const SET_WATCHED_LIST = "SET_WATCHED_LIST";
 const ADD_TO_WATCHED_LIST = "ADD_TO_WATCHED_LIST";
+const SET_PAGE = "SET_PAGE";
 
 
 let initialState = {
@@ -21,7 +22,7 @@ let initialState = {
     ignoreList:[],
     favoriteList: [],
     watchedList:[],
-    pageSize: 5,
+    pageSize: 10,
     totalPropertyCount: 0,
     isNext: null,
     page: 1,
@@ -31,11 +32,17 @@ let initialState = {
 
 const foundPropertyReducer = (state = initialState, action) => {
     switch (action.type) {
+        /*case SET_PROPERTY:
+            return {
+                ...state,
+                /!*page: state.page+1,*!/
+                property: [...state.property, ...action.property]
+            }*/
         case SET_PROPERTY:
             return {
                 ...state,
-                page: state.page+1,
-                property: [...state.property, ...action.property]
+                /*page: state.page+1,*/
+                property: action.property
             }
         case SET_IGNORE_LIST:{
             return {
@@ -135,6 +142,12 @@ const foundPropertyReducer = (state = initialState, action) => {
                 filters: action.filters
             }
         }
+        case SET_PAGE:{
+            return {
+                ...state,
+                page: action.page
+            }
+        }
         default:
             return state;
     }
@@ -144,6 +157,8 @@ const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching 
 const setTotalPropertyCount = (totalPropertyCount) => ({type: SET_TOTAL_PROPERTY_COUNT, count: totalPropertyCount })
 export const setIsNext = (isNext) => ({type: SET_IS_NEXT, isNext })
 export const deletePropertyState = () => ({type: DELETE_PROPERTY_STATE})
+
+export const setPage = (page) =>({type: SET_PAGE, page})
 
 const setIgnoreList = (ignoreList) => ({type: SET_IGNORE_LIST, ignoreList })
 const removeFromProperty = (house_id) => ({type: REMOVE_FROM_PROPERTY, house_id})

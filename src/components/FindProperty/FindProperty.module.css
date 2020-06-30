@@ -89,3 +89,17 @@
     font-size: 20px;
     font-weight: 500;
 }
+
+.paginationInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    margin-bottom: 16px;
+}
+
+.paginationTotalCount{
+    margin-top: 5px;
+    color: #cccccc;
+    font-size: 14px;
+}

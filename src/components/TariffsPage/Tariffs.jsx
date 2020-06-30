@@ -134,20 +134,21 @@ class Tariffs extends React.Component {
                                     ticks={this.ticks}
                                 />
                                 <div className={classes.inputDaysCount}>
-                                    <div>Количество дней:</div>
+                                    <div className={classes.daysCountText}>Количество дней:</div>
                                     <input type="number" id="daysCount"
                                            name="daysCount" min="1" max="31"
                                            onChange={this.handleChange.bind(this)}
                                            onBlur={this.onBlurInput.bind(this)}
                                            value={this.state.value}
                                            placeholder={"1-31"}
+                                           className={classes.input}
                                     />
                                 </div>
 
-                                <div>Цена: {this.state.price} рублей</div>
-                                <div className={classes.button}>
-                                    <div className={classes.buttonText}>
-                                        Купить
+                                <div className={classes.priceCalc}>Цена: <span>{this.state.price}</span>₽</div>
+                                <div className={classes.btns}>
+                                    <div className={classes.btn}>
+                                        <div>Купить</div>
                                     </div>
                                 </div>
                             </div>

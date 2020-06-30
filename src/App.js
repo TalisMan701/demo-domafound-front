@@ -16,6 +16,7 @@ import Tariffs from "./components/TariffsPage/Tariffs";
 import FindProperty from "./components/FindProperty/FindProperty";
 import PrivateOffice from "./components/PrivateOffice/PrivateOffice";
 import PropertyPageContainer from "./components/PropertyPage/PropertyPageContainer";
+import Politica from "./components/Politica/Politica";
 
 class App extends React.Component {
     componentDidMount() {
@@ -52,6 +53,9 @@ class App extends React.Component {
                 }/>
                 <Route path='/propertyPage/:propertyId?' render={() =>
                     <div className='content'><PropertyPageContainer/></div>
+                }/>
+                <Route path='/politic' render={() =>
+                    <div className='content'><Politica/></div>
                 }/>
 
                 <Footer></Footer>
