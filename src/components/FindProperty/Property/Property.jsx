@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 const Property = (props) => {
     return (
-        <div className={classes.property}>
+        <div className={props.item.is_watched ? classes.propertyWatched : classes.property}>
             <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
                 {props.item.items.image_link !== null &&
                     <img className={classes.img} src={props.item.items.image_link}/>

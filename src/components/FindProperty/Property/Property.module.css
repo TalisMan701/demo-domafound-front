@@ -8,6 +8,16 @@
     margin: 10px 0;
 }
 
+.propertyWatched{
+    background-color: #e8f3ff;
+    /*    border-radius: 10px;*/
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 10px;
+    margin: 10px 0;
+}
+
 .imgs{
     display: flex;
     justify-content: center;

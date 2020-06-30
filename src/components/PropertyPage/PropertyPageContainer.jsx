@@ -9,6 +9,7 @@ import {
     setToFavoriteListPropertyPage
 } from "../../redux/property-reducer";
 import PropertyPage from "./PropertyPage";
+import {setToWatchedList} from "../../redux/findProperty-reducer";
 
 class PropertyPageContainer extends React.Component {
     constructor(props) {
@@ -18,6 +19,10 @@ class PropertyPageContainer extends React.Component {
     componentDidMount() {
         let propertyId = this.props.match.params.propertyId;
         this.props.getPropertyOne(propertyId)
+        /*debugger
+        if(!this.props.property.is_watch){
+            this.props.setToWatchedList(propertyId)
+        }*/
     }
 
     goBack(){
@@ -38,6 +43,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps,{getPropertyOne, setToFavoriteListPropertyPage, removeToFavoriteListPropertyPage}),
+    connect(mapStateToProps,{getPropertyOne, setToFavoriteListPropertyPage, removeToFavoriteListPropertyPage,
+        setToWatchedList}),
     withRouter
 )(PropertyPageContainer);

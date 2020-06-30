@@ -1,4 +1,5 @@
 import {findPropertyAPI} from "../api/api";
+import {setToWatchedList} from "./findProperty-reducer";
 
 
 const SET_PROPERTY_ONE = "SET_PROPERTY_ONE";
@@ -57,6 +58,9 @@ export const getPropertyOne = (id) => (dispatch) => {
             if(response.status === 200){
                 dispatch(setPropertyOne(response.data));
                 dispatch(toggleIsFetching(false));
+                if(!response.data.is_watch){
+                    dispatch(setToWatchedList(id))
+                }
             }
         });
 }

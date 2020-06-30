@@ -72,9 +72,10 @@ class FindProperty extends React.Component {
     }
 
     onPageChanged = () => {
-        if (this.props.isNext !== null) {
+        /*if (this.props.isNext !== null) {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
-        }
+        }*/
+        this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
     }
 
     onSubmit = (formData) =>{
@@ -209,17 +210,24 @@ class FindProperty extends React.Component {
                                     </button>
                                 </SidebarComponent>
                                 <div className={classes.propertyInner}>
-                                    {this.props.property.map(p =>
-                                        <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
-                                                  removeToFavoriteList={this.props.removeToFavoriteList}
-                                                  setToFavoriteList={this.props.setToFavoriteList}/>
-                                    )}
+                                    {this.props.property.length !== 0 &&
+                                    <div>
+                                        {this.props.property.map(p =>
+                                            <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
+                                                      removeToFavoriteList={this.props.removeToFavoriteList}
+                                                      setToFavoriteList={this.props.setToFavoriteList}/>
+                                        )}
+                                    </div>
+                                    }
+                                    {!this.props.isFetching && this.props.property.length === 0 &&
+                                        <div className={classes.noPropertyText}>Объявления не найдены!</div>
+                                    }
                                     {this.props.isFetching &&
                                         <div className={classes.preloaderInner}>
                                             <img src={preloader} className={classes.preloader} />
                                         </div>
                                     }
-                                    {!this.props.isFetching &&
+                                    {!this.props.isFetching && this.props.isNext !== null &&
                                         <div onClick={() => {
                                             this.onPageChanged()
                                         }} className={classes.showMore}>

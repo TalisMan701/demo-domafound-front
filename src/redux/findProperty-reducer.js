@@ -12,12 +12,15 @@ const SET_FAVORITE_LIST = "SET_FAVORITE_LIST";
 const ADD_TO_FAVORITE_LIST = "ADD_TO_FAVORITE_LIST";
 const REMOVE_FROM_FAVORITE_LIST = "REMOVE_FROM_FAVORITE_LIST";
 const SET_FILTERS = "SET_FILTERS";
+const SET_WATCHED_LIST = "SET_WATCHED_LIST";
+const ADD_TO_WATCHED_LIST = "ADD_TO_WATCHED_LIST";
 
 
 let initialState = {
     property: [],
     ignoreList:[],
     favoriteList: [],
+    watchedList:[],
     pageSize: 5,
     totalPropertyCount: 0,
     isNext: null,
@@ -46,6 +49,12 @@ const foundPropertyReducer = (state = initialState, action) => {
                 favoriteList: action.favoriteList
             }
         }
+        case SET_WATCHED_LIST:{
+            return {
+                ...state,
+                watchedList: action.watchedList
+            }
+        }
         case SET_TOTAL_PROPERTY_COUNT:
             return {
                 ...state,
@@ -68,6 +77,17 @@ const foundPropertyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ignoreList: state.ignoreList.filter(e => e.id !== action.house_id)
+            }
+        }
+        case ADD_TO_WATCHED_LIST:{
+            return{
+                ...state,
+                property: state.property.map( p => {
+                    if(p.items.id === action.house_id){
+                        return {...p, is_watched:true}
+                    }
+                    return p
+                })
             }
         }
         case ADD_TO_FAVORITE_LIST:{
@@ -133,6 +153,9 @@ const setFavoriteList = (favoriteList) => ({type: SET_FAVORITE_LIST, favoriteLis
 const addToFavoriteList = (house_id) => ({type: ADD_TO_FAVORITE_LIST, house_id })
 const removeFromFavoriteList = (house_id) => ({type: REMOVE_FROM_FAVORITE_LIST, house_id })
 
+const setWatchedList = (watchedList) => ({type: SET_WATCHED_LIST, watchedList })
+const addToWatchedList = (house_id) => ({type: ADD_TO_WATCHED_LIST, house_id })
+
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
 
 export const getProperty = (pageSize, page, filters) => {
@@ -186,6 +209,17 @@ export const getFavoriteList = () => {
     }
 }
 
+export const getWatchedList = () => {
+    return (dispatch) => {
+        findPropertyAPI.getWatchList()
+            .then(data => {
+                if (data.data.status === true){
+                    dispatch(setWatchedList(data.data.items.watched_list));
+                }
+            });
+    }
+}
+
 export const setToIgnoreList = (house_id) => {
     return (dispatch) => {
         findPropertyAPI.setToIgnoreList(house_id)
@@ -226,6 +260,17 @@ export const removeToFavoriteList = (house_id) => {
             .then(data => {
                 if (data.data.status === true){
                     dispatch(removeFromFavoriteList(house_id));
+                }
+            });
+    }
+}
+
+export const setToWatchedList = (house_id) => {
+    return (dispatch) => {
+        findPropertyAPI.setToWatchList(house_id)
+            .then(data => {
+                if (data.data.status === true){
+                    dispatch(addToWatchedList(house_id));
                 }
             });
     }
