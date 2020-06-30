@@ -103,3 +103,18 @@
     color: #cccccc;
     font-size: 14px;
 }
+
+.pageSizeInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.pageSize{
+    margin: 5px;
+}
+
+.pageSizeBtn{
+    cursor: pointer;
+}

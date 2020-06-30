@@ -75,3 +75,12 @@ export const findPropertyAPI ={
         return instanceWithToken().delete(`base/fav/`, { data: {house_id}})
     },
 }
+
+export const payAPI = {
+    sendPriceAndDays(price,days){
+        return instanceWithToken().post(`auth/payments/create/`,{price, days})
+    },
+    successPay(){
+        return instanceWithToken().post(`auth/payments/success/`,{status: true})
+    }
+}

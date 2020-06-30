@@ -15,6 +15,7 @@ const SET_FILTERS = "SET_FILTERS";
 const SET_WATCHED_LIST = "SET_WATCHED_LIST";
 const ADD_TO_WATCHED_LIST = "ADD_TO_WATCHED_LIST";
 const SET_PAGE = "SET_PAGE";
+const SET_PAGESIZE = "SET_PAGESIZE";
 
 
 let initialState = {
@@ -22,7 +23,7 @@ let initialState = {
     ignoreList:[],
     favoriteList: [],
     watchedList:[],
-    pageSize: 10,
+    pageSize: 5,
     totalPropertyCount: 0,
     isNext: null,
     page: 1,
@@ -148,6 +149,12 @@ const foundPropertyReducer = (state = initialState, action) => {
                 page: action.page
             }
         }
+        case SET_PAGESIZE:{
+            return {
+                ...state,
+                pageSize: action.pageSize
+            }
+        }
         default:
             return state;
     }
@@ -159,6 +166,7 @@ export const setIsNext = (isNext) => ({type: SET_IS_NEXT, isNext })
 export const deletePropertyState = () => ({type: DELETE_PROPERTY_STATE})
 
 export const setPage = (page) =>({type: SET_PAGE, page})
+export const setPageSize = (pageSize) =>({type: SET_PAGESIZE, pageSize})
 
 const setIgnoreList = (ignoreList) => ({type: SET_IGNORE_LIST, ignoreList })
 const removeFromProperty = (house_id) => ({type: REMOVE_FROM_PROPERTY, house_id})

@@ -7,7 +7,7 @@ import {
     deletePropertyState, getFavoriteList,
     getIgnoreList,
     getProperty, getPropertyWithFilters, removeToFavoriteList,
-    removeToIgnoreList, setFilters, setPage, setToFavoriteList,
+    removeToIgnoreList, setFilters, setPage, setPageSize, setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -34,6 +34,9 @@ class FindProperty extends React.Component {
         this.closeClick = this.closeClick.bind(this);
         this.toggleClick = this.toggleClick.bind(this)
         this.onCreate = this.onCreate.bind(this);
+        this.state = {
+            pageSize: this.props.pageSize
+        }
     }
 
     onCreate() {
@@ -191,6 +194,11 @@ class FindProperty extends React.Component {
         this.props.getPropertyWithFilters(this.props.pageSize, 1, filters);
     }
 
+    setPageSizeOnClick=()=>{
+        this.props.setPageSize(this.state.pageSize)
+        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters);
+    }
+
 
     render() {
         if(this.props.isFetchingAuth){
@@ -277,6 +285,25 @@ class FindProperty extends React.Component {
                                                 onChange={this.onPageChanged}
                                             />
                                             <div className={classes.paginationTotalCount}>Всего объявлений: <span>{this.props.totalPropertyCount}</span></div>
+                                            <div className={classes.pageSizeInner}>
+                                                <div className={classes.pageSizeText}>Количество объявлений на странице: </div>
+                                                {/*<div className={classes.pageSize}>5</div>
+                                                <div className={classes.pageSize}>10</div>
+                                                <div className={classes.pageSize}>15</div>
+                                                <div className={classes.pageSize}>20</div>*/}
+                                                <input type="number" id="pageSize"
+                                                       name="PageSize" min="5" max="20" step="5"
+                                                       value={this.state.pageSize}
+                                                       onChange={(e)=>{
+                                                           this.setState({
+                                                               pageSize: e.target.valueAsNumber
+                                                           })
+                                                       }}
+                                                       placeholder={"1-20"}
+                                                       className={classes.pageSizeInput}
+                                                />
+                                                <div onClick={this.setPageSizeOnClick} className={classes.pageSizeBtn}>Применить</div>
+                                            </div>
                                         </div>
                                     }
                                 </div>
@@ -320,7 +347,7 @@ export default compose(
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
-        setPage,
+        setPage, setPageSize
     }),
     withRouter
 )(FindProperty);

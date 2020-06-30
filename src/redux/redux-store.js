@@ -6,6 +6,7 @@ import registrationReducer from "./registration-reducer";
 import findPropertyReducer from "./findProperty-reducer";
 import propertyReducer from "./property-reducer";
 import filtersReducer from "./filters-reducer";
+import payReducer from "./pay-reducer";
 
 let reducers = combineReducers({
     registration: registrationReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
     findProperty: findPropertyReducer,
     property: propertyReducer,
     filters: filtersReducer,
+    pay: payReducer,
     form: formReducer
 });
 

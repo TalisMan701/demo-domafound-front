@@ -6,6 +6,7 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import audioURL from "./all.mp3"
 import {Redirect} from "react-router-dom";
+import {payAPI} from "../../api/api";
 
 const DaysForm = (props) =>{
     return(
@@ -147,7 +148,14 @@ class Tariffs extends React.Component {
 
                                 <div className={classes.priceCalc}>Цена: <span>{this.state.price}</span>₽</div>
                                 <div className={classes.btns}>
-                                    <div className={classes.btn}>
+                                    <div onClick={()=>{
+                                        payAPI.sendPriceAndDays(this.state.price,this.state.value)
+                                            .then(response => {
+                                                if(response.data.status == true){
+                                                    window.location.assign(response.data.url)
+                                                }
+                                            })
+                                    }} className={classes.btn}>
                                         <div>Купить</div>
                                     </div>
                                 </div>
@@ -161,7 +169,14 @@ class Tariffs extends React.Component {
                                 </div>
                                 <div className={classes.price}>700₽</div>
                                 <div className={classes.button}>
-                                    <div className={classes.buttonText}>
+                                    <div onClick={()=>{
+                                        payAPI.sendPriceAndDays(700,7)
+                                            .then(response => {
+                                                if(response.data.status == true){
+                                                    window.location.assign(response.data.url)
+                                                }
+                                            })
+                                    }} className={classes.buttonText}>
                                         Купить
                                     </div>
                                 </div>
@@ -173,7 +188,14 @@ class Tariffs extends React.Component {
                                 </div>
                                 <div className={classes.price}>1300₽</div>
                                 <div className={classes.button}>
-                                    <div className={classes.buttonText}>
+                                    <div onClick={()=>{
+                                        payAPI.sendPriceAndDays(1300,14)
+                                            .then(response => {
+                                                if(response.data.status == true){
+                                                    window.location.assign(response.data.url)
+                                                }
+                                            })
+                                    }} className={classes.buttonText}>
                                         Купить
                                     </div>
                                 </div>
@@ -185,7 +207,14 @@ class Tariffs extends React.Component {
                                 </div>
                                 <div className={classes.price}>1900₽</div>
                                 <div className={classes.button}>
-                                    <div className={classes.buttonText}>
+                                    <div onClick={()=>{
+                                        payAPI.sendPriceAndDays(1900,21)
+                                            .then(response => {
+                                                if(response.data.status == true){
+                                                    window.location.assign(response.data.url)
+                                                }
+                                            })
+                                    }} className={classes.buttonText}>
                                         Купить
                                     </div>
                                 </div>
@@ -197,7 +226,14 @@ class Tariffs extends React.Component {
                                 </div>
                                 <div className={classes.price}>2500₽</div>
                                 <div className={classes.button}>
-                                    <div className={classes.buttonText}>
+                                    <div onClick={()=>{
+                                        payAPI.sendPriceAndDays(2500,31)
+                                            .then(response => {
+                                                if(response.data.status == true){
+                                                    window.location.assign(response.data.url)
+                                                }
+                                            })
+                                    }} className={classes.buttonText}>
                                         Купить
                                     </div>
                                 </div>

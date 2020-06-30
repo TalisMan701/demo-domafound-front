@@ -33,6 +33,7 @@
 .pagination li.active a{
     font-weight: bold;
     font-size: 20px;
+    background-color: #cccccc;
 }
 
 .pagination li.disabled a{
