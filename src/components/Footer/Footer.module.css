@@ -134,3 +134,14 @@
     margin: 10px auto;
     background-color: #f38181;
 }*/
+
+.ogrnInner{
+    margin-top: 5px;
+}
+
+.IP,
+.IPInfo{
+    color: #999999;
+    font-size: 12px;
+    text-align: center;
+}

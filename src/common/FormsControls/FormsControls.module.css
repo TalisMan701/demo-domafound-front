@@ -108,3 +108,26 @@
     color: white;
     font-weight: 500;
 }
+
+.checkboxInner{
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    margin-top: 10px;
+}
+
+.checkboxText{
+    font-size: 12px;
+    color: #333333;
+}
+
+.checkboxLink{
+    text-decoration: none;
+    color: #f38181;
+}
+
+.errorChecked{
+    border: 1px solid #f38181;
+    padding: 2px;
+    margin: 5px 0;
+}

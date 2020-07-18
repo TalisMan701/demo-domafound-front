@@ -1,8 +1,8 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {Input, InputNumber} from "../../common/FormsControls/FormsControls";
-import {required} from "../../utils/validators/validators";
+import {CheckboxForPolitic, Input, InputNumber} from "../../common/FormsControls/FormsControls";
+import {checked, required} from "../../utils/validators/validators";
 import classes from "./Registration.module.css";
 import {
     registration,
@@ -10,7 +10,7 @@ import {
     registrationValidatePhone, registrationValidatePhoneResend, setIsRegistred,
     setUserFinal
 } from "../../redux/registration-reducer";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {compose} from "redux";
 
 const RegistrationValidatePhoneForm = (props) =>{
@@ -99,6 +99,11 @@ const RegistrationForm = (props) =>{
                 <Field placeholder={"Введите промокод"} name={"referralCode"} type={"text"}
                        component={Input}/>
             </div>
+
+            <div className={classes.checkboxInner}>
+                <Field name={"politic"} type={"checkbox"} component={CheckboxForPolitic} validate={[checked]}/>
+            </div>
+
             { props.error &&
             <div className={classes.formSummaryError}>
                 {props.error}

@@ -22,13 +22,13 @@ const Footer = () =>{
                 </div>
 
                 <div className={classes.linksInner}>
-                    <Link className={classes.link}>
-                        Договор оферта
+                    <Link target="_blank" to={'/agreement'} className={classes.link}>
+                        Пользовательское соглашение
                     </Link>
                     <Link className={classes.link}>
                         Документация
                     </Link>
-                    <Link to={'/politic'} className={classes.link}>
+                    <Link target="_blank" to={'/politic'} className={classes.link}>
                         Политика конфиденциальности
                     </Link>
                 </div>
@@ -49,6 +49,10 @@ const Footer = () =>{
                             domafound@mail.ru
                         </div>
                     </div>
+                </div>
+                <div className={classes.ogrnInner}>
+                    <div className={classes.IP}>ИП РУБЦОВ ВЛАДИМИР АЛЕКСАНДРОВИЧ</div>
+                    <div className={classes.IPInfo}>ОГРНИП: 320861700032380, ИНН: 860403386942, Дата присвоения ОГРНИП: 29.06.20</div>
                 </div>
             </div>
         </div>

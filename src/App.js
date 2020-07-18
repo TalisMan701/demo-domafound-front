@@ -19,6 +19,9 @@ import PropertyPageContainer from "./components/PropertyPage/PropertyPageContain
 import Politica from "./components/Politica/Politica";
 import SuccessPage from "./components/PayPages/SuccessPage/SuccessPage";
 import FailPage from "./components/PayPages/FailPage/FailPage";
+import Agreement from "./Agreement/Agreement";
+import YandexMapContainer from "./components/YandexMap/YandexMapContainer";
+import YandexMapContainer2 from "./components/YandexMap/YandexMapContainer2";
 
 class App extends React.Component {
     componentDidMount() {
@@ -59,12 +62,19 @@ class App extends React.Component {
                 <Route path='/politic' render={() =>
                     <div className='content'><Politica/></div>
                 }/>
+                <Route path='/agreement' render={() =>
+                    <div className='content'><Agreement/></div>
+                }/>
 
                 <Route path='/pay_success' render={() =>
                     <div className='content'><SuccessPage/></div>
                 }/>
                 <Route path='/pay_fail' render={() =>
                     <div className='content'><FailPage/></div>
+                }/>
+
+                <Route path='/map' render={() =>
+                    <div className='content'><YandexMapContainer/></div>
                 }/>
 
                 <Footer></Footer>
