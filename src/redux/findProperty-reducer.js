@@ -28,7 +28,8 @@ let initialState = {
     isNext: null,
     page: 1,
     isFetching: true,
-    filters: ""
+    filters: "",
+    polygon_cords: 0
 };
 
 const foundPropertyReducer = (state = initialState, action) => {
@@ -181,11 +182,10 @@ const addToWatchedList = (house_id) => ({type: ADD_TO_WATCHED_LIST, house_id })
 
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
 
-export const getProperty = (pageSize, page, filters) => {
+export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-
-        findPropertyAPI.getBase(pageSize, page, filters)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
@@ -195,12 +195,12 @@ export const getProperty = (pageSize, page, filters) => {
     }
 }
 
-export const getPropertyWithFilters = (pageSize, page, filters) => {
+export const getPropertyWithFilters = (pageSize, page, filters, polygon_cords = 0) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setFilters(filters))
 
-        findPropertyAPI.getBase(pageSize, page, filters)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));

@@ -19,7 +19,7 @@ class YandexMapContainer extends React.Component{
     }
 
     mapState = {
-        center: [55.73, 37.9],
+        center: [57.153033, 65.534328],
         zoom: 10
     };
 
@@ -46,13 +46,20 @@ class YandexMapContainer extends React.Component{
         console.log(this.polygon.geometry._coordPath._coordinates)
     }
 
+    /*style = {
+        width: '70%',
+        height: '70%'
+    };*/
+
     render() {
         return(
-            <div>
+            <>
                 <YMaps>
                     <Map
                         defaultState={this.mapState}
-                        modules={["geoObject.addon.editor"]}
+                        modules={["geoObject.addon.editor", "layout.ImageWithContent"]}
+                        width="70%"
+                        height="70%"
                     >
                         <Polygon
                             instanceRef={ref => {
@@ -73,7 +80,9 @@ class YandexMapContainer extends React.Component{
                         />
                     </Map>
                 </YMaps>
-            </div>
+                <div>Чтобы выбрать область зажмите "Alt"</div>
+                <button onClick={() => this.props.getPropertyWithMap(this.polygon.geometry._coordPath._coordinates)}>Применить</button>
+            </>
         )
     }
 }

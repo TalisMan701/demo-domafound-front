@@ -24,6 +24,7 @@ import preloader from "../../common/Preloader/Preloader.svg";
 import {loadFilters} from "../../redux/filters-reducer";
 import Pagination from "react-js-pagination";
 import "./Pagination.css"
+import YandexMapContainer from "../YandexMap/YandexMapContainer";
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -35,7 +36,8 @@ class FindProperty extends React.Component {
         this.toggleClick = this.toggleClick.bind(this)
         this.onCreate = this.onCreate.bind(this);
         this.state = {
-            pageSize: this.props.pageSize
+            pageSize: this.props.pageSize,
+            findWithMap: false
         }
     }
 
@@ -49,6 +51,19 @@ class FindProperty extends React.Component {
 
     closeClick() {
         this.sidebarObj.hide();
+    }
+
+    openMap(){
+        this.sidebarObj.hide();
+        this.setState({
+            findWithMap: true
+        })
+    }
+
+    closeMap(){
+        this.setState({
+            findWithMap: false
+        })
     }
 
     componentDidMount() {
@@ -194,6 +209,15 @@ class FindProperty extends React.Component {
         this.props.getPropertyWithFilters(this.props.pageSize, 1, filters);
     }
 
+    getPropertyWithMap = (polygon_cords) =>{
+        let polygon = 0
+        if(polygon_cords.length !== 0){
+            polygon_cords[0].pop()
+            polygon = polygon_cords[0]
+        }
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, "", polygon);
+    }
+
     setPageSizeOnClick=()=>{
         this.props.setPageSize(this.state.pageSize)
         this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters);
@@ -201,9 +225,6 @@ class FindProperty extends React.Component {
 
 
     render() {
-        if(this.props.isFetchingAuth){
-            return <Preloader/>
-        }
 
         if(!this.props.isAuth){
             return <Redirect to={'/login'}/>
@@ -211,6 +232,10 @@ class FindProperty extends React.Component {
         if(!this.props.isSubscription){
             alert("Купите тариф, чтобы воспользоваться поиском недвижимости")
             return <Redirect to={'/tariffs'}/>
+        }
+
+        if(this.props.isFetchingAuth){
+            return <Preloader/>
         }
         /*if(this.props.isFetching) {
             return <Preloader/>
@@ -247,9 +272,19 @@ class FindProperty extends React.Component {
                                                   type={this.type} created={this.onCreate}
                                                   showBackdrop={this.showBackdrop} style={{visibility: "hidden"}}>
                                     <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props}/>
+                                    <button onClick={this.openMap.bind(this)} id="close" className="e-btn close-btn">Поиск по карте</button>
                                     <button onClick={this.closeClick} id="close" className="e-btn close-btn">Закрыть
                                     </button>
                                 </SidebarComponent>
+                                {this.state.findWithMap &&
+                                    <div className={classes.modal}>
+                                        <div className={classes.modalBody}>
+                                            <button className={classes.closeModal} onClick={this.closeMap.bind(this)}>Закрыть</button>
+                                            <YandexMapContainer getPropertyWithMap={this.getPropertyWithMap}/>
+                                        </div>
+                                    </div>
+
+                                }
                                 <div className={classes.propertyInner}>
                                     {this.props.property.length !== 0 &&
                                     <div>
