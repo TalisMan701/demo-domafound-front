@@ -81,7 +81,10 @@ class YandexMapContainer extends React.Component{
                     </Map>
                 </YMaps>
                 <div>Чтобы выбрать область зажмите "Alt"</div>
-                <button onClick={() => this.props.getPropertyWithMap(this.polygon.geometry._coordPath._coordinates)}>Применить</button>
+                <button onClick={() => {
+                    this.props.getPropertyWithMap(this.polygon.geometry._coordPath._coordinates)
+                    this.props.closeMap()
+                }}>Применить</button>
             </>
         )
     }

@@ -16,6 +16,7 @@ const SET_WATCHED_LIST = "SET_WATCHED_LIST";
 const ADD_TO_WATCHED_LIST = "ADD_TO_WATCHED_LIST";
 const SET_PAGE = "SET_PAGE";
 const SET_PAGESIZE = "SET_PAGESIZE";
+const SET_POLYGON_CORDS = "SET_POLYGON_CORDS";
 
 
 let initialState = {
@@ -130,7 +131,8 @@ const foundPropertyReducer = (state = initialState, action) => {
         case DELETE_PROPERTY_STATE:{
             return {
                 ...initialState,
-                filters: state.filters
+                filters: state.filters,
+                polygon_cords: state.polygon_cords
             }
         }
         case SET_FILTERS:{
@@ -154,6 +156,12 @@ const foundPropertyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pageSize: action.pageSize
+            }
+        }
+        case SET_POLYGON_CORDS:{
+            return {
+                ...state,
+                polygon_cords: action.polygon_cords
             }
         }
         default:
@@ -181,6 +189,7 @@ const setWatchedList = (watchedList) => ({type: SET_WATCHED_LIST, watchedList })
 const addToWatchedList = (house_id) => ({type: ADD_TO_WATCHED_LIST, house_id })
 
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
+export const setPolygonCords = (polygon_cords) => ({type:SET_POLYGON_CORDS, polygon_cords})
 
 export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
     return (dispatch) => {

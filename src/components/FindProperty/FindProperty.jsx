@@ -7,7 +7,7 @@ import {
     deletePropertyState, getFavoriteList,
     getIgnoreList,
     getProperty, getPropertyWithFilters, removeToFavoriteList,
-    removeToIgnoreList, setFilters, setPage, setPageSize, setToFavoriteList,
+    removeToIgnoreList, setFilters, setPage, setPageSize, setPolygonCords, setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -25,6 +25,7 @@ import {loadFilters} from "../../redux/filters-reducer";
 import Pagination from "react-js-pagination";
 import "./Pagination.css"
 import YandexMapContainer from "../YandexMap/YandexMapContainer";
+import YandexMapContainer2 from "../YandexMap/YandexMapContainer2";
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -69,7 +70,7 @@ class FindProperty extends React.Component {
     componentDidMount() {
         if(this.props.isAuth){
             if(this.props.location.pathname == "/find_property"){
-                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
             }else{
                 this.props.getIgnoreList();
                 this.props.getFavoriteList();
@@ -79,7 +80,7 @@ class FindProperty extends React.Component {
     //КОООООСТТЫЫЫЫЫЛЬЬЬЬЬЬЬЬЬЬЬЬ нужно избавиться от этого метода, любые проблемы - вопросы к этому методу!!!
     componentWillReceiveProps(nextProps){
         if(nextProps.location.pathname != this.props.location.pathname || nextProps.isFetchingAuth != this.props.isFetchingAuth){
-            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
+            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
             return nextProps;
         } else {
             return false
@@ -96,7 +97,7 @@ class FindProperty extends React.Component {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }*/
         this.props.setPage(pageNumber)
-        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters);
+        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters, this.props.polygon_cords);
     }
 
     onSubmit = (formData) =>{
@@ -206,7 +207,7 @@ class FindProperty extends React.Component {
             }
         }
         this.sidebarObj.hide();
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords);
     }
 
     getPropertyWithMap = (polygon_cords) =>{
@@ -215,12 +216,13 @@ class FindProperty extends React.Component {
             polygon_cords[0].pop()
             polygon = polygon_cords[0]
         }
+        this.props.setPolygonCords(polygon);
         this.props.getPropertyWithFilters(this.props.pageSize, 1, "", polygon);
     }
 
     setPageSizeOnClick=()=>{
         this.props.setPageSize(this.state.pageSize)
-        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters);
+        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
     }
 
 
@@ -271,16 +273,20 @@ class FindProperty extends React.Component {
                                 <SidebarComponent id="default-sidebar" ref={Sidebar => this.sidebarObj = Sidebar}
                                                   type={this.type} created={this.onCreate}
                                                   showBackdrop={this.showBackdrop} style={{visibility: "hidden"}}>
-                                    <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props}/>
-                                    <button onClick={this.openMap.bind(this)} id="close" className="e-btn close-btn">Поиск по карте</button>
-                                    <button onClick={this.closeClick} id="close" className="e-btn close-btn">Закрыть
-                                    </button>
+                                    <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props} openMap={this.openMap.bind(this)}/>
+                                    {/*<div className={classes.map}>
+                                        <div className={classes.mapSolid}>
+                                            <button onClick={this.openMap.bind(this)} id="close" className="e-btn close-btn">Поиск по карте</button>
+                                        </div>
+                                        <YandexMapContainer2/>
+                                    </div>*/}
+                                    <button onClick={this.closeClick} id="close" className="e-btn close-btn">Закрыть</button>
                                 </SidebarComponent>
                                 {this.state.findWithMap &&
                                     <div className={classes.modal}>
                                         <div className={classes.modalBody}>
                                             <button className={classes.closeModal} onClick={this.closeMap.bind(this)}>Закрыть</button>
-                                            <YandexMapContainer getPropertyWithMap={this.getPropertyWithMap}/>
+                                            <YandexMapContainer getPropertyWithMap={this.getPropertyWithMap} closeMap={this.closeMap.bind(this)}/>
                                         </div>
                                     </div>
 
@@ -372,6 +378,7 @@ const mapStateToProps = (state) => ({
     favoriteList: state.findProperty.favoriteList,
     isFetching: state.findProperty.isFetching,
     filters: state.findProperty.filters,
+    polygon_cords: state.findProperty.polygon_cords,
     isAuth: state.auth.isAuth,
     isFetchingAuth: state.auth.isFetchingAuth,
     totalPropertyCount: state.findProperty.totalPropertyCount
@@ -382,7 +389,7 @@ export default compose(
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
-        setPage, setPageSize
+        setPage, setPageSize, setPolygonCords
     }),
     withRouter
 )(FindProperty);

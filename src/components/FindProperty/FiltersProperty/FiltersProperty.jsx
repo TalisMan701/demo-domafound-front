@@ -8,6 +8,7 @@ import {MultiSelectComponent} from "@syncfusion/ej2-react-dropdowns";
 import {Field, FormSection, reduxForm} from "redux-form";
 import 'react-widgets/dist/css/react-widgets.css'
 import {Checkbox, Input, InputForFilters} from "../../../common/FormsControls/FormsControls";
+import YandexMapContainer2 from "../../YandexMap/YandexMapContainer2";
 
 const renderMultiselect = ({input, data, valueField, textField}) =>
     <Multiselect {...input}
@@ -26,63 +27,57 @@ const FiltersPropertyForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div className={classes.filters}>
                 <div className={classes.title}>Фильтры</div>
-                {/*<div>
-                <label>Тип сделки:</label>
-                <Field
-                    name="typeTransaction"
-                    component={renderMultiselect}
-                    data={['Продам','Куплю','Сдам','Посуточно','Сниму']}
-                />
-            </div>
-            <div>
-                <label>Тип недвижимости:</label>
-                <Field
-                    name="typeProperty"
-                    component={renderMultiselect}
-                    data={['Комнаты и Пансионаты', 'Дома/Коттеджи/Дачи', 'Коммерческая', 'Земля']}
-                />
-            </div>*/}
-                <div>
-                    <label>
-                        <div className={classes.labelTitle}>Тип недвижимости</div>
-                    </label>
-                    <FormSection name={"typeProperty"}>
-                        <div className={classes.checkboxs}>
+                <div className={classes.filtersWithMap}>
+                    <div>
+                        <div>
+                            <label>
+                                <div className={classes.labelTitle}>Тип недвижимости</div>
+                            </label>
+                            <FormSection name={"typeProperty"}>
+                                <div className={classes.checkboxs}>
+                                    <Field
+                                        name="vtor"
+                                        component={Checkbox}
+                                        type="checkbox"
+                                        id="vtor"
+                                        title={"Вторичные"}
+                                    />
+                                    <Field
+                                        name="newbuild"
+                                        component={Checkbox}
+                                        type="checkbox"
+                                        id="newbuild"
+                                        title={"Новостройки"}
+                                    />
+                                </div>
+                            </FormSection>
+                        </div>
+                        <div>
+                            <label>
+                                <div className={classes.labelTitle}>Номер телефона</div>
+                            </label>
                             <Field
-                                name="vtor"
-                                component={Checkbox}
-                                type="checkbox"
-                                id="vtor"
-                                title={"Вторичные"}
-                            />
-                            <Field
-                                name="newbuild"
-                                component={Checkbox}
-                                type="checkbox"
-                                id="newbuild"
-                                title={"Новостройки"}
+                                name="phone"
+                                component={InputForFilters}
+                                placeholder={"79009009090"}
                             />
                         </div>
-                    </FormSection>
-                </div>
-                <div>
-                    <label>
-                        <div className={classes.labelTitle}>Номер телефона</div>
-                    </label>
-                    <Field
-                        name="phone"
-                        component={InputForFilters}
-                        placeholder={"79009009090"}
-                    />
-                </div>
-                <div>
-                    <label>
-                        <div className={classes.labelTitle}>ID недвижимости</div>
-                    </label>
-                    <Field
-                        name="id"
-                        component={InputForFilters}
-                    />
+                        <div>
+                            <label>
+                                <div className={classes.labelTitle}>ID недвижимости</div>
+                            </label>
+                            <Field
+                                name="id"
+                                component={InputForFilters}
+                            />
+                        </div>
+                    </div>
+                    <div className={classes.map}>
+                        <div className={classes.mapSolid}>
+                            <button onClick={props.openMap} id="close" className="e-btn close-btn open-map">Поиск по карте</button>
+                        </div>
+                        <YandexMapContainer2/>
+                    </div>
                 </div>
                 <div>
                     <label>
