@@ -34,21 +34,48 @@ const FiltersPropertyForm = (props) => {
                                 <div className={classes.labelTitle}>Тип недвижимости</div>
                             </label>
                             <FormSection name={"typeProperty"}>
-                                <div className={classes.checkboxs}>
-                                    <Field
-                                        name="vtor"
-                                        component={Checkbox}
-                                        type="checkbox"
-                                        id="vtor"
-                                        title={"Вторичные"}
-                                    />
-                                    <Field
-                                        name="newbuild"
-                                        component={Checkbox}
-                                        type="checkbox"
-                                        id="newbuild"
-                                        title={"Новостройки"}
-                                    />
+                                <div className={classes.checkboxsTypeProperty}>
+                                    <div className={classes.checkboxs}>
+                                        <Field
+                                            name="vtor"
+                                            component={Checkbox}
+                                            type="checkbox"
+                                            id="vtor"
+                                            title={"Вторичные"}
+                                        />
+                                        <Field
+                                            name="newbuild"
+                                            component={Checkbox}
+                                            type="checkbox"
+                                            id="newbuild"
+                                            title={"Новостройки"}
+                                        />
+                                    </div>
+                                    <div className={classes.checkboxs}>
+                                        <Field
+                                            name="cottages"
+                                            component={Checkbox}
+                                            type="checkbox"
+                                            id="cottages"
+                                            title={"Коттеджи"}
+                                        />
+                                        <Field
+                                            name="sectors"
+                                            component={Checkbox}
+                                            type="checkbox"
+                                            id="sectors"
+                                            title={"Участки"}
+                                        />
+                                    </div>
+                                    <div className={classes.checkboxs}>
+                                        <Field
+                                            name="commercialProperty"
+                                            component={Checkbox}
+                                            type="checkbox"
+                                            id="commercialProperty"
+                                            title={"Коммерческая недвижимость"}
+                                        />
+                                    </div>
                                 </div>
                             </FormSection>
                         </div>
@@ -131,6 +158,25 @@ const FiltersPropertyForm = (props) => {
                                 type="checkbox"
                                 id="5k"
                                 title={"5+к"}
+                            />
+                        </div>
+                    </FormSection>
+                </div>
+                <div>
+                    <label>
+                        <div className={classes.labelTitle}>Цена</div>
+                    </label>
+                    <FormSection name={"price"}>
+                        <div className={classes.formSection}>
+                            <Field
+                                name="start"
+                                component={InputForFilters}
+                                placeholder={"от"}
+                            />
+                            <Field
+                                name="end"
+                                component={InputForFilters}
+                                placeholder={"до"}
                             />
                         </div>
                     </FormSection>
@@ -232,9 +278,9 @@ const FiltersPropertyForm = (props) => {
                 </div>
                 <div>
                     <label>
-                        <div className={classes.labelTitle}>Цена</div>
+                        <div className={classes.labelTitle}>Площадь участка</div>
                     </label>
-                    <FormSection name={"price"}>
+                    <FormSection name={"sectorArea"}>
                         <div className={classes.formSection}>
                             <Field
                                 name="start"
@@ -249,6 +295,7 @@ const FiltersPropertyForm = (props) => {
                         </div>
                     </FormSection>
                 </div>
+
                 <div className={classes.btns}>
                     <button className={classes.btn}>Применить фильтры</button>
                     <button className={classes.btn} type="button" disabled={props.pristine || props.submitting}

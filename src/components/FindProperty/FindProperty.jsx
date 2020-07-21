@@ -113,47 +113,56 @@ class FindProperty extends React.Component {
         }
         if(typeof formData["price"] !== "undefined"){
             if (typeof formData.price["start"] === "undefined"){
-                filters += `&min_price=${formData.price.end}&min_price=${formData.price.end}`
+                filters += `&min_price=${formData.price.end}&max_price=${formData.price.end}`
             }else if(typeof formData.price["end"] === "undefined"){
-                filters += `&min_price=${formData.price.start}&min_price=${formData.price.start}`
+                filters += `&min_price=${formData.price.start}&max_price=${formData.price.start}`
             }else{
                 filters += `&min_price=${formData.price.start}&max_price=${formData.price.end}`
             }
         }
         if(typeof formData["floor"] !== "undefined"){
             if (typeof formData.floor["start"] === "undefined"){
-                filters += `&min_floor=${formData.floor.end}&min_floor=${formData.floor.end}`
+                filters += `&min_floor=${formData.floor.end}&max_floor=${formData.floor.end}`
             }else if(typeof formData.floor["end"] === "undefined"){
-                filters += `&min_floor=${formData.floor.start}&min_floor=${formData.floor.start}`
+                filters += `&min_floor=${formData.floor.start}&max_floor=${formData.floor.start}`
             }else{
                 filters += `&min_floor=${formData.floor.start}&max_floor=${formData.floor.end}`
             }
         }
         if(typeof formData["numberOfStoreys"] !== "undefined"){
             if (typeof formData.numberOfStoreys["start"] === "undefined"){
-                filters += `&min_floor_count=${formData.numberOfStoreys.end}&min_floor_count=${formData.numberOfStoreys.end}`
+                filters += `&min_floor_count=${formData.numberOfStoreys.end}&max_floor_count=${formData.numberOfStoreys.end}`
             }else if(typeof formData.numberOfStoreys["end"] === "undefined"){
-                filters += `&min_floor_count=${formData.numberOfStoreys.start}&min_floor_count=${formData.numberOfStoreys.start}`
+                filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.start}`
             }else{
                 filters += `&min_floor_count=${formData.numberOfStoreys.start}&max_floor_count=${formData.numberOfStoreys.end}`
             }
         }
         if(typeof formData["kitchenArea"] !== "undefined"){
             if (typeof formData.kitchenArea["start"] === "undefined"){
-                filters += `&min_kitchen_area=${formData.kitchenArea.end}&min_kitchen_area=${formData.kitchenArea.end}`
+                filters += `&min_kitchen_area=${formData.kitchenArea.end}&max_kitchen_area=${formData.kitchenArea.end}`
             }else if(typeof formData.kitchenArea["end"] === "undefined"){
-                filters += `&min_kitchen_area=${formData.kitchenArea.start}&min_kitchen_area=${formData.kitchenArea.start}`
+                filters += `&min_kitchen_area=${formData.kitchenArea.start}&max_kitchen_area=${formData.kitchenArea.start}`
             }else{
                 filters += `&min_kitchen_area=${formData.kitchenArea.start}&max_kitchen_area=${formData.kitchenArea.end}`
             }
         }
         if(typeof formData["livingArea"] !== "undefined"){
             if (typeof formData.livingArea["start"] === "undefined"){
-                filters += `&min_living_area=${formData.livingArea.end}&min_living_area=${formData.livingArea.end}`
+                filters += `&min_living_area=${formData.livingArea.end}&max_living_area=${formData.livingArea.end}`
             }else if(typeof formData.livingArea["end"] === "undefined"){
-                filters += `&min_living_area=${formData.livingArea.start}&min_living_area=${formData.livingArea.start}`
+                filters += `&min_living_area=${formData.livingArea.start}&max_living_area=${formData.livingArea.start}`
             }else{
                 filters += `&min_living_area=${formData.livingArea.start}&max_living_area=${formData.livingArea.end}`
+            }
+        }
+        if(typeof formData["sectorArea"] !== "undefined"){
+            if (typeof formData.sectorArea["start"] === "undefined"){
+                filters += `&min_land_area=${formData.sectorArea.end}&max_land_area=${formData.sectorArea.end}`
+            }else if(typeof formData.sectorArea["end"] === "undefined"){
+                filters += `&min_land_area=${formData.sectorArea.start}&max_land_area=${formData.sectorArea.start}`
+            }else{
+                filters += `&min_land_area=${formData.sectorArea.start}&max_land_area=${formData.sectorArea.end}`
             }
         }
         if(typeof formData["phone"] !== "undefined"){
@@ -202,6 +211,21 @@ class FindProperty extends React.Component {
             }
             if (typeof formData.typeProperty["newbuild"] !== "undefined") {
                 if (formData.typeProperty.newbuild === true) {
+                    filters += `&type_house=Новостройки`
+                }
+            }
+            if (typeof formData.typeProperty["cottages"] !== "undefined") {
+                if (formData.typeProperty.cottages === true) {
+                    filters += `&type_house=Коттеджи`
+                }
+            }
+            if (typeof formData.typeProperty["sectors"] !== "undefined") {
+                if (formData.typeProperty.sectors === true) {
+                    filters += `&type_house=Участки`
+                }
+            }
+            if (typeof formData.typeProperty["commercialProperty"] !== "undefined") {
+                if (formData.typeProperty.commercialProperty === true) {
                     filters += `&type_house=Новостройки`
                 }
             }
@@ -356,10 +380,24 @@ class FindProperty extends React.Component {
                             )}
                         </Route>
                         <Route path={`${this.props.match.path}/favorite_list`}>
-                            {this.props.favoriteList.map(p =>
-                                <FavoriteProperty item={p} setToIgnoreList={this.props.setToIgnoreList}
-                                                  removeToFavoriteList={this.props.removeToFavoriteList}/>
-                            )}
+                            {this.props.favoriteList.length !== 0 &&
+                                <div>
+                                    {this.props.favoriteList.map(p =>
+                                        <FavoriteProperty item={p} setToIgnoreList={this.props.setToIgnoreList}
+                                                          removeToFavoriteList={this.props.removeToFavoriteList}/>
+                                    )}
+                                </div>
+                            }
+
+                            {!this.props.isFetching && this.props.favoriteList.length === 0 &&
+                            <div className={classes.noPropertyText}>Объявления не найдены!</div>
+                            }
+
+                            {this.props.isFetching &&
+                            <div className={classes.preloaderInner}>
+                                <img src={preloader} className={classes.preloader} />
+                            </div>
+                            }
                         </Route>
                     </Switch>
                 </div>

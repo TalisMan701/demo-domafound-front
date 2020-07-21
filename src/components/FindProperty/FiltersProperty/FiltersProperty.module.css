@@ -24,6 +24,12 @@
 .labelTitle{
     color: #333333;
     margin-top: 5px;
+    font-weight: 500;
+}
+
+.checkboxsTypeProperty{
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .btns{

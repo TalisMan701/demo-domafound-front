@@ -36,7 +36,7 @@
     font-size: 16px;
     font-weight: 300;
     color: #333;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-right: 5px;
 }
 
@@ -93,8 +93,8 @@
     border: 1px solid #e7e7e7;
     padding: 5px;
     margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    /*margin-top: 10px;
+    margin-bottom: 5px;*/
     color: #333333;
 }
 
@@ -113,7 +113,7 @@
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .checkboxText{

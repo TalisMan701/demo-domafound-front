@@ -232,10 +232,13 @@ export const getIgnoreList = () => {
 
 export const getFavoriteList = () => {
     return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
         findPropertyAPI.getFavoriteList()
             .then(data => {
                 if (data.data.status === true){
                     dispatch(setFavoriteList(data.data.items.fav_list));
+                    dispatch(toggleIsFetching(false));
                 }
             });
     }

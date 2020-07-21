@@ -15,6 +15,9 @@
 }
 
 .propertyInfo{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
     margin-left: 20px;
     width: 100%;
 }
@@ -150,5 +153,42 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.showOnMapText{
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBody{
+    position: relative;
+    width: 700px;
+    border-radius: 5px;
+    background-color: #fff;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.closeModal{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./PropertyPage.module.css"
 import Preloader from "../../common/Preloader/Preloader";
 import Slider from "react-slick";
@@ -7,8 +7,16 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Slider.css"
 import {NavLink} from "react-router-dom";
 import closeIcon from "../FindProperty/Property/close.svg";
+import YandexMapContainerShowHouse from "../YandexMap/YandexMapContainerShowHouse";
+import YandexMapContainer from "../YandexMap/YandexMapContainer";
 
 const PropertyPage = (props) => {
+    let [showMap, setShowMap] = useState(false)
+
+    const toggleShowMap = () =>{
+        setShowMap(!showMap)
+    }
+
     let settings = {
         dots: true,
         infinite: true,
@@ -90,13 +98,28 @@ const PropertyPage = (props) => {
                                 <div className={classes.loadInfo}>Идёт запись информации в базу</div>
                             </div>
                         }
+                        {props.property.house.house_info !== null &&
+                            <div>
+                                <div onClick={()=>toggleShowMap()} className={classes.showOnMapText}>Показать на карте</div>
+                                {showMap &&
+                                    <div className={classes.modal}>
+                                        <div className={classes.modalBody}>
+                                            <button className={classes.closeModal} onClick={()=>toggleShowMap()}>Закрыть</button>
+                                            <YandexMapContainerShowHouse x={props.property.house.x_cord} y={props.property.house.y_cord}/>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
+                {props.property.house.data !== "" &&
                 <div className={classes.content}>
                     <div className={classes.mainInfo}>
                         {props.property.house.data}
                     </div>
                 </div>
+                }
                 <div className={classes.btns}>
                     {!props.property.is_fav &&
                     <div onClick={() => {props.setToFavoriteList(props.property.house.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в избранное</div>
