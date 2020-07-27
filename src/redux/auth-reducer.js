@@ -86,6 +86,9 @@ export const logout = () => (dispatch) =>{
         .then(response => {
             if(response.status === 204) {
                 localStorage.removeItem("token");
+                localStorage.removeItem("filters");
+                localStorage.removeItem("polygon");
+                localStorage.removeItem("filtersForFind");
                 dispatch(setAuthUserData(null, null,null, false))
             }
         });

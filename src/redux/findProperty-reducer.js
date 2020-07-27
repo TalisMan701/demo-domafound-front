@@ -17,6 +17,7 @@ const ADD_TO_WATCHED_LIST = "ADD_TO_WATCHED_LIST";
 const SET_PAGE = "SET_PAGE";
 const SET_PAGESIZE = "SET_PAGESIZE";
 const SET_POLYGON_CORDS = "SET_POLYGON_CORDS";
+const SET_FILTERS_STORAGE = "SET_FILTERS_STORAGE";
 
 
 let initialState = {
@@ -29,8 +30,9 @@ let initialState = {
     isNext: null,
     page: 1,
     isFetching: true,
-    filters: "",
-    polygon_cords: 0
+    filters: localStorage.getItem("filtersForFind") !== null ? localStorage.getItem("filtersForFind") : "",
+    filtersStorage: localStorage.getItem("filters") !== null ? JSON.parse(localStorage.getItem("filters")) : [],
+    polygon_cords: localStorage.getItem("polygon") !== null ? JSON.parse(localStorage.getItem("polygon"))[0] : 0
 };
 
 const foundPropertyReducer = (state = initialState, action) => {
@@ -132,10 +134,12 @@ const foundPropertyReducer = (state = initialState, action) => {
             return {
                 ...initialState,
                 filters: state.filters,
+                filtersStorage: state.filtersStorage,
                 polygon_cords: state.polygon_cords
             }
         }
         case SET_FILTERS:{
+            localStorage.setItem("filtersForFind", action.filters)
             return {
                 ...state,
                 property: [],
@@ -164,6 +168,12 @@ const foundPropertyReducer = (state = initialState, action) => {
                 polygon_cords: action.polygon_cords
             }
         }
+        case SET_FILTERS_STORAGE:{
+            return {
+                ...state,
+                filtersStorage: action.filtersStorage
+            }
+        }
         default:
             return state;
     }
@@ -190,6 +200,7 @@ const addToWatchedList = (house_id) => ({type: ADD_TO_WATCHED_LIST, house_id })
 
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
 export const setPolygonCords = (polygon_cords) => ({type:SET_POLYGON_CORDS, polygon_cords})
+export const setFiltersStorage = (filtersStorage) => ({type:SET_FILTERS_STORAGE, filtersStorage})
 
 export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
     return (dispatch) => {

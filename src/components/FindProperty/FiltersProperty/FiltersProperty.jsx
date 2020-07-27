@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./FiltersProperty.module.css";
 import "./DropDownList.css";
 import "./MultiSelect.css";
 import "./SliderRange.css";
 import Multiselect from 'react-widgets/lib/Multiselect';
 import {MultiSelectComponent} from "@syncfusion/ej2-react-dropdowns";
-import {Field, FormSection, reduxForm} from "redux-form";
+import {Field, FormSection, reduxForm, reset} from "redux-form";
 import 'react-widgets/dist/css/react-widgets.css'
 import {Checkbox, Input, InputForFilters} from "../../../common/FormsControls/FormsControls";
 import YandexMapContainer2 from "../../YandexMap/YandexMapContainer2";
+import {setFiltersStorage, setPolygonCords} from "../../../redux/findProperty-reducer";
+import {connect} from "react-redux";
 
 const renderMultiselect = ({input, data, valueField, textField}) =>
     <Multiselect {...input}
@@ -23,6 +25,24 @@ const typeTransaction = ['Продам', 'Куплю', 'Сдам', 'Посуто
 const typeProperty = ['Комнаты и Пансионаты', 'Дома/Коттеджи/Дачи', 'Коммерческая', 'Земля'];
 
 const FiltersPropertyForm = (props) => {
+
+    const [isResetFilters, setIsResetFilters] = useState(false)
+
+    useEffect(()=>{
+        console.log(props.filtersStorage)
+        setIsResetFilters(false)
+        if (localStorage.getItem("filters") != null && localStorage.getItem("filters") != "[]"){
+            props.initialize(props.filtersStorage)
+        }
+    },[])
+
+    const resetFilters = () =>{
+        console.log("reset")
+        props.reset();
+        props.dropFilters();
+        setIsResetFilters(true)
+    }
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={classes.filters}>
@@ -298,8 +318,8 @@ const FiltersPropertyForm = (props) => {
 
                 <div className={classes.btns}>
                     <button className={classes.btn}>Применить фильтры</button>
-                    <button className={classes.btn} type="button" disabled={props.pristine || props.submitting}
-                            onClick={props.reset}>Сбросить фильтры
+                    <button className={classes.btn} type="button"
+                            onClick={resetFilters}>Сбросить фильтры
                     </button>
                 </div>
             </div>
@@ -307,9 +327,21 @@ const FiltersPropertyForm = (props) => {
     )
 };
 
-const FiltersPropertyWidgetsForm = reduxForm({
+/*const mapDispatchToProps = (dispatch) =>{
+    return{
+        resetForm: () => dispatch(reset('filters'))
+    }
+}*/
+
+let FiltersPropertyWidgetsForm = reduxForm({
     form: 'filters',  // a unique identifier for this form
-    enableReinitialize: true
+    enableReinitialize: true,
+    keepDirtyOnReinitialize: true
 })(FiltersPropertyForm)
+
+/*FiltersPropertyWidgetsForm = connect(
+    null,
+    mapDispatchToProps// bind account loading action creator
+)(FiltersPropertyWidgetsForm)*/
 
 export default FiltersPropertyWidgetsForm;

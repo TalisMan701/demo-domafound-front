@@ -18,6 +18,8 @@ class YandexMapContainer extends React.Component{
         document.removeEventListener("keyup", this.stopDraw);
     }
 
+    cords_polygon = localStorage.getItem("polygon") !== null ? JSON.parse(localStorage.getItem("polygon"))[0] : [];
+
     mapState = {
         center: [57.153033, 65.534328],
         zoom: 10
@@ -64,9 +66,15 @@ class YandexMapContainer extends React.Component{
                         <Polygon
                             instanceRef={ref => {
                                 this.polygon = ref;
+                                if(ref !== null){
+                                    if(this.polygon.geometry._coordPath._coordinates.length !== 0){
+                                        this.polygon.editor.startDrawing();
+                                        this.polygon.editor.stopDrawing();
+                                    }
+                                }
                                 /*this.draw(this.polygon)*/
                             }}
-                            geometry={[]}
+                            geometry={[this.cords_polygon,]}
                             options={{
                                 editorDrawingCursor: "crosshair",
                                 editorMaxPoints: 20,
@@ -82,7 +90,13 @@ class YandexMapContainer extends React.Component{
                 </YMaps>
                 <div>Чтобы выбрать область зажмите "Alt"</div>
                 <button onClick={() => {
-                    this.props.getPropertyWithMap(this.polygon.geometry._coordPath._coordinates)
+                    if(this.polygon.geometry._coordPath._coordinates[0].length > 3){
+                        this.props.getPropertyWithMap(this.polygon.geometry._coordPath._coordinates)
+                        localStorage.setItem("polygon", JSON.stringify(this.polygon.geometry._coordPath._coordinates));
+                    }else{
+                        localStorage.removeItem("polygon")
+                        this.props.getPropertyWithMap([])
+                    }
                     this.props.closeMap()
                 }}>Применить</button>
             </>

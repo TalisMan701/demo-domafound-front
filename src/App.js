@@ -19,7 +19,7 @@ import PropertyPageContainer from "./components/PropertyPage/PropertyPageContain
 import Politica from "./components/Politica/Politica";
 import SuccessPage from "./components/PayPages/SuccessPage/SuccessPage";
 import FailPage from "./components/PayPages/FailPage/FailPage";
-import Agreement from "./Agreement/Agreement";
+import Agreement from "./components/Agreement/Agreement";
 import YandexMapContainer from "./components/YandexMap/YandexMapContainer";
 import YandexMapContainer2 from "./components/YandexMap/YandexMapContainer2";
 

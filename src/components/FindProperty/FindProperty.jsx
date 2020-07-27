@@ -7,7 +7,7 @@ import {
     deletePropertyState, getFavoriteList,
     getIgnoreList,
     getProperty, getPropertyWithFilters, removeToFavoriteList,
-    removeToIgnoreList, setFilters, setPage, setPageSize, setPolygonCords, setToFavoriteList,
+    removeToIgnoreList, setFilters, setFiltersStorage, setPage, setPageSize, setPolygonCords, setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -231,7 +231,20 @@ class FindProperty extends React.Component {
             }
         }
         this.sidebarObj.hide();
+        localStorage.setItem("filters", JSON.stringify(formData));
+        localStorage.setItem("filtersForFind", filters);
+        this.props.setFiltersStorage(formData)
         this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords);
+    }
+
+    dropFilters = () =>{
+        localStorage.removeItem("polygon");
+        localStorage.removeItem("filters");
+        localStorage.removeItem("filtersForFind");
+        this.props.setPolygonCords(0);
+        this.props.setFiltersStorage([]);
+        this.sidebarObj.hide();
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, "", 0);
     }
 
     getPropertyWithMap = (polygon_cords) =>{
@@ -241,7 +254,7 @@ class FindProperty extends React.Component {
             polygon = polygon_cords[0]
         }
         this.props.setPolygonCords(polygon);
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, "", polygon);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, this.props.filters, polygon);
     }
 
     setPageSizeOnClick=()=>{
@@ -266,7 +279,6 @@ class FindProperty extends React.Component {
         /*if(this.props.isFetching) {
             return <Preloader/>
         }*/
-        console.log(this.props)
         return (
             <div className={classes.findProperty}>
                 <button className={classes.btnOpenSB} onClick={this.toggleClick} id="toggle" >
@@ -297,7 +309,13 @@ class FindProperty extends React.Component {
                                 <SidebarComponent id="default-sidebar" ref={Sidebar => this.sidebarObj = Sidebar}
                                                   type={this.type} created={this.onCreate}
                                                   showBackdrop={this.showBackdrop} style={{visibility: "hidden"}}>
-                                    <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props} openMap={this.openMap.bind(this)}/>
+                                    <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props}
+                                                                openMap={this.openMap.bind(this)}
+                                                                setPolygonCords={this.props.setPolygonCords}
+                                                                dropFilters={this.dropFilters}
+                                                                filtersStorage={this.props.filtersStorage}
+                                                                setFiltersStorage={this.props.setFiltersStorage}
+                                    />
                                     {/*<div className={classes.map}>
                                         <div className={classes.mapSolid}>
                                             <button onClick={this.openMap.bind(this)} id="close" className="e-btn close-btn">Поиск по карте</button>
@@ -352,10 +370,6 @@ class FindProperty extends React.Component {
                                             <div className={classes.paginationTotalCount}>Всего объявлений: <span>{this.props.totalPropertyCount}</span></div>
                                             <div className={classes.pageSizeInner}>
                                                 <div className={classes.pageSizeText}>Количество объявлений на странице: </div>
-                                                {/*<div className={classes.pageSize}>5</div>
-                                                <div className={classes.pageSize}>10</div>
-                                                <div className={classes.pageSize}>15</div>
-                                                <div className={classes.pageSize}>20</div>*/}
                                                 <input type="number" id="pageSize"
                                                        name="PageSize" min="5" max="20" step="5"
                                                        value={this.state.pageSize}
@@ -419,7 +433,8 @@ const mapStateToProps = (state) => ({
     polygon_cords: state.findProperty.polygon_cords,
     isAuth: state.auth.isAuth,
     isFetchingAuth: state.auth.isFetchingAuth,
-    totalPropertyCount: state.findProperty.totalPropertyCount
+    totalPropertyCount: state.findProperty.totalPropertyCount,
+    filtersStorage: state.findProperty.filtersStorage
 })
 
 export default compose(
@@ -427,7 +442,7 @@ export default compose(
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
-        setPage, setPageSize, setPolygonCords
+        setPage, setPageSize, setPolygonCords, setFiltersStorage
     }),
     withRouter
 )(FindProperty);
