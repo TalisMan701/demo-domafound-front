@@ -20,6 +20,7 @@ const SET_POLYGON_CORDS = "SET_POLYGON_CORDS";
 const SET_FILTERS_STORAGE = "SET_FILTERS_STORAGE";
 
 
+
 let initialState = {
     property: [],
     ignoreList:[],

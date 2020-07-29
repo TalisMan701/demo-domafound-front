@@ -9,6 +9,7 @@ import {NavLink} from "react-router-dom";
 import closeIcon from "../FindProperty/Property/close.svg";
 import YandexMapContainerShowHouse from "../YandexMap/YandexMapContainerShowHouse";
 import YandexMapContainer from "../YandexMap/YandexMapContainer";
+import preloader from "../../common/Preloader/Preloader.svg";
 
 const PropertyPage = (props) => {
     let [showMap, setShowMap] = useState(false)
@@ -25,11 +26,39 @@ const PropertyPage = (props) => {
         slidesToScroll: 1
     }
 
-    if (props.isFetchingOnePage) {
+    let jkh = []
+
+    for(let key in props.jkhInfo){
+        if(key !== "SOAP-ENV:Envelope"){
+            if(typeof props.jkhInfo[key] !== "object"){
+                jkh.push(
+                    <div key={key}>{props.jkhInfo[key]}</div>
+                )
+            }else if(Object.prototype.toString.call(props.jkhInfo[key]) === '[object Array]'){
+                for(let key2 in props.jkhInfo[key]){
+                    jkh.push(
+                        <div>{props.jkhInfo[key][key2].name}</div>
+                    )
+                }
+            }else{
+                for(let key2 in props.jkhInfo[key]){
+                    jkh.push(
+                        <div>{props.jkhInfo[key][key2]}</div>
+                    )
+                }
+            }
+        }else{
+            jkh.push(
+                <div>ЖКХ ебет мозги! Посмотри ответ с сервера</div>
+            )
+        }
+    }
+
+    /*if (props.isFetchingOnePage) {
         return (
             <Preloader/>
         )
-    } else {
+    } else {*/
         return (
             <div className={classes.propertyPage}>
                 <div className={classes.row}>
@@ -120,6 +149,27 @@ const PropertyPage = (props) => {
                     </div>
                 </div>
                 }
+                {props.jkhInfo === null &&
+                <div className={classes.preloaderInner}>
+                    <img src={preloader} className={classes.preloader} />
+                </div>
+
+                }
+                {props.jkhInfo !== null &&
+                    <div>
+                        {/*{props.jkhInfo.map(i => {
+                            return <div>{i}</div>
+                        })}*/}
+                        {/*{Object.keys(props.jkhInfo).map(key=> {
+                                if (!typeof props.jkhInfo[key] !== "object"){
+                                    return <div>{props.jkhInfo[key]}</div>
+                                }
+                            }
+                        )}*/}
+                        {jkh}
+                    </div>
+                }
+
                 <div className={classes.btns}>
                     {!props.property.is_fav &&
                     <div onClick={() => {props.setToFavoriteList(props.property.house.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в избранное</div>
@@ -137,7 +187,6 @@ const PropertyPage = (props) => {
                 </div>
             </div>
         )
-    }
 }
 
 export default PropertyPage;

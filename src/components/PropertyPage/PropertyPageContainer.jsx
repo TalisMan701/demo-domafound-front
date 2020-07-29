@@ -5,11 +5,12 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {
     getPropertyOne,
-    removeToFavoriteListPropertyPage,
+    removeToFavoriteListPropertyPage, setJkhInfo,
     setToFavoriteListPropertyPage
 } from "../../redux/property-reducer";
 import PropertyPage from "./PropertyPage";
 import {setToWatchedList} from "../../redux/findProperty-reducer";
+import Preloader from "../../common/Preloader/Preloader";
 
 class PropertyPageContainer extends React.Component {
     constructor(props) {
@@ -25,25 +26,38 @@ class PropertyPageContainer extends React.Component {
         }*/
     }
 
+    componentWillUnmount() {
+        this.props.setJkhInfo(null)
+    }
+
     goBack(){
         this.props.history.goBack();
     }
 
     render() {
+        if (this.props.isFetchingOnePage) {
+            return (
+                <Preloader/>
+            )
+        }
+
         return(
             <PropertyPage goBack={this.goBack}  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}
-                           setToFavoriteList={this.props.setToFavoriteListPropertyPage} removeToFavoriteList={this.props.removeToFavoriteListPropertyPage}/>
+                           setToFavoriteList={this.props.setToFavoriteListPropertyPage} removeToFavoriteList={this.props.removeToFavoriteListPropertyPage}
+                            jkhInfo={this.props.jkhInfo}
+            />
         );
     }
 }
 
 const mapStateToProps = (state) => ({
     property: state.property.property,
-    isFetchingOnePage: state.property.isFetchingOnePage
+    isFetchingOnePage: state.property.isFetchingOnePage,
+    jkhInfo: state.property.jkhInfo
 })
 
 export default compose(
     connect(mapStateToProps,{getPropertyOne, setToFavoriteListPropertyPage, removeToFavoriteListPropertyPage,
-        setToWatchedList}),
+        setToWatchedList, setJkhInfo}),
     withRouter
 )(PropertyPageContainer);

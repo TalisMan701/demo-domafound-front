@@ -50,6 +50,9 @@ export const findPropertyAPI ={
     getHouse(id){
         return instanceWithToken().get(`base/get_house/${id}`)
     },
+    getJKH(id){
+        return instanceWithToken().get(`base/get_jkh/${id}`)
+    },
     getIgnoreList(){
         return instanceWithToken().get(`base/get_ignore/`)
     },
