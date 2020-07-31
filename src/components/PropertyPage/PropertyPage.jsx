@@ -112,7 +112,7 @@ const PropertyPage = (props) => {
                                 {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                             </div>
                         </div>
-                        {props.property.house.house_info !== null &&
+                        {props.property.house.house_info !== null && props.property.house.type !== "Участки" &&
                         <div className={classes.content}>
                             <div>ID недвижимости: <span>{props.property.house.house_info.house_id}</span></div>
                             <div>Тип дома: <span>{props.property.house.house_info.house_type}</span></div>

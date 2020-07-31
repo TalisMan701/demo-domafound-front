@@ -22,6 +22,15 @@ export const authAPI = {
     },
     logout(){
         return instanceWithToken().post(`auth/logout/`);
+    },
+    resetPassword(number, password){
+        return instance().post(`auth/reset/change_password/`, {number, password})
+    },
+    validatePhone(number){
+        return instance().post(`auth/reset/find_phone/`, {number})
+    },
+    validateOTP(code, number) {
+        return instance().post(`auth/reset/validate_otp/`, {code, number});
     }
 }
 

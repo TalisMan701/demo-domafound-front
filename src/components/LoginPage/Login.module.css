@@ -9,7 +9,8 @@
     min-height: calc(100vh - 210px);
 }
 
-.loginInner{
+.loginInner,
+.resetPasswordInner{
     margin: 30px 0;
     display: flex;
     justify-content: center;
@@ -72,5 +73,17 @@
 .button:focus{
     outline: 0;
     border-color: #95e1d3;
+}
+
+.resetPassword{
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #cccccc;
+    transition: color 0.4s ease;
+}
+
+.resetPassword:hover{
+    color: #333333;
 }
 

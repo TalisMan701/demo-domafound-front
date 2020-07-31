@@ -22,6 +22,7 @@ import FailPage from "./components/PayPages/FailPage/FailPage";
 import Agreement from "./components/Agreement/Agreement";
 import YandexMapContainer from "./components/YandexMap/YandexMapContainer";
 import YandexMapContainer2 from "./components/YandexMap/YandexMapContainer2";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 class App extends React.Component {
     componentDidMount() {
@@ -75,6 +76,10 @@ class App extends React.Component {
 
                 <Route path='/map' render={() =>
                     <div className='content'><YandexMapContainer/></div>
+                }/>
+
+                <Route path='/reset_password' render={() =>
+                    <div className='content'><ResetPassword/></div>
                 }/>
 
                 <Footer></Footer>

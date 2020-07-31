@@ -2,6 +2,10 @@ import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const SET_NUMBER = "SET_NUMBER";
+const SET_VALIDATE_PHONE = "SET_VALIDATE_PHONE";
+const SET_VALIDATE_OTP = "SET_VALIDATE_OTP";
+const SET_IS_RESET_PASSWORD = "SET_IS_RESET_PASSWORD";
 const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
 
 let initialState = {
@@ -17,6 +21,9 @@ let initialState = {
     referralCode: 0,
     user_set:[],
     isFetchingAuth: true,
+    isResetPassword: false,
+    validatePhone: false,
+    validateOTP: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -32,6 +39,30 @@ const authReducer = (state = initialState, action) => {
                 isFetchingAuth: action.isFetchingAuth
             }
         }
+        case SET_IS_RESET_PASSWORD:{
+            return {
+                ...state,
+                isResetPassword: action.isResetPassword
+            }
+        }
+        case SET_VALIDATE_PHONE:{
+            return {
+                ...state,
+                validatePhone: action.validatePhone
+            }
+        }
+        case SET_VALIDATE_OTP:{
+            return {
+                ...state,
+                validateOTP: action.validateOTP
+            }
+        }
+        case SET_NUMBER:{
+            return {
+                ...state,
+                number: action.number
+            }
+        }
         default:
             return state;
     }
@@ -41,6 +72,11 @@ const setAuthUserData = (userId, email, number, isSubscription, countDays, count
         {userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth}});
 
 const toggleIsFetchingAuth = (isFetchingAuth) => ({type: TOGGLE_IS_FETCHING_AUTH, isFetchingAuth })
+
+export const setIsResetPassword = (isResetPassword) => ({type: SET_IS_RESET_PASSWORD, isResetPassword})
+const setValidatePhone = (validatePhone) => ({type: SET_VALIDATE_PHONE, validatePhone})
+const setNumber = (number) => ({type: SET_NUMBER, number})
+const setValidateOTP = (validateOTP) => ({type: SET_VALIDATE_OTP, validateOTP})
 
 export const getAuthUserData = () => (dispatch) => {
     dispatch(toggleIsFetchingAuth(true))
@@ -92,6 +128,59 @@ export const logout = () => (dispatch) =>{
                 dispatch(setAuthUserData(null, null,null, false))
             }
         });
+}
+
+export const validatePhoneLogin = (number) => (dispatch) =>{
+    authAPI.validatePhone(number)
+        .then(response => {
+            if(response.status === 200) {
+                dispatch(setValidatePhone(true))
+                dispatch(setNumber(number))
+            }else{
+                let message = "Ошибка со стороны сервера"
+                dispatch(stopSubmit("validatePhoneLogin", {_error: message}))
+            }
+        }).catch( (error) => {
+        let message = "Ошибка со стороны сервера"
+        dispatch(stopSubmit("validatePhoneLogin", {_error: message}))
+    });
+}
+
+export const validateOTPLogin = (code, number) => (dispatch) =>{
+    authAPI.validateOTP(code, number)
+        .then(response => {
+            if(response.status === 200) {
+                dispatch(setValidateOTP(true))
+            }else{
+                let message = "Ошибка со стороны сервера"
+                dispatch(stopSubmit("validateOTPLogin", {_error: message}))
+            }
+        }).catch( (error) => {
+        let message = "Ошибка со стороны сервера"
+        dispatch(stopSubmit("validateOTPLogin", {_error: message}))
+    });
+}
+
+export const resetPassword = (number, password, passwordNew) => (dispatch) =>{
+    if(password == passwordNew){
+        authAPI.resetPassword(number,password)
+            .then(response => {
+                console.log(response.status)
+                if(response.status === 200) {
+                    dispatch(setIsResetPassword(false))
+                }else{
+                    let message = "Ошибка со стороны сервера"
+                    dispatch(stopSubmit("resetPassword", {_error: message}))
+                }
+            }).catch( (error) => {
+            let message = "Ошибка со стороны сервера"
+            dispatch(stopSubmit("resetPassword", {_error: message}))
+        });
+    }else{
+        let message = "Пароли не совпадают! Попробуйте ещё раз"
+        dispatch(stopSubmit("resetPassword", {_error: message}))
+    }
+
 }
 
 export default authReducer;
