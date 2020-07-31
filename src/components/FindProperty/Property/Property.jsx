@@ -2,8 +2,14 @@ import React from "react";
 import classes from "./Property.module.css";
 import closeIcon from "./close.svg";
 import {NavLink} from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment/locale/ru';
 
 const Property = (props) => {
+    let date = Date.parse(props.item.items.time);
+    let date2 = new Date(date)
+    let date3 = new Date(`${date2.toString()} UTC`)
+
     return (
         <div className={props.item.is_watched ? classes.propertyWatched : classes.property}>
             <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
@@ -42,6 +48,9 @@ const Property = (props) => {
                     }
 
                     {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
+                </div>
+                <div className={classes.dateInner}>
+                    <Moment locale={"ru"} fromNow={true}>{date3.toString()}</Moment>
                 </div>
                 <div className={classes.btns}>
                     {!props.item.is_fav &&

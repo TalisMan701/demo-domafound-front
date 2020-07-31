@@ -75,7 +75,7 @@ export const login = (number, password) => (dispatch) =>{
                 let message = error.response.data.detail[0].length > 0 ? error.response.data.detail[0] : "Some error";
                 dispatch(stopSubmit("login", {_error: message}));
             } else{
-                let message = error.response.data.error.length > 0 ? error.response.data.error : "Some error";
+                let message = error.response.data.error.length > 0 ? "Вход был выполнен на другом устройстве" : "Some error";
                 dispatch(stopSubmit("login", {_error: message}));
             }
     })
