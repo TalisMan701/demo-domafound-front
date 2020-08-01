@@ -78,10 +78,6 @@ class App extends React.Component {
                     <div className='content'><YandexMapContainer/></div>
                 }/>
 
-                <Route path='/reset_password' render={() =>
-                    <div className='content'><ResetPassword/></div>
-                }/>
-
                 <Footer></Footer>
 
             </div>

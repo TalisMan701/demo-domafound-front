@@ -4,14 +4,24 @@ import closeIcon from "./close.svg";
 import {NavLink} from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment/locale/ru';
+import "./animate.css";
 
 const Property = (props) => {
     let date = Date.parse(props.item.items.time);
     let date2 = new Date(date)
     let date3 = new Date(`${date2.toString()} UTC`)
+    let meDate = new Date()
+    let difference = (meDate - date3)/60000;
 
     return (
-        <div className={props.item.is_watched ? classes.propertyWatched : classes.property}>
+        <div className={`${props.item.is_watched ? classes.propertyWatched : classes.property} 
+                        ${difference <= 20 && !props.item.is_watched ? classes.newProperty : ""}`}>
+            {difference <= 20 && !props.item.is_watched &&
+                <div className={"newPropertyText"}>
+                    НОВОЕ
+                </div>
+            }
+
             <NavLink to={`/propertyPage/${props.item.items.id}`} className={classes.imgs}>
                 {props.item.items.image_link !== null &&
                     <img className={classes.img} src={props.item.items.image_link}/>
@@ -49,9 +59,11 @@ const Property = (props) => {
 
                     {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                 </div>
+                {difference <= 20 &&
                 <div className={classes.dateInner}>
                     <Moment locale={"ru"} fromNow={true}>{date3.toString()}</Moment>
                 </div>
+                }
                 <div className={classes.btns}>
                     {!props.item.is_fav &&
                     <div onClick={() => {props.setToFavoriteList(props.item.items.id)}} className={`${classes.btnAddToFavorites} ${classes.btn}`}>Добавить в избранное</div>
