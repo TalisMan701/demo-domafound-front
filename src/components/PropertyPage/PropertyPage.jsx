@@ -104,7 +104,7 @@ const PropertyPage = (props) => {
                             <div className={classes.phoneNumber}>
                                 <div className={classes.phoneNumberTitle}>Номер телефона:</div>
                                 {props.property.house.house_info !== null &&
-                                <div className={classes.phone}>+{props.property.house.house_info.phone}</div>
+                                <a href={`tel:+${props.property.house.house_info.phone}`} className={classes.phone}>+{props.property.house.house_info.phone}</a>
                                 }
                                 {props.property.house.house_info === null &&
                                 <div className={classes.phone}>Добавляется в базу.</div>

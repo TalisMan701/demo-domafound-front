@@ -19,7 +19,7 @@
 }
 
 .newProperty{
-    background-color: #86e87d57;
+
     position: relative;
 }
 
@@ -87,6 +87,8 @@
 }
 
 .phone{
+    text-decoration: none;
+    color: #333333;
     margin-right: 10px;
 }
 
