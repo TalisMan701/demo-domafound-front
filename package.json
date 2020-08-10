@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@syncfusion/ej2-react-dropdowns": "^18.1.57",
     "@syncfusion/ej2-react-inputs": "^18.1.56",
     "@syncfusion/ej2-react-navigations": "^18.1.57",
@@ -13,6 +15,7 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "react": "^16.13.1",
+    "react-autocomplete-input": "^1.0.14",
     "react-compound-slider": "^2.5.0",
     "react-dom": "^16.13.1",
     "react-js-pagination": "^3.0.3",

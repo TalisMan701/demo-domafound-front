@@ -2,7 +2,7 @@ import React from "react";
 import {YMaps, Map, Polygon, Placemark} from "react-yandex-maps";
 
 function YandexMapContainerShowHouse(props) {
-    let coordinate = [props.x,props.y]
+    let coordinate = [props.y,props.x]
     console.log(coordinate)
     return (
         <YMaps>

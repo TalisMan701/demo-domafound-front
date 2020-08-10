@@ -4,10 +4,22 @@ import Property from "./Property/Property";
 import {connect} from "react-redux";
 import "./Sidebar.css"
 import {
-    deletePropertyState, getFavoriteList,
+    addOneTempProperty,
+    deletePropertyState,
+    getFavoriteList,
     getIgnoreList,
-    getProperty, getPropertyWithFilters, removeToFavoriteList,
-    removeToIgnoreList, setFilters, setFiltersStorage, setPage, setPageSize, setPolygonCords, setToFavoriteList,
+    getProperty,
+    getPropertyWithFilters,
+    getPropertyWithOutFetching,
+    removeToFavoriteList,
+    removeToIgnoreList,
+    setFilters,
+    setFiltersStorage,
+    setPage,
+    setPageSize,
+    setPolygonCords,
+    setTempProperty,
+    setToFavoriteList,
     setToIgnoreList
 } from "../../redux/findProperty-reducer";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
@@ -67,10 +79,15 @@ class FindProperty extends React.Component {
         })
     }
 
+    timerID = null;
+
     componentDidMount() {
         if(this.props.isAuth){
             if(this.props.location.pathname == "/find_property"){
                 this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+                this.timerID = setInterval(()=>{
+                    this.props.getPropertyWithOutFetching(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+                },30000)
             }else{
                 this.props.getIgnoreList();
                 this.props.getFavoriteList();
@@ -89,6 +106,7 @@ class FindProperty extends React.Component {
 
     componentWillUnmount() {
         console.log("Poka")
+        clearInterval(this.timerID)
         this.props.deletePropertyState()
     }
 
@@ -171,6 +189,9 @@ class FindProperty extends React.Component {
         if(typeof formData["id"] !== "undefined"){
             filters += `&id=${formData.id}`
         }
+        if(typeof formData["street"] !== "undefined"){
+            filters += `&street=${formData.street}`
+        }
         if(typeof formData["countRoom"] !== "undefined"){
             if(typeof formData.countRoom["k1"] !== "undefined"){
                 if(formData.countRoom.k1 === true){
@@ -226,7 +247,7 @@ class FindProperty extends React.Component {
             }
             if (typeof formData.typeProperty["commercialProperty"] !== "undefined") {
                 if (formData.typeProperty.commercialProperty === true) {
-                    filters += `&type_house=Новостройки`
+                    filters += `&type_house=Коммерческаянедвижимость`
                 }
             }
         }
@@ -336,11 +357,20 @@ class FindProperty extends React.Component {
                                 <div className={classes.propertyInner}>
                                     {this.props.property.length !== 0 &&
                                     <div>
-                                        {this.props.property.map(p =>
-                                            <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
-                                                      removeToFavoriteList={this.props.removeToFavoriteList}
-                                                      setToFavoriteList={this.props.setToFavoriteList}/>
-                                        )}
+                                        {this.props.property.map(p =>{
+                                                let isNewProperty = false
+                                                if(this.props.tempProperty.includes(p.items.id)){
+                                                    isNewProperty = false
+                                                }else if(this.props.tempProperty.length >0){
+                                                    isNewProperty = true
+                                                    this.props.addOneTempProperty(p.items.id)
+                                                }
+                                                /*console.log(this.props.tempProperty)*/
+                                                return <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
+                                                          removeToFavoriteList={this.props.removeToFavoriteList}
+                                                          setToFavoriteList={this.props.setToFavoriteList}
+                                                          isNewProperty={isNewProperty}/>
+                                        })}
                                     </div>
                                     }
                                     {!this.props.isFetching && this.props.property.length === 0 &&
@@ -422,6 +452,7 @@ class FindProperty extends React.Component {
 
 const mapStateToProps = (state) => ({
     property: state.findProperty.property,
+    tempProperty: state.findProperty.tempProperty,
     ignoreList: state.findProperty.ignoreList,
     isSubscription: state.auth.isSubscription,
     pageSize: state.findProperty.pageSize,
@@ -442,7 +473,9 @@ export default compose(
         getProperty, setToIgnoreList, getIgnoreList,
         removeToIgnoreList, deletePropertyState, getFavoriteList,
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
-        setPage, setPageSize, setPolygonCords, setFiltersStorage
+        setPage, setPageSize, setPolygonCords, setFiltersStorage,
+        getPropertyWithOutFetching, setTempProperty,
+        addOneTempProperty
     }),
     withRouter
 )(FindProperty);

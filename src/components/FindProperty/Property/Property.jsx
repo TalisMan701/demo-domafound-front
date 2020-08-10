@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment/locale/ru';
 import "./animate.css";
+import audioURL from "./pullProperty.mp3";
 
 const Property = (props) => {
     let date = Date.parse(props.item.items.time);
@@ -13,8 +14,15 @@ const Property = (props) => {
     let date3 = new Date(date4-120000)
     let meDate = new Date()
     let difference = (meDate - date3)/60000;
+    /*console.log(props.isNewProperty)*/
+
+    if(props.isNewProperty){
+        const audio = new Audio(audioURL)
+        audio.play()
+    }
 
     return (
+
         <div className={`${props.item.is_watched ? classes.propertyWatched : classes.property} 
                         ${difference <= 20 && !props.item.is_watched ? `${classes.newProperty} animateBG` : ""}`}>
             {difference <= 20 && !props.item.is_watched &&

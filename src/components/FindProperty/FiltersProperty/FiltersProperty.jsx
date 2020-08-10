@@ -7,7 +7,13 @@ import Multiselect from 'react-widgets/lib/Multiselect';
 import {MultiSelectComponent} from "@syncfusion/ej2-react-dropdowns";
 import {Field, FormSection, reduxForm, reset} from "redux-form";
 import 'react-widgets/dist/css/react-widgets.css'
-import {Checkbox, Input, InputForFilters} from "../../../common/FormsControls/FormsControls";
+import {
+    Auto,
+    Checkbox,
+    Input,
+    InputForFilters,
+    InputForStreet
+} from "../../../common/FormsControls/FormsControls";
 import YandexMapContainer2 from "../../YandexMap/YandexMapContainer2";
 import {setFiltersStorage, setPolygonCords} from "../../../redux/findProperty-reducer";
 import {connect} from "react-redux";
@@ -116,6 +122,24 @@ const FiltersPropertyForm = (props) => {
                             <Field
                                 name="id"
                                 component={InputForFilters}
+                            />
+                        </div>
+                        {/*<div>
+                            <label>
+                                <div className={classes.labelTitle}>Улица</div>
+                            </label>
+                            <Field
+                                name="street"
+                                component={Auto}
+                            />
+                        </div>*/}
+                        <div>
+                            <label>
+                                <div className={classes.labelTitle}>Улица</div>
+                            </label>
+                            <Field
+                                name="street"
+                                component={Auto}
                             />
                         </div>
                     </div>

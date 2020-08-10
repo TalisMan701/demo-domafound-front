@@ -2,6 +2,8 @@ import {findPropertyAPI} from "../api/api";
 
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const SET_PROPERTY = "SET_PROPERTY";
+const SET_TEMP_PROPERTY = "SET_TEMP_PROPERTY";
+const ADD_ONE_TEMP_PROPERTY = "ADD_ONE_TEMP_PROPERTY";
 const SET_TOTAL_PROPERTY_COUNT = "SET_TOTAL_PROPERTY_COUNT";
 const REMOVE_FROM_PROPERTY = "REMOVE_FROM_PROPERTY";
 const SET_IGNORE_LIST = "SET_IGNORE_LIST";
@@ -23,6 +25,7 @@ const SET_FILTERS_STORAGE = "SET_FILTERS_STORAGE";
 
 let initialState = {
     property: [],
+    tempProperty: [],
     ignoreList:[],
     favoriteList: [],
     watchedList:[],
@@ -50,6 +53,22 @@ const foundPropertyReducer = (state = initialState, action) => {
                 /*page: state.page+1,*/
                 property: action.property
             }
+        case SET_TEMP_PROPERTY:{
+            let temp = []
+            action.tempProperty.map(p=>temp.push(p.items.id))
+            return {
+                ...state,
+                tempProperty: temp
+            }
+        }
+        case ADD_ONE_TEMP_PROPERTY:{
+            let temp = state.tempProperty
+            temp.push(action.OneTempProperty)
+            return {
+                ...state,
+                tempProperty: temp
+            }
+        }
         case SET_IGNORE_LIST:{
             return {
                 ...state,
@@ -180,6 +199,8 @@ const foundPropertyReducer = (state = initialState, action) => {
     }
 }
 const setProperty = (property) => ({type: SET_PROPERTY, property })
+export const setTempProperty = (tempProperty) => ({type: SET_TEMP_PROPERTY, tempProperty })
+export const addOneTempProperty = (OneTempProperty) => ({type: ADD_ONE_TEMP_PROPERTY, OneTempProperty })
 const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching })
 const setTotalPropertyCount = (totalPropertyCount) => ({type: SET_TOTAL_PROPERTY_COUNT, count: totalPropertyCount })
 export const setIsNext = (isNext) => ({type: SET_IS_NEXT, isNext })
@@ -209,10 +230,22 @@ export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
         findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
             .then(data => {
                 dispatch(setProperty(data.data.results));
+                dispatch(setTempProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
                 dispatch(setIsNext(data.data.next));
                 dispatch(toggleIsFetching(false));
         });
+    }
+}
+
+export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cords = 0) => {
+    return (dispatch) => {
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
+            .then(data => {
+                dispatch(setProperty(data.data.results));
+                dispatch(setTotalPropertyCount(data.data.count));
+                dispatch(setIsNext(data.data.next));
+            });
     }
 }
 

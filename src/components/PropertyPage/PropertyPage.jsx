@@ -32,18 +32,18 @@ const PropertyPage = (props) => {
         if(key !== "SOAP-ENV:Envelope"){
             if(typeof props.jkhInfo[key] !== "object"){
                 jkh.push(
-                    <div key={key}>{props.jkhInfo[key]}</div>
+                    <div className={classes.jkhItem} key={key}>{props.jkhInfo[key]}</div>
                 )
             }else if(Object.prototype.toString.call(props.jkhInfo[key]) === '[object Array]'){
                 for(let key2 in props.jkhInfo[key]){
                     jkh.push(
-                        <div>{props.jkhInfo[key][key2].name}</div>
+                        <div className={classes.jkhItem}>{props.jkhInfo[key][key2].name}</div>
                     )
                 }
             }else{
                 for(let key2 in props.jkhInfo[key]){
                     jkh.push(
-                        <div>{props.jkhInfo[key][key2]}</div>
+                        <div className={classes.jkhItem}>{props.jkhInfo[key][key2]}</div>
                     )
                 }
             }
@@ -120,6 +120,16 @@ const PropertyPage = (props) => {
                             <div>Количество комнат: <span>{props.property.house.house_info.num_of_rooms}</span></div>
                             <div>Этаж: <span>{props.property.house.house_info.floor}</span></div>
                             <div>Площадь: <span>{props.property.house.house_info.total_area}</span>м²</div>
+                            {props.property.house.house_info.land_area !== 0 &&
+                                <div>Площадь участка: <span>{props.property.house.house_info.land_area} </span>соток</div>
+                            }
+
+                        </div>
+                        }
+                        {props.property.house.house_info !== null && props.property.house.type === "Участки" &&
+                        <div className={classes.content}>
+                            <div>ID недвижимости: <span>{props.property.house.house_info.house_id}</span></div>
+                            <div>Площадь: <span>{props.property.house.house_info.land_area} </span>соток</div>
                         </div>
                         }
                         {props.property.house.house_info === null &&

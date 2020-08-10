@@ -47,6 +47,9 @@ export const registrationAPI ={
 }
 
 export const findPropertyAPI ={
+    getStreets(){
+      return instanceWithToken().get(`base/get_list_streets/`)
+    },
     reparseBase(){
         return instanceWithToken().get(`base/reparse/`)
     },
