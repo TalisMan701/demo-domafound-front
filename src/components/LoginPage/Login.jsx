@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./Login.module.css";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
@@ -6,6 +6,8 @@ import {login, resetPassword, setIsResetPassword, validateOTPLogin, validatePhon
 import {Input, InputNumber} from "../../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
+import preloader from "../../common/Preloader/Preloader.svg";
+import Preloader from "../../common/Preloader/Preloader";
 
 const LoginForm = (props) =>{
     return (
@@ -26,7 +28,15 @@ const LoginForm = (props) =>{
             </div>
             }
             <div>
-                <button className={classes.button}>Вход</button>
+                <button className={classes.button}>
+                    {!props.authorization &&
+                        <span>Вход</span>
+                    }
+                    {props.authorization &&
+                        <img src={preloader} className={classes.preloaderForButton} />
+                    }
+
+                </button>
             </div>
         </form>
     );
@@ -126,13 +136,15 @@ const Login = (props) =>{
     if(props.isAuth){
         return <Redirect to={'/'}/>
     }
-
+    if(props.isFetchingAuth){
+        return <Preloader/>
+    }
     return (
         <div className={classes.container}>
             {!props.isResetPassword &&
                 <div className={classes.loginInner}>
                     <h1 className={classes.title}>Авторизация</h1>
-                    <LoginReduxForm onSubmit={login}/>
+                    <LoginReduxForm onSubmit={login} authorization={props.authorization}/>
                     <div onClick={() => {
                         props.setIsResetPassword(true)
                     }} className={classes.resetPassword}>Забыли пароль?</div>
@@ -164,7 +176,9 @@ const mapStateToProps = (state) =>({
     isResetPassword: state.auth.isResetPassword,
     validatePhone: state.auth.validatePhone,
     validateOTP: state.auth.validateOTP,
-    number: state.auth.number
+    number: state.auth.number,
+    authorization: state.auth.authorization,
+    isFetchingAuth: state.auth.isFetchingAuth,
 })
 
 export default connect(mapStateToProps,

@@ -40,6 +40,9 @@
 }
 
 .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
     max-width: 270px;
     width: 100%;
@@ -85,5 +88,10 @@
 
 .resetPassword:hover{
     color: #333333;
+}
+
+.preloaderForButton{
+    height: 30px;
+    width: 30px;
 }
 

@@ -8,7 +8,7 @@ import {MultiSelectComponent} from "@syncfusion/ej2-react-dropdowns";
 import {Field, FormSection, reduxForm, reset} from "redux-form";
 import 'react-widgets/dist/css/react-widgets.css'
 import {
-    Auto,
+    Auto, Auto2,
     Checkbox,
     Input,
     InputForFilters,

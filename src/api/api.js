@@ -2,7 +2,7 @@ import * as axios from "axios";
 
 const instanceWithToken = () => axios.create({
     withCredentials: true,
-    baseURL: "http://82.146.35.84/api/",
+    baseURL: "https://api-domafound.ru/api/",
     headers: {
         "authorization": "Token "+localStorage.getItem("token")
     }
@@ -10,7 +10,7 @@ const instanceWithToken = () => axios.create({
 
 const instance = () => axios.create({
     withCredentials: true,
-    baseURL: "http://82.146.35.84/api/",
+    baseURL: "https://api-domafound.ru/api/",
 });
 
 export const authAPI = {
@@ -92,6 +92,9 @@ export const findPropertyAPI ={
     removeToFavoriteList(house_id){
         return instanceWithToken().delete(`base/fav/`, { data: {house_id}})
     },
+    getPhotos(house_id){
+        return instanceWithToken().get(`base/get_archive/${house_id}`)
+    }
 }
 
 export const payAPI = {

@@ -78,11 +78,11 @@ export const getPropertyOne = (id) => (dispatch) => {
                         if(responseJkh.data.status === true){
                             dispatch(setJkhInfo(responseJkh.data.data));
                         }else{
-                            dispatch(setJkhInfo({none:"отсутствуют данные с портала ЖКХ"}));
+                            dispatch(setJkhInfo({none:"Отсутствуют данные с портала ЖКХ"}));
                         }
                         /*dispatch(toggleIsFetchingJkhInfo(false));*/
                     }).catch( (error) => {
-                        dispatch(setJkhInfo({error:"Ошибка сервера"}));
+                        dispatch(setJkhInfo({error:"Отсутствуют данные с портала ЖКХ"}));
                 })
                 dispatch(setPropertyOne(response.data));
                 dispatch(toggleIsFetching(false));

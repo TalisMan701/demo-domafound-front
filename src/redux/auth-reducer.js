@@ -7,6 +7,7 @@ const SET_VALIDATE_PHONE = "SET_VALIDATE_PHONE";
 const SET_VALIDATE_OTP = "SET_VALIDATE_OTP";
 const SET_IS_RESET_PASSWORD = "SET_IS_RESET_PASSWORD";
 const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
+const SET_AUTHORIZATION = "SET_AUTHORIZATION"
 
 let initialState = {
     userId: null,
@@ -21,6 +22,7 @@ let initialState = {
     referralCode: 0,
     user_set:[],
     isFetchingAuth: true,
+    authorization: false,
     isResetPassword: false,
     validatePhone: false,
     validateOTP: false
@@ -63,6 +65,12 @@ const authReducer = (state = initialState, action) => {
                 number: action.number
             }
         }
+        case SET_AUTHORIZATION:{
+            return {
+                ...state,
+                authorization: action.authorization
+            }
+        }
         default:
             return state;
     }
@@ -77,6 +85,8 @@ export const setIsResetPassword = (isResetPassword) => ({type: SET_IS_RESET_PASS
 const setValidatePhone = (validatePhone) => ({type: SET_VALIDATE_PHONE, validatePhone})
 const setNumber = (number) => ({type: SET_NUMBER, number})
 const setValidateOTP = (validateOTP) => ({type: SET_VALIDATE_OTP, validateOTP})
+
+const setAuthorization = (authorization) => ({type: SET_AUTHORIZATION, authorization})
 
 export const getAuthUserData = () => (dispatch) => {
     dispatch(toggleIsFetchingAuth(true))
@@ -97,16 +107,21 @@ export const getAuthUserData = () => (dispatch) => {
                     ));
                 dispatch(toggleIsFetchingAuth(false))
             }
-        });
+        }).catch( (error) => {
+        dispatch(toggleIsFetchingAuth(false))
+    });
 }
 
 export const login = (number, password) => (dispatch) =>{
+    dispatch(setAuthorization(true))
     authAPI.login(number, password)
         .then(response => {
             console.log(response)
             localStorage.setItem("token", response.data.token);
             dispatch(getAuthUserData())
+            dispatch(setAuthorization(false))
         }).catch( (error) => {
+            dispatch(setAuthorization(false))
             if(error.response.data.detail) {
                 let message = error.response.data.detail[0].length > 0 ? error.response.data.detail[0] : "Some error";
                 dispatch(stopSubmit("login", {_error: message}));

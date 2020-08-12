@@ -54,16 +54,19 @@ const Property = (props) => {
                         <br/>*/}
                         Цена: {props.item.items.price}₽
                         <br/>
-                        Источник: {props.item.items.host} <a className={classes.link}  href={props.item.items.link}>Посетить</a>
+                        Источник: {props.item.items.host} <a target="_blank" className={classes.link}  href={props.item.items.link}>Посетить</a>
                     </div>
                 </div>
                 <div className={classes.phoneNumber}>
                     <div className={classes.phoneNumberTitle}>Номер телефона:</div>
-                    {props.item.items.phone !== null &&
+                    {props.item.items.phone !== null && props.item.items.phone !== 0 &&
                         <a href={`tel:+${props.item.items.phone}`} className={classes.phone}>+{props.item.items.phone}</a>
                     }
                     {props.item.items.phone === null &&
                     <div className={classes.phone}>Добавляется в базу.</div>
+                    }
+                    {props.item.items.phone === 0 &&
+                    <div className={classes.phone}>Уточняйте в первоисточнике.</div>
                     }
 
                     {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}

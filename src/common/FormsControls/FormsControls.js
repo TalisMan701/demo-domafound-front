@@ -113,15 +113,65 @@ export const Auto = ({input, meta, ...props}) =>{
                    placeholder="Поиск по улице"
                    list="streets"
                    {...props}/>
-                <datalist id="streets" className={classes.autoContainer}>
+                <datalist id="streets">
                     {options
                         /*.filter((name) => name.toLowerCase().indexOf(input.value.toLowerCase()) > -1)*/
                         .map((street,i)=>{
-                        return <option onClick={() => setStreet(street)} className={classes.option} key={i}>
+                        return <option onClick={() => setStreet(street)} key={i}>
                             {street}
                         </option>
                     })}
                 </datalist>
+        </div>
+    )
+}
+
+export const Auto2 = ({input, meta, ...props}) =>{
+    const [display, setDisplay] = useState(false);
+    const [options, setOptions] = useState([]);
+
+    useEffect(()=>{
+        findPropertyAPI.getStreets()
+            .then(data =>{
+                setOptions(data.data.list)
+                console.log(options)
+            })
+    }, []);
+
+    input.onBlur()
+
+    const setStreet = street =>{
+        console.log(street)
+        input.onChange(street)
+        setDisplay(false);
+    }
+    return(
+        <div className={classes.inputInnerAuto}>
+            <input autoComplete="new-password"
+                   className={classes.inputForFilters}
+
+                   onChange={(event)=>{input.onChange(event.target.value)}}
+                   id="auto"
+                   onClick={()=>{ setDisplay(true)}}
+                   {...input}
+                   placeholder="Поиск по улице"
+                   {...props}
+                   /*onBlur={(e)=>{
+                       console.log(e)
+                       setDisplay(false)
+                   }}*/
+                   />
+            {display &&
+                <div className={classes.autoContainer}>
+                    {options
+                        .filter((name) => name.toLowerCase().indexOf(input.value.toLowerCase()) == 0)
+                        .map((street,i)=>{
+                            return <div onClick={() => setStreet(street)} className={classes.option} key={i}>
+                                {street}
+                            </div>
+                        })}
+                </div>
+            }
         </div>
     )
 }

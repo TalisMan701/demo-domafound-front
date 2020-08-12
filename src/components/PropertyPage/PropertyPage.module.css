@@ -100,7 +100,8 @@
     font-weight: 500;
     cursor: pointer;
 }*/
-.btn{
+.btn,
+.downloadbtn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,13 +120,18 @@
     transition: all 0.5s ease;
 }
 
-.btn:hover{
+.btn:hover,
+.downloadbtn:hover{
     max-width: 270px;
 
 }
 
 .btnBack{
     text-decoration: none;
+}
+
+.downloadbtn{
+    margin-top: 10px;
 }
 
 .closeIcon{
@@ -205,6 +211,29 @@
     width: 50px;
 }
 
+.preloaderForButton{
+    height: 100%;
+    width: 100%;
+}
+
 .jkhItem{
     margin-top: 10px;
+}
+
+.downloadInner{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.downloadText{
+    font-size: 14px;
+}
+
+.downloadIcon{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
 }

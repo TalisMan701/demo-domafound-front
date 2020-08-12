@@ -10,8 +10,13 @@ import closeIcon from "../FindProperty/Property/close.svg";
 import YandexMapContainerShowHouse from "../YandexMap/YandexMapContainerShowHouse";
 import YandexMapContainer from "../YandexMap/YandexMapContainer";
 import preloader from "../../common/Preloader/Preloader.svg";
+import {findPropertyAPI} from "../../api/api";
+import {stopSubmit} from "redux-form";
+import cameraIcon from "./camera.svg"
 
 const PropertyPage = (props) => {
+    const [downloading, setDownloading] = useState(false);
+
     let [showMap, setShowMap] = useState(false)
 
     const toggleShowMap = () =>{
@@ -54,7 +59,19 @@ const PropertyPage = (props) => {
         }
     }
 
-    /*if (props.isFetchingOnePage) {
+    const downloadPhotos = () =>{
+        setDownloading(true)
+        findPropertyAPI.getPhotos(props.property.house.house_id)
+            .then(response =>{
+                window.location.assign(response.data.file)
+                setDownloading(false)
+            }).catch( (error) => {
+            setDownloading(false)
+            alert("Не удалось скачать фотографии")
+        })
+    }
+
+/*    if (props.isFetchingOnePage) {
         return (
             <Preloader/>
         )
@@ -64,13 +81,28 @@ const PropertyPage = (props) => {
                 <div className={classes.row}>
                     <div className={classes.sliderInner}>
                         {props.property.house.image_set.length !== 0 &&
-                            <Slider {...settings}>
-                                {props.property.house.image_set.map(img =>
-                                    <div className={classes.imgInner}>
-                                        <img className={classes.img} src={img.image_link} alt=""/>
-                                    </div>
-                                )}
-                            </Slider>
+                            <div>
+                                <Slider {...settings}>
+                                    {props.property.house.image_set.map(img =>
+                                        <div className={classes.imgInner}>
+                                            <img className={classes.img} src={img.image_link} alt=""/>
+                                        </div>
+                                    )}
+                                </Slider>
+                                <div className={classes.downloadbtn} onClick={downloadPhotos}>
+                                    {!downloading &&
+                                        <div className={classes.downloadInner}>
+                                            <img className={classes.downloadIcon} src={cameraIcon} alt=""/>
+                                            <span className={classes.downloadText}>Скачать фотографии</span>
+                                        </div>
+
+                                    }
+                                    {downloading &&
+                                        <img src={preloader} className={classes.preloaderForButton} />
+                                    }
+                                </div>
+
+                            </div>
                         }
                         {props.property.house.image_set.length === 0 && props.property.house.title_image === null &&
                             <div className={classes.noImg}>
@@ -92,22 +124,25 @@ const PropertyPage = (props) => {
                             <div className={classes.description}>
                                 <div className={classes.descriptionTitle}>Описание</div>
                                 <div className={classes.descriptionText}>
-                                    Адресс: {props.property.house.address},
+                                    Адресс: {props.property.house.address}
                                     <br/>
                                     {/*Выложено: {props.item.items.data},
                         <br/>*/}
                                     Цена: {props.property.house.price}₽
                                     <br/>
-                                    Ссылка: <a className={classes.link} href={props.property.house.link}>Посетить</a>
+                                    Ссылка: <a target="_blank" className={classes.link} href={props.property.house.link}>Посетить</a>
                                 </div>
                             </div>
                             <div className={classes.phoneNumber}>
                                 <div className={classes.phoneNumberTitle}>Номер телефона:</div>
-                                {props.property.house.house_info !== null &&
+                                {props.property.house.house_info !== null && props.property.house.house_info !== 0 &&
                                 <a href={`tel:+${props.property.house.house_info.phone}`} className={classes.phone}>+{props.property.house.house_info.phone}</a>
                                 }
                                 {props.property.house.house_info === null &&
                                 <div className={classes.phone}>Добавляется в базу.</div>
+                                }
+                                {props.property.house.house_info === 0 &&
+                                <div className={classes.phone}>Уточняйте в первоисточнике.</div>
                                 }
                                 {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                             </div>
