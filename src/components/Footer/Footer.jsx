@@ -53,6 +53,7 @@ const Footer = () =>{
                 <div className={classes.ogrnInner}>
                     <div className={classes.IP}>ИП РУБЦОВ ВЛАДИМИР АЛЕКСАНДРОВИЧ</div>
                     <div className={classes.IPInfo}>ОГРНИП: 320861700032380, ИНН: 860403386942, Дата присвоения ОГРНИП: 29.06.20</div>
+                    <div className={classes.copy}><span>&copy;</span> ВСЕ ПРАВА ЗАЩИЩЕНЫ 2020-2021.</div>
                 </div>
             </div>
         </div>

@@ -16,6 +16,12 @@ const UserInfo = (props) => {
                     <NavLink to="/office">
                         <img className={classes.icon} src={icon} alt=""/>
                     </NavLink>
+                    <div className={classes.onlineCount}>
+                        <span>{props.onlineCount}</span>
+                        <div className={classes.onlineCountText}>
+                            <div>Пользователей онлайн:</div>
+                        </div>
+                    </div>
                     <div className={classes.userInfo}>
                         {props.isSubscription &&
                         <div className={classes.countDays}>

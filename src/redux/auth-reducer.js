@@ -7,7 +7,8 @@ const SET_VALIDATE_PHONE = "SET_VALIDATE_PHONE";
 const SET_VALIDATE_OTP = "SET_VALIDATE_OTP";
 const SET_IS_RESET_PASSWORD = "SET_IS_RESET_PASSWORD";
 const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
-const SET_AUTHORIZATION = "SET_AUTHORIZATION"
+const SET_AUTHORIZATION = "SET_AUTHORIZATION";
+const SET_ONLINE_COUNT = "SET_ONLINE_COUNT"
 
 let initialState = {
     userId: null,
@@ -25,7 +26,8 @@ let initialState = {
     authorization: false,
     isResetPassword: false,
     validatePhone: false,
-    validateOTP: false
+    validateOTP: false,
+    onlineCount: 0,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -71,6 +73,12 @@ const authReducer = (state = initialState, action) => {
                 authorization: action.authorization
             }
         }
+        case SET_ONLINE_COUNT:{
+            return {
+                ...state,
+                onlineCount: action.onlineCount
+            }
+        }
         default:
             return state;
     }
@@ -86,6 +94,8 @@ const setValidatePhone = (validatePhone) => ({type: SET_VALIDATE_PHONE, validate
 const setNumber = (number) => ({type: SET_NUMBER, number})
 const setValidateOTP = (validateOTP) => ({type: SET_VALIDATE_OTP, validateOTP})
 
+const setOnlineCount = (onlineCount) => ({type: SET_ONLINE_COUNT, onlineCount})
+
 const setAuthorization = (authorization) => ({type: SET_AUTHORIZATION, authorization})
 
 export const getAuthUserData = () => (dispatch) => {
@@ -94,17 +104,18 @@ export const getAuthUserData = () => (dispatch) => {
         .then(response => {
             if(response.status === 200){
                 dispatch(setAuthUserData(
-                    response.data.id,
-                    response.data.email,
-                    response.data.phone,
-                    response.data.is_subscribe,
-                    response.data.subscribe_days_count,
-                    response.data.subscribe_hours_count,
-                    response.data.is_partner,
-                    response.data.referral_code,
-                    response.data.user_set,
+                    response.data.user.id,
+                    response.data.user.email,
+                    response.data.user.phone,
+                    response.data.user.is_subscribe,
+                    response.data.user.subscribe_days_count,
+                    response.data.user.subscribe_hours_count,
+                    response.data.user.is_partner,
+                    response.data.user.referral_code,
+                    response.data.user.user_set,
                     true,
                     ));
+                dispatch(setOnlineCount(response.data.online_count))
                 dispatch(toggleIsFetchingAuth(false))
             }
         }).catch( (error) => {

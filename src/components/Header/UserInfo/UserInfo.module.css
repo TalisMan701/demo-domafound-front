@@ -1,4 +1,5 @@
 .userInfoInner{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,4 +107,60 @@
 
 .icon:hover{
     filter: drop-shadow(0px 0px 4px #f38181);
+}
+
+.onlineCount{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    background-color: #f38181;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-30%,-30%);
+    cursor: pointer;
+}
+
+.onlineCountText{
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    /*width: 180px;*/
+    width: 0px;
+    height: 15px;
+    opacity: 0;
+
+    overflow: hidden;
+    transform: translate(0,-50%);
+    background-color: #f38181;
+    z-index: -10;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.onlineCountText div{
+    line-height: 2px;
+    transition: all 0.3s ease;
+    font-size: 0px;
+}
+
+.onlineCount:hover .onlineCountText{
+    opacity: 1;
+    width: 180px;
+}
+
+.onlineCount:hover .onlineCountText div{
+    font-size: 12px;
 }
