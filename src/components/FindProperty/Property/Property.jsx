@@ -52,7 +52,7 @@ const Property = (props) => {
                         <br/>
                         {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                        Цена: {props.item.items.price}₽
+                        Цена: {props.item.items.price}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}
                         <br/>
                         Источник: {props.item.items.host} <a target="_blank" className={classes.link}  href={props.item.items.link}>Посетить</a>
                     </div>

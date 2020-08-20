@@ -16,6 +16,7 @@ import cameraIcon from "./camera.svg"
 
 const PropertyPage = (props) => {
     const [downloading, setDownloading] = useState(false);
+    const [zoomImages, setZoomImages] = useState(false)
 
     let [showMap, setShowMap] = useState(false)
 
@@ -78,13 +79,45 @@ const PropertyPage = (props) => {
     } else {*/
         return (
             <div className={classes.propertyPage}>
+                {zoomImages &&
+                <div className={classes.zoomImagesInner}>
+                    <div className={classes.zoomImagesSliderInner}>
+                        <div onClick={()=>{setZoomImages(false)}}  className={classes.zoomImagesClose}>
+                            Закрыть
+                        </div>
+                        {props.property.house.image_set.length !== 0 &&
+                        <div>
+                            <Slider {...settings}>
+                                {props.property.house.image_set.map(img =>
+                                    <div className={classes.imgInnerZoom}>
+                                        <img className={classes.imgZoom} src={img.image_link} alt=""/>
+                                    </div>
+                                )}
+                            </Slider>
+                        </div>
+                        }
+                        {props.property.house.image_set.length === 0 && props.property.house.title_image === null &&
+                        <div className={classes.noImg}>
+                            <div>
+                                Изображений нет
+                            </div>
+                        </div>
+                        }
+                        {props.property.house.image_set.length === 0 && props.property.house.title_image !== null &&
+                        <div className={classes.imgInner}>
+                            <img className={classes.img} src={props.property.house.title_image} alt=""/>
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
                 <div className={classes.row}>
                     <div className={classes.sliderInner}>
                         {props.property.house.image_set.length !== 0 &&
                             <div>
                                 <Slider {...settings}>
                                     {props.property.house.image_set.map(img =>
-                                        <div className={classes.imgInner}>
+                                        <div onClick={()=>{setZoomImages(true)}} className={classes.imgInner}>
                                             <img className={classes.img} src={img.image_link} alt=""/>
                                         </div>
                                     )}

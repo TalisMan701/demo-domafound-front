@@ -21,8 +21,6 @@ const SET_PAGESIZE = "SET_PAGESIZE";
 const SET_POLYGON_CORDS = "SET_POLYGON_CORDS";
 const SET_FILTERS_STORAGE = "SET_FILTERS_STORAGE";
 
-
-
 let initialState = {
     property: [],
     tempProperty: [],
@@ -34,8 +32,8 @@ let initialState = {
     isNext: null,
     page: 1,
     isFetching: true,
-    filters: localStorage.getItem("filtersForFind") !== null ? localStorage.getItem("filtersForFind") : "",
-    filtersStorage: localStorage.getItem("filters") !== null ? JSON.parse(localStorage.getItem("filters")) : [],
+    filters: localStorage.getItem("filtersForFind") !== null ? localStorage.getItem("filtersForFind") : "&offer_type=0",
+    filtersStorage: localStorage.getItem("filters") !== null ? JSON.parse(localStorage.getItem("filters")) : {typeOffer:{rent:false,sale:true}},
     polygon_cords: localStorage.getItem("polygon") !== null ? JSON.parse(localStorage.getItem("polygon"))[0] : 0
 };
 

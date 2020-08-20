@@ -89,7 +89,6 @@ export const Auto = ({input, meta, ...props}) =>{
         findPropertyAPI.getStreets()
             .then(data =>{
                 setOptions(data.data.list)
-                console.log(options)
             })
     }, []);
 

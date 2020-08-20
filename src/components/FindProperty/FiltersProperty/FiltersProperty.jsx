@@ -37,9 +37,9 @@ const FiltersPropertyForm = (props) => {
     useEffect(()=>{
         console.log(props.filtersStorage)
         setIsResetFilters(false)
-        if (localStorage.getItem("filters") != null && localStorage.getItem("filters") != "[]"){
+        /*if (localStorage.getItem("filters") != null && localStorage.getItem("filters") != "[]"){*/
             props.initialize(props.filtersStorage)
-        }
+        /*}*/
     },[])
 
     const resetFilters = () =>{
@@ -53,6 +53,29 @@ const FiltersPropertyForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div className={classes.filters}>
                 <div className={classes.title}>Фильтры</div>
+                <div className={classes.typeOfferInner}>
+                    <label>
+                        <div className={classes.labelTitle2}>Тип объявления</div>
+                    </label>
+                    <FormSection name={"typeOffer"}>
+                        <div className={classes.checkboxs}>
+                            <Field
+                                name="sale"
+                                component={Checkbox}
+                                type="checkbox"
+                                id="sale"
+                                title={"Продажа"}
+                            />
+                            <Field
+                                name="rent"
+                                component={Checkbox}
+                                type="checkbox"
+                                id="rent"
+                                title={"Аренда"}
+                            />
+                        </div>
+                    </FormSection>
+                </div>
                 <div className={classes.filtersWithMap}>
                     <div>
                         <div>

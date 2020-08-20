@@ -251,6 +251,18 @@ class FindProperty extends React.Component {
                 }
             }
         }
+        if(typeof formData["typeOffer"] !== "undefined") {
+            if (typeof formData.typeOffer["sale"] !== "undefined") {
+                if (formData.typeOffer.sale === true) {
+                    filters += `&offer_type=0`
+                }
+            }
+            if (typeof formData.typeOffer["rent"] !== "undefined") {
+                if (formData.typeOffer.rent === true) {
+                    filters += `&offer_type=1`
+                }
+            }
+        }
         this.sidebarObj.hide();
         localStorage.setItem("filters", JSON.stringify(formData));
         localStorage.setItem("filtersForFind", filters);
@@ -263,9 +275,9 @@ class FindProperty extends React.Component {
         localStorage.removeItem("filters");
         localStorage.removeItem("filtersForFind");
         this.props.setPolygonCords(0);
-        this.props.setFiltersStorage([]);
+        this.props.setFiltersStorage({typeOffer:{rent:false,sale:true}});
         this.sidebarObj.hide();
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, "", 0);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, "&offer_type=0", 0);
     }
 
     getPropertyWithMap = (polygon_cords) =>{

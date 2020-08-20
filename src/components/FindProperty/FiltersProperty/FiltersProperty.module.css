@@ -27,6 +27,17 @@
     font-weight: 500;
 }
 
+.labelTitle2{
+    color: #333333;
+    margin-top: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.typeOfferInner{
+    margin-bottom: 5px;
+}
+
 .checkboxsTypeProperty{
     display: flex;
     flex-flow: column nowrap;
