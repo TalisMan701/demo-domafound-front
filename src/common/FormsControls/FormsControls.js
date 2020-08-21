@@ -81,6 +81,14 @@ export const InputForFilters = ({input, meta, ...props}) => {
     )
 }
 
+export const InputForFiltersPrice = ({input, meta, ...props}) => {
+    return(
+        <div className={classes.inputInner}>
+            <NumberFormat thousandSeparator={true} className={classes.inputForFilters} {...input} {...props} />
+        </div>
+    )
+}
+
 export const Auto = ({input, meta, ...props}) =>{
     const [display, setDisplay] = useState(false);
     const [options, setOptions] = useState([]);

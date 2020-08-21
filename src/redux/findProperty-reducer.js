@@ -151,6 +151,8 @@ const foundPropertyReducer = (state = initialState, action) => {
         case DELETE_PROPERTY_STATE:{
             return {
                 ...initialState,
+                page: state.page,
+                pageSize: state.pageSize,
                 filters: state.filters,
                 filtersStorage: state.filtersStorage,
                 polygon_cords: state.polygon_cords

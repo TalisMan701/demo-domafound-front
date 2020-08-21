@@ -131,11 +131,11 @@ class FindProperty extends React.Component {
         }
         if(typeof formData["price"] !== "undefined"){
             if (typeof formData.price["start"] === "undefined"){
-                filters += `&min_price=${formData.price.end}&max_price=${formData.price.end}`
+                filters += `&min_price=${formData.price.end.replace(/,/g,'')}&max_price=${formData.price.end.replace(/,/g,'')}`
             }else if(typeof formData.price["end"] === "undefined"){
-                filters += `&min_price=${formData.price.start}&max_price=${formData.price.start}`
+                filters += `&min_price=${formData.price.start.replace(/,/g,'')}&max_price=${formData.price.start.replace(/,/g,'')}`
             }else{
-                filters += `&min_price=${formData.price.start}&max_price=${formData.price.end}`
+                filters += `&min_price=${formData.price.start.replace(/,/g,'')}&max_price=${formData.price.end.replace(/,/g,'')}`
             }
         }
         if(typeof formData["floor"] !== "undefined"){

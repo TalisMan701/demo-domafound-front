@@ -11,7 +11,7 @@ import {
     Auto, Auto2,
     Checkbox,
     Input,
-    InputForFilters,
+    InputForFilters, InputForFiltersPrice,
     InputForStreet
 } from "../../../common/FormsControls/FormsControls";
 import YandexMapContainer2 from "../../YandexMap/YandexMapContainer2";
@@ -237,12 +237,12 @@ const FiltersPropertyForm = (props) => {
                         <div className={classes.formSection}>
                             <Field
                                 name="start"
-                                component={InputForFilters}
+                                component={InputForFiltersPrice}
                                 placeholder={"от"}
                             />
                             <Field
                                 name="end"
-                                component={InputForFilters}
+                                component={InputForFiltersPrice}
                                 placeholder={"до"}
                             />
                         </div>
