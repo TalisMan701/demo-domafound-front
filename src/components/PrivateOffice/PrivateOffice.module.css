@@ -130,3 +130,27 @@
 .referrals{
     margin-bottom: 5px;
 }
+
+.settingsWrapper{
+    margin-top: 5px;
+}
+
+.jobWithClient{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.jobWithClientInner:after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background-color: #f38181;
+    transition: width 0.5s ease;
+}
+
+.jobWithClientInner:hover:after{
+    width: 200px;
+}

@@ -164,3 +164,10 @@
 .onlineCount:hover .onlineCountText div{
     font-size: 12px;
 }
+
+.jobWithClientInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}

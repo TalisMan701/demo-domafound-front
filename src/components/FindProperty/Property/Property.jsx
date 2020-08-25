@@ -54,13 +54,16 @@ const Property = (props) => {
                         <br/>*/}
                         Цена: {props.item.items.price}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}
                         <br/>
-                        Источник: {props.item.items.host} <a target="_blank" className={classes.link}  href={props.item.items.link}>Посетить</a>
+                        {!props.jobWithClient &&
+                            <span>Источник: {props.item.items.host} <a target="_blank" className={classes.link}  href={props.item.items.link}>Посетить</a></span>
+                        }
                     </div>
                 </div>
+                {!props.jobWithClient &&
                 <div className={classes.phoneNumber}>
                     <div className={classes.phoneNumberTitle}>Номер телефона:</div>
                     {props.item.items.phone !== null && props.item.items.phone !== 0 &&
-                        <a href={`tel:+${props.item.items.phone}`} className={classes.phone}>+{props.item.items.phone}</a>
+                    <a href={`tel:+${props.item.items.phone}`} className={classes.phone}>+{props.item.items.phone}</a>
                     }
                     {props.item.items.phone === null &&
                     <div className={classes.phone}>Добавляется в базу.</div>
@@ -71,6 +74,7 @@ const Property = (props) => {
 
                     {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                 </div>
+                }
 
                 <div className={classes.dateInner}>
                     <Moment locale={"ru"} fromNow={true}>{date3.toString()}</Moment>

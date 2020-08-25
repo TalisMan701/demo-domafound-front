@@ -1,6 +1,6 @@
 import React from "react";
 import * as axios from "axios";
-import {getAuthUserData, logout} from "../../../redux/auth-reducer";
+import {getAuthUserData, logout, setJobWithClient} from "../../../redux/auth-reducer";
 import UserInfo from "./UserInfo";
 import {connect} from "react-redux";
 import {authAPI} from "../../../api/api";
@@ -20,7 +20,8 @@ const mapStateToProps = (state) => ({
     countDays: state.auth.countDays,
     isSubscription: state.auth.isSubscription,
     countHours: state.auth.countHours,
-    onlineCount: state.auth.onlineCount
+    onlineCount: state.auth.onlineCount,
+    jobWithClient: state.auth.jobWithClient
 });
 
-export default connect(mapStateToProps, {getAuthUserData, logout})(UserInfoContainer);
+export default connect(mapStateToProps, {getAuthUserData, logout, setJobWithClient})(UserInfoContainer);

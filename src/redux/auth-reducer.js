@@ -8,7 +8,8 @@ const SET_VALIDATE_OTP = "SET_VALIDATE_OTP";
 const SET_IS_RESET_PASSWORD = "SET_IS_RESET_PASSWORD";
 const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
 const SET_AUTHORIZATION = "SET_AUTHORIZATION";
-const SET_ONLINE_COUNT = "SET_ONLINE_COUNT"
+const SET_ONLINE_COUNT = "SET_ONLINE_COUNT";
+const SET_JOB_WITH_CLIENT = "SET_JOB_WITH_CLIENT";
 
 let initialState = {
     userId: null,
@@ -28,6 +29,7 @@ let initialState = {
     validatePhone: false,
     validateOTP: false,
     onlineCount: 0,
+    jobWithClient: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -79,6 +81,12 @@ const authReducer = (state = initialState, action) => {
                 onlineCount: action.onlineCount
             }
         }
+        case SET_JOB_WITH_CLIENT:{
+            return {
+                ...state,
+                jobWithClient: action.jobWithClient
+            }
+        }
         default:
             return state;
     }
@@ -97,6 +105,8 @@ const setValidateOTP = (validateOTP) => ({type: SET_VALIDATE_OTP, validateOTP})
 const setOnlineCount = (onlineCount) => ({type: SET_ONLINE_COUNT, onlineCount})
 
 const setAuthorization = (authorization) => ({type: SET_AUTHORIZATION, authorization})
+
+export const setJobWithClient = (jobWithClient) => ({type: SET_JOB_WITH_CLIENT, jobWithClient})
 
 export const getAuthUserData = () => (dispatch) => {
     dispatch(toggleIsFetchingAuth(true))

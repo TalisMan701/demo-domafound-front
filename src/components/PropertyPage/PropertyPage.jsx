@@ -163,9 +163,13 @@ const PropertyPage = (props) => {
                         <br/>*/}
                                     Цена: {props.property.house.price}₽
                                     <br/>
-                                    Ссылка: <a target="_blank" className={classes.link} href={props.property.house.link}>Посетить</a>
+                                    {!props.jobWithClient &&
+                                    <span>Ссылка: <a target="_blank" className={classes.link}
+                                                     href={props.property.house.link}>Посетить</a></span>
+                                    }
                                 </div>
                             </div>
+                            {!props.jobWithClient &&
                             <div className={classes.phoneNumber}>
                                 <div className={classes.phoneNumberTitle}>Номер телефона:</div>
                                 {props.property.house.house_info !== null && props.property.house.house_info !== 0 &&
@@ -179,6 +183,7 @@ const PropertyPage = (props) => {
                                 }
                                 {/*<div className={classes.phoneNumberShow}>Смотреть</div>*/}
                             </div>
+                            }
                         </div>
                         {props.property.house.house_info !== null && props.property.house.type !== "Участки" &&
                         <div className={classes.content}>

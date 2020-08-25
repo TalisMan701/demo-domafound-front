@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {NavLink, Redirect} from "react-router-dom";
 import {getIgnoreList} from "../../redux/findProperty-reducer";
 import FindProperty from "../FindProperty/FindProperty";
+import {setJobWithClient} from "../../redux/auth-reducer";
 
 class PrivateOffice extends React.Component {
     render() {
@@ -58,6 +59,18 @@ class PrivateOffice extends React.Component {
                                      className={`${classes.btnFavorites} ${classes.btn}`}><div className={classes.btnText}>Избранные</div></NavLink>
                             {/*<NavLink to='/find_property/ignore_list'  className={`${classes.btnBlackList} ${classes.btn}`}>Игнорированные</NavLink>*/}
                         </div>
+                        <div className={classes.settingsWrapper}>
+                            <div className={classes.jobWithClientInner}>
+                                <div className={classes.jobWithClient}>
+                                    <label htmlFor="jobWithClient">Работа с клиентом</label>
+                                    <input onChange={(e) => {
+                                        this.props.setJobWithClient(!this.props.jobWithClient)
+                                    }} defaultChecked={this.props.jobWithClient} type="checkbox" name="jobWithClient"
+                                           id="jobWithClient"/>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +87,8 @@ const mapStateToProps = (state) => ({
     countHours: state.auth.countHours,
     isPartner: state.auth.isPartner,
     referralCode: state.auth.referralCode,
-    user_set: state.auth.user_set
+    user_set: state.auth.user_set,
+    jobWithClient: state.auth.jobWithClient
 })
 
-export default connect(mapStateToProps, {getIgnoreList})(PrivateOffice);
+export default connect(mapStateToProps, {getIgnoreList, setJobWithClient})(PrivateOffice);

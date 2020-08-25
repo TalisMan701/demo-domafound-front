@@ -1,3 +1,27 @@
 @import "../../../../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 @import "../../../../node_modules/@syncfusion/ej2-react-dropdowns/styles/material.css";
+
+.rw-widget-input, .rw-filter-input{
+    box-shadow: none !important;
+}
+
+.rw-widget-container{
+    background: #fff !important;
+    border: 1px solid #e7e7e7 !important;
+    border-radius: 0 !important;
+    height: 30px !important;
+}
+
+.rw-input,
+.rw-dropdown-list-autofill,
+.rw-filter-input{
+color: #333 !important;
+}
+
+.rw-dropdown-list-autofill:focus{
+    outline: 0 !important;
+    border: 2px solid #95e1d3 !important;
+    border-radius: 5px !important;
+}
+

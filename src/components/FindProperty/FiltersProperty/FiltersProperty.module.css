@@ -3,6 +3,13 @@
     flex-flow: column nowrap;
 }
 
+.overflowAuto{
+    max-height: 80vh;
+    display: flex;
+    overflow: auto;
+    flex-flow: column nowrap;
+}
+
 .checkboxs{
     display: flex;
     justify-content: flex-start;

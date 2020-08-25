@@ -12,7 +12,7 @@ import {
     getPropertyWithFilters,
     getPropertyWithOutFetching,
     removeToFavoriteList,
-    removeToIgnoreList,
+    removeToIgnoreList, setDaysAgo,
     setFilters,
     setFiltersStorage,
     setPage,
@@ -84,9 +84,9 @@ class FindProperty extends React.Component {
     componentDidMount() {
         if(this.props.isAuth){
             if(this.props.location.pathname == "/find_property"){
-                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
                 this.timerID = setInterval(()=>{
-                    this.props.getPropertyWithOutFetching(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+                    this.props.getPropertyWithOutFetching(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
                 },30000)
             }else{
                 this.props.getIgnoreList();
@@ -97,7 +97,7 @@ class FindProperty extends React.Component {
     //КОООООСТТЫЫЫЫЫЛЬЬЬЬЬЬЬЬЬЬЬЬ нужно избавиться от этого метода, любые проблемы - вопросы к этому методу!!!
     componentWillReceiveProps(nextProps){
         if(nextProps.location.pathname != this.props.location.pathname || nextProps.isFetchingAuth != this.props.isFetchingAuth){
-            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
             return nextProps;
         } else {
             return false
@@ -115,7 +115,7 @@ class FindProperty extends React.Component {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }*/
         this.props.setPage(pageNumber)
-        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters, this.props.polygon_cords);
+        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters, this.props.polygon_cords,this.props.days_ago);
     }
 
     onSubmit = (formData) =>{
@@ -263,21 +263,30 @@ class FindProperty extends React.Component {
                 }
             }
         }
+        if(typeof formData["dataSort"] !== "undefined") {
+            localStorage.setItem("days_ago", formData.dataSort.value)
+            this.props.setDaysAgo(formData.dataSort.value)
+        }
+        if(typeof formData["description"] !== "undefined") {
+            filters += `&description=${formData.description}`
+        }
         this.sidebarObj.hide();
         localStorage.setItem("filters", JSON.stringify(formData));
         localStorage.setItem("filtersForFind", filters);
         this.props.setFiltersStorage(formData)
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords, typeof formData["dataSort"] === "undefined" ? 0 : formData.dataSort.value);
     }
 
     dropFilters = () =>{
         localStorage.removeItem("polygon");
         localStorage.removeItem("filters");
         localStorage.removeItem("filtersForFind");
+        localStorage.removeItem("days_ago");
         this.props.setPolygonCords(0);
+        this.props.setDaysAgo(0);
         this.props.setFiltersStorage({typeOffer:{rent:false,sale:true}});
         this.sidebarObj.hide();
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, "&offer_type=0", 0);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, "&offer_type=0", 0, 0);
     }
 
     getPropertyWithMap = (polygon_cords) =>{
@@ -287,12 +296,12 @@ class FindProperty extends React.Component {
             polygon = polygon_cords[0]
         }
         this.props.setPolygonCords(polygon);
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, this.props.filters, polygon);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, this.props.filters, polygon, this.props.days_ago);
     }
 
     setPageSizeOnClick=()=>{
         this.props.setPageSize(this.state.pageSize)
-        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters, this.props.polygon_cords);
+        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
     }
 
 
@@ -345,6 +354,7 @@ class FindProperty extends React.Component {
                                     <FiltersPropertyWidgetsForm onSubmit={this.onSubmit} props={this.props}
                                                                 openMap={this.openMap.bind(this)}
                                                                 setPolygonCords={this.props.setPolygonCords}
+                                                                setDaysAgo={this.props.setDaysAgo}
                                                                 dropFilters={this.dropFilters}
                                                                 filtersStorage={this.props.filtersStorage}
                                                                 setFiltersStorage={this.props.setFiltersStorage}
@@ -381,7 +391,8 @@ class FindProperty extends React.Component {
                                                 return <Property item={p} setToIgnoreList={this.props.setToIgnoreList}
                                                           removeToFavoriteList={this.props.removeToFavoriteList}
                                                           setToFavoriteList={this.props.setToFavoriteList}
-                                                          isNewProperty={isNewProperty}/>
+                                                          isNewProperty={isNewProperty}
+                                                                 jobWithClient={this.props.jobWithClient}/>
                                         })}
                                     </div>
                                     }
@@ -477,7 +488,9 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     isFetchingAuth: state.auth.isFetchingAuth,
     totalPropertyCount: state.findProperty.totalPropertyCount,
-    filtersStorage: state.findProperty.filtersStorage
+    filtersStorage: state.findProperty.filtersStorage,
+    jobWithClient: state.auth.jobWithClient,
+    days_ago: state.findProperty.days_ago
 })
 
 export default compose(
@@ -486,7 +499,7 @@ export default compose(
         removeToIgnoreList, deletePropertyState, getFavoriteList,
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
         setPage, setPageSize, setPolygonCords, setFiltersStorage,
-        getPropertyWithOutFetching, setTempProperty,
+        getPropertyWithOutFetching, setTempProperty, setDaysAgo,
         addOneTempProperty
     }),
     withRouter

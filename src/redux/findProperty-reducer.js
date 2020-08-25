@@ -20,6 +20,7 @@ const SET_PAGE = "SET_PAGE";
 const SET_PAGESIZE = "SET_PAGESIZE";
 const SET_POLYGON_CORDS = "SET_POLYGON_CORDS";
 const SET_FILTERS_STORAGE = "SET_FILTERS_STORAGE";
+const SET_DAYS_AGO = "SET_DAYS_AGO";
 
 let initialState = {
     property: [],
@@ -34,7 +35,8 @@ let initialState = {
     isFetching: true,
     filters: localStorage.getItem("filtersForFind") !== null ? localStorage.getItem("filtersForFind") : "&offer_type=0",
     filtersStorage: localStorage.getItem("filters") !== null ? JSON.parse(localStorage.getItem("filters")) : {typeOffer:{rent:false,sale:true}},
-    polygon_cords: localStorage.getItem("polygon") !== null ? JSON.parse(localStorage.getItem("polygon"))[0] : 0
+    polygon_cords: localStorage.getItem("polygon") !== null ? JSON.parse(localStorage.getItem("polygon"))[0] : 0,
+    days_ago: localStorage.getItem("days_ago") !== null ? parseInt(JSON.parse(localStorage.getItem("days_ago"))) : 0
 };
 
 const foundPropertyReducer = (state = initialState, action) => {
@@ -155,7 +157,8 @@ const foundPropertyReducer = (state = initialState, action) => {
                 pageSize: state.pageSize,
                 filters: state.filters,
                 filtersStorage: state.filtersStorage,
-                polygon_cords: state.polygon_cords
+                polygon_cords: state.polygon_cords,
+                days_ago: state.days_ago
             }
         }
         case SET_FILTERS:{
@@ -186,6 +189,12 @@ const foundPropertyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 polygon_cords: action.polygon_cords
+            }
+        }
+        case SET_DAYS_AGO:{
+            return {
+                ...state,
+                days_ago: action.days_ago
             }
         }
         case SET_FILTERS_STORAGE:{
@@ -222,12 +231,13 @@ const addToWatchedList = (house_id) => ({type: ADD_TO_WATCHED_LIST, house_id })
 
 export const setFilters = (filters) => ({type:SET_FILTERS, filters})
 export const setPolygonCords = (polygon_cords) => ({type:SET_POLYGON_CORDS, polygon_cords})
+export const setDaysAgo = (days_ago) => ({type:SET_DAYS_AGO, days_ago})
 export const setFiltersStorage = (filtersStorage) => ({type:SET_FILTERS_STORAGE, filtersStorage})
 
-export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
+export const getProperty = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTempProperty(data.data.results));
@@ -238,9 +248,9 @@ export const getProperty = (pageSize, page, filters, polygon_cords = 0) => {
     }
 }
 
-export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cords = 0) => {
+export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
     return (dispatch) => {
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords,days_ago)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
@@ -249,12 +259,12 @@ export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cord
     }
 }
 
-export const getPropertyWithFilters = (pageSize, page, filters, polygon_cords = 0) => {
+export const getPropertyWithFilters = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setFilters(filters))
 
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));

@@ -44,7 +44,7 @@ class PropertyPageContainer extends React.Component {
         return(
             <PropertyPage goBack={this.goBack}  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}
                            setToFavoriteList={this.props.setToFavoriteListPropertyPage} removeToFavoriteList={this.props.removeToFavoriteListPropertyPage}
-                            jkhInfo={this.props.jkhInfo}
+                            jkhInfo={this.props.jkhInfo} jobWithClient={this.props.jobWithClient}
             />
         );
     }
@@ -53,7 +53,8 @@ class PropertyPageContainer extends React.Component {
 const mapStateToProps = (state) => ({
     property: state.property.property,
     isFetchingOnePage: state.property.isFetchingOnePage,
-    jkhInfo: state.property.jkhInfo
+    jkhInfo: state.property.jkhInfo,
+    jobWithClient: state.auth.jobWithClient,
 })
 
 export default compose(
