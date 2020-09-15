@@ -154,3 +154,88 @@
 .jobWithClientInner:hover:after{
     width: 200px;
 }
+
+.commissionInner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.displayFlexWithRow{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.percentageInner,
+.surchargeInner{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    padding: 5px;
+}
+
+.commissionText{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.commissionBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    padding: 8px;
+    color: #333333;
+    font-weight: 500;
+    width: 110px;
+    height: 25px;
+    font-size: 14px;
+    background-color: white;
+    border: 2px solid #95e1d3;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.commissionBtn:hover{
+    width: 220px;
+
+}
+
+.commissionInput{
+    width: 100%;
+    margin-right: 5px;
+}
+
+.closeIcon{
+    margin-left: 5px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.closeIcon:hover{
+    width: 18px;
+    height: 18px;
+}
+
+.preloaderInner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloader{
+    height: 50px;
+    width: 50px;
+}

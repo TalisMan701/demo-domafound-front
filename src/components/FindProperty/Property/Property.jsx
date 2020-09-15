@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./Property.module.css";
 import closeIcon from "./close.svg";
 import {NavLink} from "react-router-dom";
@@ -21,13 +21,32 @@ const Property = (props) => {
         audio.play()
     }
 
+    // const [selected, setSelected] = useState(props.selected.indexOf(props.item.items.id) != -1);
+    let selected = props.selected.indexOf(props.item.items.id) != -1;
+    /*console.log(`${props.item.items.id} ${selected}`)*/
+
     return (
 
         <div className={`${props.item.is_watched ? classes.propertyWatched : classes.property} 
-                        ${difference <= 20 && !props.item.is_watched ? `${classes.newProperty} animateBG` : ""}`}>
+                        ${difference <= 20 && !props.item.is_watched ? `${classes.newProperty} animateBG` : ""}
+                        ${selected ? classes.selectedProperty : ""}`}>
             {difference <= 20 && !props.item.is_watched &&
                 <div className={"newPropertyText"}>
                     НОВОЕ
+                </div>
+            }
+
+            {props.selecting &&
+                <div className={"selectingInner"}>
+                    <input className={classes.selectingInput} type="checkbox" onChange={(e)=>{
+                        if(selected){
+                            props.removeFromSelected(props.item.items.id)
+                        }else{
+                            props.addToSelected(props.item.items.id)
+                        }
+                        selected = !selected
+                    }} name="selecting" id={props.item.items.id}
+                    checked={selected}/>
                 </div>
             }
 

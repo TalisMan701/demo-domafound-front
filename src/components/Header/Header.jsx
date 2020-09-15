@@ -13,6 +13,7 @@ const Header = () =>{
                     <Navbar/>
                 </div>
                 <UserInfoContainer/>
+                <div className={classes.burgerMenu}>Меню</div>
             </div>
         </header>
     )}

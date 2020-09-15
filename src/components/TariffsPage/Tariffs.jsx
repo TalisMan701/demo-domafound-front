@@ -46,23 +46,23 @@ class Tariffs extends React.Component {
         let price=0;
         let value= event.target.valueAsNumber;
         if(value === 7){
-            price = 700
+            price = 280
         }else if(Number.isNaN(value)){
             value=null;
             price = 0;
         }else if(value < 7){
-            price= 100*value
+            price= 40*value
         }else if(value === 14){
-            price = 1300
+            price = 560
         }else if(value === 21){
-            price = 1900
+            price = 735
         }else if(value >= 31){
             value=31
-            price = 2500
-        }else if(value <21){
-            price = (value - 7)*85+700
+            price = 1000
+        }else if(value <14){
+            price = value*40
         }else{
-            price = (value - 21)*60+1900
+            price = (value - 14)*25+560
         }
         this.setState({value, price});
     }
@@ -70,8 +70,8 @@ class Tariffs extends React.Component {
     onBlurInput(event){
         let price=0;
         let value= event.target.valueAsNumber;
-        if(value<7){
-            price=100*value
+        if(value<14){
+            price=40*value
             this.setState({value, price})
         }
     }
@@ -79,19 +79,19 @@ class Tariffs extends React.Component {
     onChange(args){
         let price=0;
         if(args.value === 7){
-            price = 700
-        }else if(args.value < 7){
-            price = args.value*100
-        }else if(args.value <21){
-            price = (args.value - 7)*85+700
+            price = 280
+        }else if(args.value < 14){
+            price = args.value*40
+        }else if(args.value <31){
+            price = (args.value - 14)*25+560
         }else if(args.value === 14){
-            price = 1300
+            price = 560
         }else if(args.value === 21){
-            price = 1900
+            price = 735
         }else if(args.value === 31){
-            price = 2500
+            price = 1000
         }else{
-            price = (args.value - 21)*60+1900
+            price = (args.value - 21)*25+735
         }
         this.playSound()
         this.setState({value: args.value, price, isAnimation: false})
@@ -167,10 +167,10 @@ class Tariffs extends React.Component {
                                     <div className={classes.daysCount}>7</div>
                                     <div className={classes.daysText}>дней</div>
                                 </div>
-                                <div className={classes.price}>700₽</div>
+                                <div className={classes.price}>280₽</div>
                                 <div className={classes.button}>
                                     <div onClick={()=>{
-                                        payAPI.sendPriceAndDays(700,7)
+                                        payAPI.sendPriceAndDays(280,7)
                                             .then(response => {
                                                 if(response.data.status == true){
                                                     window.location.assign(response.data.url)
@@ -186,10 +186,10 @@ class Tariffs extends React.Component {
                                     <div className={classes.daysCount}>14</div>
                                     <div className={classes.daysText}>дней</div>
                                 </div>
-                                <div className={classes.price}>1300₽</div>
+                                <div className={classes.price}>560₽</div>
                                 <div className={classes.button}>
                                     <div onClick={()=>{
-                                        payAPI.sendPriceAndDays(1300,14)
+                                        payAPI.sendPriceAndDays(560,14)
                                             .then(response => {
                                                 if(response.data.status == true){
                                                     window.location.assign(response.data.url)
@@ -205,10 +205,10 @@ class Tariffs extends React.Component {
                                     <div className={classes.daysCount}>21</div>
                                     <div className={classes.daysText}>дней</div>
                                 </div>
-                                <div className={classes.price}>1900₽</div>
+                                <div className={classes.price}>735₽</div>
                                 <div className={classes.button}>
                                     <div onClick={()=>{
-                                        payAPI.sendPriceAndDays(1900,21)
+                                        payAPI.sendPriceAndDays(735,21)
                                             .then(response => {
                                                 if(response.data.status == true){
                                                     window.location.assign(response.data.url)
@@ -224,10 +224,10 @@ class Tariffs extends React.Component {
                                     <div className={classes.daysCount}>31</div>
                                     <div className={classes.daysText}>дней</div>
                                 </div>
-                                <div className={classes.price}>2500₽</div>
+                                <div className={classes.price}>1000₽</div>
                                 <div className={classes.button}>
                                     <div onClick={()=>{
-                                        payAPI.sendPriceAndDays(2500,31)
+                                        payAPI.sendPriceAndDays(1000,31)
                                             .then(response => {
                                                 if(response.data.status == true){
                                                     window.location.assign(response.data.url)

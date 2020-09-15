@@ -1,7 +1,8 @@
+
 .property{
     position: relative;
     background-color: #f8f8f8;
-/*    border-radius: 10px;*/
+    /*    border-radius: 10px;*/
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -49,7 +50,7 @@
 .content{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-flow: column nowrap;
     color: #333333;
 }
@@ -60,6 +61,7 @@
     font-size: 24px;
     font-weight: 500;
     transition: color 0.2s ease;
+    margin-bottom: 5px;
 }
 
 .title:hover{
@@ -179,4 +181,3 @@
     width: 25px;
     height: 25px;
 }
-

@@ -38,6 +38,14 @@ import Pagination from "react-js-pagination";
 import "./Pagination.css"
 import YandexMapContainer from "../YandexMap/YandexMapContainer";
 import YandexMapContainer2 from "../YandexMap/YandexMapContainer2";
+import {setIsFav} from "../../redux/auth-reducer";
+import {
+    addToSelected, createPropertyForClient,
+    removeFromSelected,
+    removeSelectedProperty,
+    setSelecting
+} from "../../redux/propertyForClient-reducer";
+import {CopyToClipboard} from "react-copy-to-clipboard/lib/Component";
 
 class FindProperty extends React.Component {
     constructor(props) {
@@ -50,7 +58,9 @@ class FindProperty extends React.Component {
         this.onCreate = this.onCreate.bind(this);
         this.state = {
             pageSize: this.props.pageSize,
-            findWithMap: false
+            findWithMap: false,
+            showModalLink: false,
+            copied: false,
         }
     }
 
@@ -84,20 +94,32 @@ class FindProperty extends React.Component {
     componentDidMount() {
         if(this.props.isAuth){
             if(this.props.location.pathname == "/find_property"){
-                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
+                this.props.setIsFav(false)
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, false);
                 this.timerID = setInterval(()=>{
                     this.props.getPropertyWithOutFetching(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
                 },30000)
             }else{
-                this.props.getIgnoreList();
-                this.props.getFavoriteList();
+                this.props.setIsFav(true)
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago, true);
+                this.timerID = setInterval(()=>{
+                    this.props.getPropertyWithOutFetching(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago, this.props.isFav);
+                },30000)
+                /*this.props.getIgnoreList();
+                this.props.getFavoriteList();*/
             }
         }
     }
     //КОООООСТТЫЫЫЫЫЛЬЬЬЬЬЬЬЬЬЬЬЬ нужно избавиться от этого метода, любые проблемы - вопросы к этому методу!!!
     componentWillReceiveProps(nextProps){
         if(nextProps.location.pathname != this.props.location.pathname || nextProps.isFetchingAuth != this.props.isFetchingAuth){
-            this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
+            if(this.props.location.pathname == "/find_property/favorite_list"){
+                this.props.setIsFav(false)
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, false);
+            }else{
+                this.props.setIsFav(true)
+                this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago, true);
+            }
             return nextProps;
         } else {
             return false
@@ -115,7 +137,7 @@ class FindProperty extends React.Component {
             this.props.getProperty(this.props.pageSize, this.props.page, this.props.filters);
         }*/
         this.props.setPage(pageNumber)
-        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters, this.props.polygon_cords,this.props.days_ago);
+        this.props.getProperty(this.props.pageSize, pageNumber, this.props.filters, this.props.polygon_cords,this.props.days_ago, this.props.isFav);
     }
 
     onSubmit = (formData) =>{
@@ -274,7 +296,7 @@ class FindProperty extends React.Component {
         localStorage.setItem("filters", JSON.stringify(formData));
         localStorage.setItem("filtersForFind", filters);
         this.props.setFiltersStorage(formData)
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords, typeof formData["dataSort"] === "undefined" ? 0 : formData.dataSort.value);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, filters, this.props.polygon_cords, typeof formData["dataSort"] === "undefined" ? 0 : formData.dataSort.value, this.props.isFav);
     }
 
     dropFilters = () =>{
@@ -286,7 +308,7 @@ class FindProperty extends React.Component {
         this.props.setDaysAgo(0);
         this.props.setFiltersStorage({typeOffer:{rent:false,sale:true}});
         this.sidebarObj.hide();
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, "&offer_type=0", 0, 0);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, "&offer_type=0", 0, 0, this.props.isFav);
     }
 
     getPropertyWithMap = (polygon_cords) =>{
@@ -296,12 +318,12 @@ class FindProperty extends React.Component {
             polygon = polygon_cords[0]
         }
         this.props.setPolygonCords(polygon);
-        this.props.getPropertyWithFilters(this.props.pageSize, 1, this.props.filters, polygon, this.props.days_ago);
+        this.props.getPropertyWithFilters(this.props.pageSize, 1, this.props.filters, polygon, this.props.days_ago, this.props.isFav);
     }
 
     setPageSizeOnClick=()=>{
         this.props.setPageSize(this.state.pageSize)
-        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago);
+        this.props.getProperty(this.state.pageSize, this.props.page, this.props.filters, this.props.polygon_cords, this.props.days_ago, this.props.isFav);
     }
 
 
@@ -323,30 +345,147 @@ class FindProperty extends React.Component {
         }*/
         return (
             <div className={classes.findProperty}>
-                <button className={classes.btnOpenSB} onClick={this.toggleClick} id="toggle" >
-                    <div className={classes.oneWord}>
-                        <div className={classes.symbol}>Д</div>
-                        <div className={classes.symbol}>о</div>
-                        <div className={classes.symbol}>б</div>
-                        <div className={classes.symbol}>а</div>
-                        <div className={classes.symbol}>в</div>
-                        <div className={classes.symbol}>и</div>
-                        <div className={classes.symbol}>т</div>
-                        <div className={classes.symbol}>ь</div>
+                {this.state.showModalLink &&
+                    <div className={classes.modalLinkInner}>
+                        {this.props.isFetchingLink &&
+                            <div className={classes.preloaderInner}>
+                                <img src={preloader} className={classes.preloader} />
+                            </div>
+                        }
+                        {!this.props.isFetchingLink &&
+                            <div className={classes.modalLinkWrapper}>
+                                <h3 className={classes.modalLinkText}>Ваша ссылка:</h3>
+                                <a className={classes.modalLink} href={this.props.link}>{this.props.link}</a>
+                                <div className={classes.copyClipboardInner}>
+                                    <CopyToClipboard text={this.props.link}
+                                        onCopy={()=>this.setState({copied:true})}
+                                    >
+                                            <div className={classes.copyClipboard}>Скопировать</div>
+                                    </CopyToClipboard>
+                                    {this.state.copied? <div className={classes.copySuccess}>Успешно</div>: null}
+                                </div>
+                                <div className={classes.modalLinkBtn} onClick={()=>{
+                                    this.setState({
+                                        showModalLink: false
+                                    })
+                                }}>Закрыть</div>
+                            </div>
+                        }
+
                     </div>
-                    <div className={classes.twoWord}>
-                        <div className={classes.symbol}>ф</div>
-                        <div className={classes.symbol}>и</div>
-                        <div className={classes.symbol}>л</div>
-                        <div className={classes.symbol}>ь</div>
-                        <div className={classes.symbol}>т</div>
-                        <div className={classes.symbol}>р</div>
-                        <div className={classes.symbol}>ы</div>
-                    </div>
-                </button>
+                }
+
+                <div className={classes.fixedBtn}>
+                    <button className={classes.btnOpenSB} onClick={this.toggleClick} id="toggle" >
+                        <div className={classes.oneWord}>
+                            <div className={classes.symbol}>Д</div>
+                            <div className={classes.symbol}>о</div>
+                            <div className={classes.symbol}>б</div>
+                            <div className={classes.symbol}>а</div>
+                            <div className={classes.symbol}>в</div>
+                            <div className={classes.symbol}>и</div>
+                            <div className={classes.symbol}>т</div>
+                            <div className={classes.symbol}>ь</div>
+                        </div>
+                        <div className={classes.twoWord}>
+                            <div className={classes.symbol}>ф</div>
+                            <div className={classes.symbol}>и</div>
+                            <div className={classes.symbol}>л</div>
+                            <div className={classes.symbol}>ь</div>
+                            <div className={classes.symbol}>т</div>
+                            <div className={classes.symbol}>р</div>
+                            <div className={classes.symbol}>ы</div>
+                        </div>
+                    </button>
+                    {this.props.isFav &&
+                        <div>
+                            {!this.props.selecting &&
+                            <button className={classes.btnSelectProperty} onClick={()=>{
+                                this.props.setSelecting(true)
+                            }}>
+                                <div className={classes.oneWord}>
+                                    <div className={classes.symbol}>В</div>
+                                    <div className={classes.symbol}>ы</div>
+                                    <div className={classes.symbol}>д</div>
+                                    <div className={classes.symbol}>е</div>
+                                    <div className={classes.symbol}>л</div>
+                                    <div className={classes.symbol}>и</div>
+                                    <div className={classes.symbol}>т</div>
+                                    <div className={classes.symbol}>ь</div>
+                                </div>
+                                <div className={classes.twoWord}>
+                                    <div className={classes.symbol}>о</div>
+                                    <div className={classes.symbol}>б</div>
+                                    <div className={classes.symbol}>ъ</div>
+                                    <div className={classes.symbol}>я</div>
+                                    <div className={classes.symbol}>в</div>
+                                    <div className={classes.symbol}>л</div>
+                                    <div className={classes.symbol}>е</div>
+                                    <div className={classes.symbol}>и</div>
+                                    <div className={classes.symbol}>я</div>
+                                </div>
+                            </button>
+                            }
+                            {this.props.selecting &&
+                                <div>
+                                    {this.props.selected.length > 0 &&
+                                        <button className={classes.btnSelectProperty} onClick={()=>{
+                                            this.props.createPropertyForClient(this.props.selected)
+                                            this.setState({
+                                                showModalLink: true
+                                            })
+                                            this.props.removeSelectedProperty()
+                                        }}>
+                                            <div className={classes.oneWord}>
+                                                <div className={classes.symbol}>С</div>
+                                                <div className={classes.symbol}>о</div>
+                                                <div className={classes.symbol}>з</div>
+                                                <div className={classes.symbol}>д</div>
+                                                <div className={classes.symbol}>а</div>
+                                                <div className={classes.symbol}>т</div>
+                                                <div className={classes.symbol}>ь</div>
+                                            </div>
+                                            <div className={classes.twoWord}>
+                                                <div className={classes.symbol}>С</div>
+                                                <div className={classes.symbol}>с</div>
+                                                <div className={classes.symbol}>ы</div>
+                                                <div className={classes.symbol}>л</div>
+                                                <div className={classes.symbol}>к</div>
+                                                <div className={classes.symbol}>у</div>
+                                            </div>
+                                        </button>
+                                    }
+                                    <button className={classes.btnSelectProperty} onClick={()=>{
+                                        this.props.removeSelectedProperty()
+                                    }}>
+                                        <div className={classes.oneWord}>
+                                            <div className={classes.symbol}>О</div>
+                                            <div className={classes.symbol}>т</div>
+                                            <div className={classes.symbol}>м</div>
+                                            <div className={classes.symbol}>е</div>
+                                            <div className={classes.symbol}>н</div>
+                                            <div className={classes.symbol}>и</div>
+                                            <div className={classes.symbol}>т</div>
+                                            <div className={classes.symbol}>ь</div>
+                                        </div>
+                                        <div className={classes.twoWord}>
+                                            <div className={classes.symbol}>в</div>
+                                            <div className={classes.symbol}>ы</div>
+                                            <div className={classes.symbol}>д</div>
+                                            <div className={classes.symbol}>е</div>
+                                            <div className={classes.symbol}>л</div>
+                                            <div className={classes.symbol}>е</div>
+                                            <div className={classes.symbol}>н</div>
+                                            <div className={classes.symbol}>и</div>
+                                            <div className={classes.symbol}>е</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
                 <div className={classes.items}>
-                    <Switch>
-                        <Route exact path={this.props.match.path}>
                             <div id="wrapper">
                                 <SidebarComponent id="default-sidebar" ref={Sidebar => this.sidebarObj = Sidebar}
                                                   type={this.type} created={this.onCreate}
@@ -392,7 +531,12 @@ class FindProperty extends React.Component {
                                                           removeToFavoriteList={this.props.removeToFavoriteList}
                                                           setToFavoriteList={this.props.setToFavoriteList}
                                                           isNewProperty={isNewProperty}
-                                                                 jobWithClient={this.props.jobWithClient}/>
+                                                         jobWithClient={this.props.jobWithClient}
+                                                         selecting={this.props.selecting}
+                                                        selected={this.props.selected}
+                                                                 addToSelected={this.props.addToSelected}
+                                                                 removeFromSelected={this.props.removeFromSelected}
+                                                />
                                         })}
                                     </div>
                                     }
@@ -440,8 +584,7 @@ class FindProperty extends React.Component {
                                     }
                                 </div>
                             </div>
-                        </Route>
-                        <Route path={`${this.props.match.path}/ignore_list`}>
+                        {/*<Route path={`${this.props.match.path}/ignore_list`}>
                             {this.props.ignoreList.map(p =>
                                 <IgnoreProperty item={p} removeToIgnoreList={this.props.removeToIgnoreList}/>
                             )}
@@ -465,8 +608,7 @@ class FindProperty extends React.Component {
                                 <img src={preloader} className={classes.preloader} />
                             </div>
                             }
-                        </Route>
-                    </Switch>
+                        </Route>*/}
                 </div>
             </div>
         )
@@ -490,7 +632,12 @@ const mapStateToProps = (state) => ({
     totalPropertyCount: state.findProperty.totalPropertyCount,
     filtersStorage: state.findProperty.filtersStorage,
     jobWithClient: state.auth.jobWithClient,
-    days_ago: state.findProperty.days_ago
+    days_ago: state.findProperty.days_ago,
+    isFav: state.auth.isFav,
+    selecting: state.propertyForClient.selecting,
+    selected: state.propertyForClient.selected,
+    link: state.propertyForClient.link,
+    isFetchingLink: state.propertyForClient.isFetchingLink
 })
 
 export default compose(
@@ -500,7 +647,9 @@ export default compose(
         setToFavoriteList, removeToFavoriteList, getPropertyWithFilters,
         setPage, setPageSize, setPolygonCords, setFiltersStorage,
         getPropertyWithOutFetching, setTempProperty, setDaysAgo,
-        addOneTempProperty
+        addOneTempProperty, setIsFav,
+        addToSelected, removeFromSelected, setSelecting,
+        removeSelectedProperty, createPropertyForClient
     }),
     withRouter
 )(FindProperty);

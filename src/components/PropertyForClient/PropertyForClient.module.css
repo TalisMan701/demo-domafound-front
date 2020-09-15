@@ -6,10 +6,9 @@
 }
 
 .modalLinkInner{
-    border-radius: 25px;
     position: fixed;
+    width: 500px;
     height: 300px;
-    padding: 10px;
     z-index: 100;
     top: 50%;
     left: 50%;
@@ -21,64 +20,11 @@
     box-shadow: 0px 0px 6px 2px #00000078;
 }
 
-.modalLink{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 5px 10px;
-    border: 2px solid #95e1d3;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #333333;
-    font-size: 17px;
-    transition: color 0.2s ease;
-}
-
-.modalLink:hover{
-    color: #f38181;
-}
-
-.modalLinkBtn{
-    text-decoration: none;
-    color: #333;
-    cursor: pointer;
-}
-
-.modalLinkBtn:after{
-    content: "";
-    display: block;
-    width: 0%;
-    height: 2px;
-    margin: 0px auto 0px auto;
-    background-color: #f38181;
-    transition: width 0.5s ease;
-}
-
-.modalLinkBtn:hover:after{
-    width: 100%;
-}
-
 .modalLinkWrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column nowrap;
-}
-
-.copyClipboardInner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: row nowrap;
-    margin-bottom: 10px;
-}
-
-.copyClipboard{
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.copySuccess{
-    color: #6ab628;
 }
 
 .items{

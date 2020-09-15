@@ -7,6 +7,8 @@ import findPropertyReducer from "./findProperty-reducer";
 import propertyReducer from "./property-reducer";
 import filtersReducer from "./filters-reducer";
 import payReducer from "./pay-reducer";
+import propertyForClientReducer from "./propertyForClient-reducer";
+import propertyClientReducer from "./propertyClient-reducer";
 
 let reducers = combineReducers({
     registration: registrationReducer,
@@ -15,6 +17,8 @@ let reducers = combineReducers({
     property: propertyReducer,
     filters: filtersReducer,
     pay: payReducer,
+    propertyForClient: propertyForClientReducer,
+    propertyClient: propertyClientReducer,
     form: formReducer
 });
 

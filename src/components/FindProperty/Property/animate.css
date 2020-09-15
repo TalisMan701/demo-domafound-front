@@ -21,6 +21,16 @@
     /*animation: 1s ease-in-out animate infinite;*/
 }
 
+.selectingInner{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes animate {
     50%{
         width: 100px;

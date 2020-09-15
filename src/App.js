@@ -23,6 +23,8 @@ import Agreement from "./components/Agreement/Agreement";
 import YandexMapContainer from "./components/YandexMap/YandexMapContainer";
 import YandexMapContainer2 from "./components/YandexMap/YandexMapContainer2";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import PropertyForClient from "./components/PropertyForClient/PropertyForClient";
+import PropertyClientPageContainer from "./components/PropertyForClient/PropertyClientPage/PropertyClientPageContainer";
 
 class App extends React.Component {
     componentDidMount() {
@@ -54,11 +56,19 @@ class App extends React.Component {
                 <Route path='/find_property' render={() =>
                     <div className='contentForStaticEl'><FindProperty/></div>
                 }/>
+
+                <Route path='/property_for_client/:idLink?' render={() =>
+                    <div className='content'><PropertyForClient/></div>
+                }/>
+
                 <Route path='/office' render={() =>
                     <div className='content'><PrivateOffice/></div>
                 }/>
                 <Route path='/propertyPage/:propertyId?' render={() =>
                     <div className='content'><PropertyPageContainer/></div>
+                }/>
+                <Route path='/propertyClientPage/:propertyId?' render={() =>
+                    <div className='content'><PropertyClientPageContainer/></div>
                 }/>
                 <Route path='/politic' render={() =>
                     <div className='content'><Politica/></div>

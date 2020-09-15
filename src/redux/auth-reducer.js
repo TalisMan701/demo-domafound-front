@@ -10,6 +10,8 @@ const TOGGLE_IS_FETCHING_AUTH = "TOGGLE_IS_FETCHING_AUTH";
 const SET_AUTHORIZATION = "SET_AUTHORIZATION";
 const SET_ONLINE_COUNT = "SET_ONLINE_COUNT";
 const SET_JOB_WITH_CLIENT = "SET_JOB_WITH_CLIENT";
+const SET_IS_FAV = "SET_IS_FAV";
+const SET_COMMISSION = "SET_COMMISSION";
 
 let initialState = {
     userId: null,
@@ -30,6 +32,9 @@ let initialState = {
     validateOTP: false,
     onlineCount: 0,
     jobWithClient: false,
+    isFav: false,
+    percentage: 0,
+    surcharge: 0
 };
 
 const authReducer = (state = initialState, action) => {
@@ -87,13 +92,26 @@ const authReducer = (state = initialState, action) => {
                 jobWithClient: action.jobWithClient
             }
         }
+        case SET_IS_FAV:{
+            return {
+                ...state,
+                isFav: action.isFav
+            }
+        }
+        case SET_COMMISSION:{
+            return {
+                ...state,
+                percentage: action.percentage,
+                surcharge: action.surcharge
+            }
+        }
         default:
             return state;
     }
 }
 
-const setAuthUserData = (userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth) => ({type: SET_USER_DATA, data:
-        {userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth}});
+const setAuthUserData = (userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth, percentage, surcharge) => ({type: SET_USER_DATA, data:
+        {userId, email, number, isSubscription, countDays, countHours, isPartner, referralCode, user_set, isAuth, percentage, surcharge}});
 
 const toggleIsFetchingAuth = (isFetchingAuth) => ({type: TOGGLE_IS_FETCHING_AUTH, isFetchingAuth })
 
@@ -107,12 +125,15 @@ const setOnlineCount = (onlineCount) => ({type: SET_ONLINE_COUNT, onlineCount})
 const setAuthorization = (authorization) => ({type: SET_AUTHORIZATION, authorization})
 
 export const setJobWithClient = (jobWithClient) => ({type: SET_JOB_WITH_CLIENT, jobWithClient})
+export const setIsFav = (isFav) => ({type: SET_IS_FAV, isFav})
+
+export const setCommission = (percentage, surcharge) => ({type: SET_COMMISSION, percentage, surcharge})
 
 export const getAuthUserData = () => (dispatch) => {
     dispatch(toggleIsFetchingAuth(true))
     authAPI.me()
         .then(response => {
-            if(response.status === 200){
+                if(response.status === 200){
                 dispatch(setAuthUserData(
                     response.data.user.id,
                     response.data.user.email,
@@ -124,6 +145,8 @@ export const getAuthUserData = () => (dispatch) => {
                     response.data.user.referral_code,
                     response.data.user.user_set,
                     true,
+                    response.data.user.commission_percentage,
+                    response.data.user.commission_surcharge
                     ));
                 dispatch(setOnlineCount(response.data.online_count))
                 dispatch(toggleIsFetchingAuth(false))
@@ -216,7 +239,6 @@ export const resetPassword = (number, password, passwordNew) => (dispatch) =>{
         let message = "Пароли не совпадают! Попробуйте ещё раз"
         dispatch(stopSubmit("resetPassword", {_error: message}))
     }
-
 }
 
 export default authReducer;

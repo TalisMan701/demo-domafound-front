@@ -234,10 +234,10 @@ export const setPolygonCords = (polygon_cords) => ({type:SET_POLYGON_CORDS, poly
 export const setDaysAgo = (days_ago) => ({type:SET_DAYS_AGO, days_ago})
 export const setFiltersStorage = (filtersStorage) => ({type:SET_FILTERS_STORAGE, filtersStorage})
 
-export const getProperty = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
+export const getProperty = (pageSize, page, filters, polygon_cords = 0, days_ago = 0, is_fav = false) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago, is_fav)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTempProperty(data.data.results));
@@ -248,9 +248,9 @@ export const getProperty = (pageSize, page, filters, polygon_cords = 0, days_ago
     }
 }
 
-export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
+export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cords = 0, days_ago = 0, is_fav = false) => {
     return (dispatch) => {
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords,days_ago)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords,days_ago, is_fav)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));
@@ -259,12 +259,12 @@ export const getPropertyWithOutFetching = (pageSize, page, filters, polygon_cord
     }
 }
 
-export const getPropertyWithFilters = (pageSize, page, filters, polygon_cords = 0, days_ago = 0) => {
+export const getPropertyWithFilters = (pageSize, page, filters, polygon_cords = 0, days_ago = 0, is_fav = false) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
         dispatch(setFilters(filters))
 
-        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago)
+        findPropertyAPI.getBase(pageSize, page, filters, polygon_cords, days_ago, is_fav)
             .then(data => {
                 dispatch(setProperty(data.data.results));
                 dispatch(setTotalPropertyCount(data.data.count));

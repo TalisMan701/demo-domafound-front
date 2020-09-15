@@ -31,6 +31,9 @@ export const authAPI = {
     },
     validateOTP(code, number) {
         return instance().post(`auth/reset/validate_otp/`, {code, number});
+    },
+    setCommission(percentage, surcharge){
+        return instanceWithToken().post(`auth/set_commission/`, {percentage, surcharge})
     }
 }
 
@@ -53,11 +56,12 @@ export const findPropertyAPI ={
     reparseBase(){
         return instanceWithToken().get(`base/reparse/`)
     },
-    getBase(pageSize, page, filters, polygon_cords, days_ago){
+    getBase(pageSize, page, filters, polygon_cords, days_ago, is_fav){
         return instanceWithToken().post(`base/get_base/${pageSize}?page=${page}${filters}`,{
             page_size: pageSize,
             polygon_cords,
-            days_ago
+            days_ago,
+            is_fav
         })
     },
     getHouse(id){
@@ -97,6 +101,19 @@ export const findPropertyAPI ={
         return instanceWithToken().get(`base/get_archive/${house_id}`)
     }
 }
+
+export const propertyForClientAPI = {
+    createPropertyForClient(id_set){
+        return instanceWithToken().post(`base/create_user_set/`,{id_set})
+    },
+    getPropertyForClient(set_id){
+        return instance().post(`base/get_user_set/`,{set_id})
+    },
+    getHouseClient(id){
+        return instance().get(`base/get_house_client/${id}`)
+    }
+}
+
 
 export const payAPI = {
     sendPriceAndDays(price,days){
