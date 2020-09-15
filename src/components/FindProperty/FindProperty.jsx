@@ -536,6 +536,9 @@ class FindProperty extends React.Component {
                                                         selected={this.props.selected}
                                                                  addToSelected={this.props.addToSelected}
                                                                  removeFromSelected={this.props.removeFromSelected}
+                                                                 percentage={this.props.percentage}
+                                                                 surcharge={this.props.surcharge}
+
                                                 />
                                         })}
                                     </div>
@@ -637,7 +640,9 @@ const mapStateToProps = (state) => ({
     selecting: state.propertyForClient.selecting,
     selected: state.propertyForClient.selected,
     link: state.propertyForClient.link,
-    isFetchingLink: state.propertyForClient.isFetchingLink
+    isFetchingLink: state.propertyForClient.isFetchingLink,
+    percentage: state.auth.percentage,
+    surcharge: state.auth.surcharge
 })
 
 export default compose(

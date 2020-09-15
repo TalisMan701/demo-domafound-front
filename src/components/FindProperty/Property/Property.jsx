@@ -71,7 +71,11 @@ const Property = (props) => {
                         <br/>
                         {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                        Цена: {props.item.items.price}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}
+                        {!props.jobWithClient ?
+                            <span>Цена: {props.item.items.price}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}</span>:
+                            <span>Цена: {((props.percentage)/100+1)*(props.item.items.price)+props.surcharge}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}</span>
+                        }
+
                         <br/>
                         {!props.jobWithClient &&
                             <span>Источник: {props.item.items.host} <a target="_blank" className={classes.link}  href={props.item.items.link}>Посетить</a></span>
