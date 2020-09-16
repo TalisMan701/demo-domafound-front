@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import PropertyClientPage from "./PropertyClientPage";
 import Preloader from "../../../common/Preloader/Preloader";
 import {getPropertyOneClient} from "../../../redux/propertyClient-reducer";
+import PropertyForClientOne from "../PropertyForClientOne";
 
 class PropertyClientPageContainer extends React.Component {
     constructor(props) {
@@ -37,9 +38,12 @@ class PropertyClientPageContainer extends React.Component {
         }
 
         return(
-            <PropertyClientPage goBack={this.goBack}
-                                property={this.props.property}
-                                isFetchingOnePage={this.props.isFetchingOnePage}
+            <PropertyClientPage
+                goBack={this.goBack}
+                property={this.props.property}
+                isFetchingOnePage={this.props.isFetchingOnePage}
+                percentage={this.props.percentage}
+                surcharge={this.props.surcharge}
             />
         );
     }
@@ -49,6 +53,8 @@ const mapStateToProps = (state) => ({
     property: state.propertyClient.property,
     isFetchingOnePage: state.propertyClient.isFetchingOnePage,
     jkhInfo: state.propertyClient.jkhInfo,
+    percentage: state.propertyForClient.percentage,
+    surcharge: state.propertyForClient.surcharge
 })
 
 export default compose(

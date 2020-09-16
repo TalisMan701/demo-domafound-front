@@ -27,7 +27,10 @@ const PropertyForClient = (props)=>{
                     {props.property.length !== 0 &&
                     <div>
                         {props.property.map(p =>{
-                            return <PropertyForClientOne item={p}
+                            return <PropertyForClientOne
+                                item={p}
+                                percentage={props.percentage}
+                                surcharge={props.surcharge}
                             />
                         })}
                     </div>
@@ -45,7 +48,9 @@ const PropertyForClient = (props)=>{
 
 const mapStateToProps = (state) => ({
     property: state.propertyForClient.property,
-    isFetchingProperty: state.propertyForClient.isFetchingProperty
+    isFetchingProperty: state.propertyForClient.isFetchingProperty,
+    percentage: state.propertyForClient.percentage,
+    surcharge: state.propertyForClient.surcharge
 })
 
 export default compose(

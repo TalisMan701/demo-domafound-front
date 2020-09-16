@@ -16,6 +16,9 @@ let initialState = {
     link: "",
     isFetchingLink: true,
     isFetchingProperty: true,
+    percentage: 0,
+    surcharge: 0
+
 };
 
 const propertyForClientReducer = (state = initialState, action) => {
@@ -60,7 +63,9 @@ const propertyForClientReducer = (state = initialState, action) => {
         case SET_PROPERTY:{
             return {
                 ...state,
-                property: action.property
+                property: action.property.house_set,
+                percentage: action.property.agent_commission_percentage,
+                surcharge: action.property.agent_commission_surcharge
             }
         }
         case TOGGLE_IS_FETCHING_PROPERTY:{
@@ -104,7 +109,7 @@ export const getPropertyForClient = (idLink) =>{
         dispatch(toggleIsFetchingProperty(true))
         propertyForClientAPI.getPropertyForClient(idLink)
             .then(response => {
-                dispatch(setProperty(response.data.data.house_set))
+                dispatch(setProperty(response.data.data))
                 dispatch(toggleIsFetchingProperty(false))
             })
     }

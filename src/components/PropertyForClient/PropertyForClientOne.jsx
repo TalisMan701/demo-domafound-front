@@ -24,7 +24,7 @@ const PropertyForClientOne = (props) =>{
                     <div className={classes.descriptionText}>
                         Адресс: {props.item.address},
                         <br/>
-                        Цена: {props.item.price}₽ {props.item.offer_type === "1" && <span>в месяц</span>}
+                        Цена: {Math.round(((props.percentage)/100+1)*(props.item.price)+props.surcharge)}₽ {props.item.offer_type === "1" && <span>в месяц</span>}
                     </div>
                 </div>
             </div>

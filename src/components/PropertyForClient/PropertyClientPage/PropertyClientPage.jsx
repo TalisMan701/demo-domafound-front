@@ -153,7 +153,7 @@ const PropertyClientPage = (props) => {
                                     <br/>
                                     {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                                    Цена: {props.property.house.price}₽
+                                    Цена: {Math.round(((props.percentage)/100+1)*(props.property.house.price)+props.surcharge)}₽ {props.property.house.offer_type === "1" && <span>в месяц</span>}
                                 </div>
                             </div>
                         </div>
