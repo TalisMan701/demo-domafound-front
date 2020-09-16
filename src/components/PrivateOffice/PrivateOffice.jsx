@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import classes from "./PrivateOffice.module.css";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {getIgnoreList} from "../../redux/findProperty-reducer";
+import {getIgnoreList, setPage} from "../../redux/findProperty-reducer";
 import {setCommission, setJobWithClient} from "../../redux/auth-reducer";
 import {authAPI} from "../../api/api";
 import closeIcon from "../FindProperty/Property/close.svg";
@@ -21,10 +21,12 @@ function PrivateOffice(props) {
     },[props])
 
     const saveCommission = () =>{
+        let p = !Number.isNaN(percentage) ? percentage: 0
+        let s = !Number.isNaN(surcharge) ? surcharge : 0
         setIsFetching(true)
-        authAPI.setCommission(percentage, surcharge)
+        authAPI.setCommission(p, s)
             .then(response =>{
-                props.setCommission(percentage,surcharge)
+                props.setCommission(p,s)
                 setIsFetching(false)
                 setIsSetCommission(false)
             })
@@ -66,7 +68,14 @@ function PrivateOffice(props) {
                                             <div className={classes.displayFlexWithRow}>
                                                 <input type="number" id="percentageCount"
                                                        name="percentageCount" min="0"
-                                                       onChange={(e) => setPercentage(e.target.valueAsNumber)}
+                                                       onChange={(e) => {
+                                                           /*if(Number.isNaN(e.target.valueAsNumber)){
+                                                               setPercentage(0)
+                                                           }else{
+                                                               setPercentage(e.target.valueAsNumber)
+                                                           }*/
+                                                           setPercentage(e.target.valueAsNumber)
+                                                       }}
                                                        value={percentage}
                                                        placeholder={props.percentage}
                                                        className={classes.commissionInput}
@@ -82,7 +91,14 @@ function PrivateOffice(props) {
                                             <div className={classes.displayFlexWithRow}>
                                                 <input type="number" id="surchargeCount"
                                                        name="surchargeCount" min="0"
-                                                       onChange={(e) => setSurcharge(e.target.valueAsNumber)}
+                                                       onChange={(e) => {
+                                                           /*if(Number.isNaN(e.target.valueAsNumber)){
+                                                               setSurcharge(0)
+                                                           }else{
+                                                               setSurcharge(e.target.valueAsNumber)
+                                                           }*/
+                                                           setSurcharge(e.target.valueAsNumber)
+                                                       }}
                                                        value={surcharge}
                                                        placeholder={props.surcharge}
                                                        className={classes.commissionInput}

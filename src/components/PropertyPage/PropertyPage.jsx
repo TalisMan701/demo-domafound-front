@@ -161,7 +161,10 @@ const PropertyPage = (props) => {
                                     <br/>
                                     {/*Выложено: {props.item.items.data},
                         <br/>*/}
-                                    Цена: {props.property.house.price}₽
+                                    {!props.jobWithClient ?
+                                        <span>Цена: {props.property.house.price}₽ {props.property.house.offer_type === "1" && <span>в месяц</span>}</span>:
+                                        <span>Цена: {Math.round(((props.percentage)/100+1)*(props.property.house.price)+props.surcharge)}₽ {props.property.house.offer_type === "1" && <span>в месяц</span>}</span>
+                                    }
                                     <br/>
                                     {!props.jobWithClient &&
                                     <span>Ссылка: <a target="_blank" className={classes.link}

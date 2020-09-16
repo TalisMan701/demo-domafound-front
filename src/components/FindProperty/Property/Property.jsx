@@ -73,7 +73,7 @@ const Property = (props) => {
                         <br/>*/}
                         {!props.jobWithClient ?
                             <span>Цена: {props.item.items.price}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}</span>:
-                            <span>Цена: {((props.percentage)/100+1)*(props.item.items.price)+props.surcharge}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}</span>
+                            <span>Цена: {Math.round(((props.percentage)/100+1)*(props.item.items.price)+props.surcharge)}₽ {props.item.items.offer_type === "1" && <span>в месяц</span>}</span>
                         }
 
                         <br/>

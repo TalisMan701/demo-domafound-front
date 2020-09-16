@@ -45,6 +45,8 @@ class PropertyPageContainer extends React.Component {
             <PropertyPage goBack={this.goBack}  property={this.props.property} isFetchingOnePage={this.props.isFetchingOnePage}
                            setToFavoriteList={this.props.setToFavoriteListPropertyPage} removeToFavoriteList={this.props.removeToFavoriteListPropertyPage}
                             jkhInfo={this.props.jkhInfo} jobWithClient={this.props.jobWithClient}
+                          percentage={this.props.percentage}
+                          surcharge={this.props.surcharge}
             />
         );
     }
@@ -55,6 +57,8 @@ const mapStateToProps = (state) => ({
     isFetchingOnePage: state.property.isFetchingOnePage,
     jkhInfo: state.property.jkhInfo,
     jobWithClient: state.auth.jobWithClient,
+    percentage: state.auth.percentage,
+    surcharge: state.auth.surcharge
 })
 
 export default compose(
