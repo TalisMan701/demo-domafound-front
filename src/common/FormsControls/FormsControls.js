@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import classes from "./FormsControls.module.css";
 import triangle from "./triangle.svg";
 import NumberFormat from 'react-number-format';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import TextInput from 'react-autocomplete-input';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -65,8 +65,8 @@ export const CheckboxForPolitic = ({input, meta, ...props}) => {
             <div className={classes.checkboxInner}>
                 <input {...input} {...props} />
                 <div className={classes.checkboxText}>Я принимаю условия <span> </span>
-                    <Link className={classes.checkboxLink} target="_blank" to="/agreement">Пользовательского соглашения</Link>, <span> </span>
-                    <Link className={classes.checkboxLink} target="_blank" to="/politic">Политики конфиденциальности</Link>
+                    <NavLink className={classes.checkboxLink} target="_blank" to="/agreement">Пользовательского соглашения</NavLink>, <span> </span>
+                    <NavLink className={classes.checkboxLink} target="_blank" to="/politic">Политики конфиденциальности</NavLink>
                 </div>
             </div>
         </div>

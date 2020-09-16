@@ -3,7 +3,7 @@ import classes from "./Footer.module.css";
 import logo from "./logo.svg";
 import phone from "./phone.svg";
 import mail from "./mail.svg";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 const Footer = () =>{
     return(
@@ -22,15 +22,15 @@ const Footer = () =>{
                 </div>
 
                 <div className={classes.linksInner}>
-                    <Link target="_blank" to={'/agreement'} className={classes.link}>
+                    <NavLink target="_blank" to={'/agreement'} className={classes.link}>
                         Пользовательское соглашение
-                    </Link>
-                    <Link className={classes.link}>
+                    </NavLink>
+                    <NavLink className={classes.link} to={'/'}>
                         Документация
-                    </Link>
-                    <Link target="_blank" to={'/politic'} className={classes.link}>
+                    </NavLink>
+                    <NavLink target="_blank" to={'/politic'} className={classes.link}>
                         Политика конфиденциальности
-                    </Link>
+                    </NavLink>
                 </div>
 
                 <div className={classes.contactsInner}>
