@@ -1,0 +1,81 @@
+.wrapper{
+    --box-shadow-color: rgba(255, 101, 47, 0.2);
+    width: 50px;
+    height: 50px;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    /* border: 5px solid #fff; */
+    transition: all 0.5s ease-in-out;
+}
+
+.btnBurger,
+.btnBurger::before,
+.btnBurger::after{
+    width: 35px;
+    height: 4px;
+
+    border-radius: 3px;
+    background-color: #333333;
+
+    transition: all 0.5s ease-in-out;
+}
+
+.btnBurger::before,
+.btnBurger::after{
+    content: "";
+    position: absolute;
+}
+
+.btnBurger::before{
+    transform: translateY(-10px);
+}
+
+.btnBurger::after{
+    transform: translateY(10px);
+}
+
+.wrapper.open .btnBurger {
+    transform: translateX(-50px);
+    background-color: transparent;
+    box-shadow: none;
+}
+.wrapper.open .btnBurger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+}
+.wrapper.open .btnBurger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+}
+
+.menuInner{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column nowrap;
+    position: fixed;
+    margin-top: 60px;
+    background-color: #fff;
+    padding: 10px;
+    height: calc(100vh - 60px);
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.flex{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column nowrap;
+}
+
+
+@media screen and (max-width: 805px) {
+
+}

@@ -3,6 +3,7 @@ import classes from "./Header.module.css";
 import Navbar from "./Navbar/Navbar";
 import Logo from "./Logo/Logo";
 import UserInfoContainer from "./UserInfo/UserInfoContainer";
+import HamburgerButton from "./HamburgerButton";
 
 const Header = () =>{
     return(
@@ -10,10 +11,16 @@ const Header = () =>{
             <div className={classes.container}>
                 <div className={classes.box}>
                     <Logo/>
-                    <Navbar/>
+                    <div className={classes.noBurgerMenu}>
+                        <Navbar/>
+                    </div>
                 </div>
-                <UserInfoContainer/>
-                <div className={classes.burgerMenu}>Меню</div>
+                <div className={classes.noBurgerMenu}>
+                    <UserInfoContainer/>
+                </div>
+                <div className={classes.burgerMenu}>
+                    <HamburgerButton/>
+                </div>
             </div>
         </header>
     )}

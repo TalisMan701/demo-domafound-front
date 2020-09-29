@@ -173,7 +173,27 @@
 }
 
 @media screen and (max-width: 805px) {
+    .userInfoInner{
+        max-width: 300px;
+    }
     .userWrapper{
-        display: none;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .onlineCount{
+        top: -20px;
+        left: auto;
+        right: 0;
+    }
+
+    .onlineCountText{
+        width: 180px;
+        opacity: 1;
+    }
+
+    .onlineCountText div{
+        font-size: 12px;
     }
 }

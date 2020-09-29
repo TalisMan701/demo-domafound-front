@@ -115,3 +115,25 @@
         top: 75%;
     }
 }
+
+@media screen and (max-width: 670px) {
+    .mainText{
+        font-size: 65px;
+    }
+
+    .mainText span{
+        font-size: 35px;
+    }
+
+    .scrollLinks{
+        flex-flow: column nowrap;
+    }
+
+    .scrollLinkItem{
+        margin: 10px 10px;
+    }
+
+    .infoUnion{
+        display: none;
+    }
+}

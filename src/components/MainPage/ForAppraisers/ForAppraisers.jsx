@@ -6,7 +6,7 @@ import windowIcon from "./seo-full.svg";
 import paperIcon from "./paper.svg";
 import speedIcon from "./performance.svg"
 
-const ForAppraisers = () =>{
+const ForAppraisers = (props) =>{
     return(
         <div className={classes.forRealtors__inner}>
             <div className={classes.container}>
@@ -21,12 +21,12 @@ const ForAppraisers = () =>{
                         <div className={classes.title}>Фильтрация поиска</div>
                         <div className={classes.text}>Тонкая настройка фильтров поиска!</div>
                     </div>
-                    <div className={classes.item}>
+                    <div className={`${classes.item} ${props.isMobile?classes.item__border:''}`}>
                         <img className={classes.icon} src={paperIcon} alt="icon"/>
                         <div className={classes.title}>Выписки ЕГРН</div>
                         <div className={classes.text}>Возможность приобрести выписку из ЕГРН!</div>
                     </div>
-                    <div className={classes.item}>
+                    <div className={`${classes.item} ${props.isMobile?classes.item__border:''}`}>
                         <img className={classes.icon} src={speedIcon} alt="icon"/>
                         <div className={classes.title}>Высокая скорость оценки</div>
                         <div className={classes.text}>Скорость выполнения работ по оценке уменьшится в разы!</div>

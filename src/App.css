@@ -4,6 +4,9 @@
 }
 
 .content{
+  display: flex;
+  justify-content: center;
+  align-content: center;
   position: relative;
   min-height: calc(100vh - 210px);
   flex: 1 0 auto;
@@ -51,5 +54,17 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 805px) {
+  .content{
+    min-height: calc(100vh - 360px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content{
+    min-height: calc(100vh - 460px);
   }
 }

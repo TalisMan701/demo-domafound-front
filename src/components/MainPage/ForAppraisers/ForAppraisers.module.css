@@ -55,3 +55,12 @@
     font-size: 15px;
     color: #999;
 }
+
+@media screen and (max-width: 670px) {
+    .items{
+        flex-flow: column nowrap;
+    }
+    .item{
+        width: 100%;
+    }
+}

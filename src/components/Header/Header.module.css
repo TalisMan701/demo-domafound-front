@@ -34,4 +34,7 @@
     .burgerMenu{
         display: flex;
     }
+    .noBurgerMenu{
+        display: none;
+    }
 }

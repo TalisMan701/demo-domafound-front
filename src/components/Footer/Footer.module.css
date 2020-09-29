@@ -152,3 +152,48 @@
     /*color: #333333;*/
     font-weight: bold;
 }
+
+@media screen and (max-width: 840px) {
+    .logoText{
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 805px) {
+    .logoText{
+        font-size: 14px;
+    }
+
+    .footerInner{
+        height: 300px;
+    }
+
+    .linksInner{
+        flex-flow: column nowrap;
+    }
+    .link{
+        margin-right: 0;
+        margin-top: 5px;
+        text-align: center;
+    }
+    .contactsInner{
+        flex-flow: column nowrap;
+    }
+    .contact{
+        margin-right: 0;
+        margin-top: 5px;
+    }
+    .logo{
+        flex-flow: column nowrap;
+    }
+    .logoText{
+        margin-top: 5px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footerInner{
+        height: 400px;
+    }
+}

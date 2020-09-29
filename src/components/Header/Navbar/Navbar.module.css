@@ -33,6 +33,9 @@
 
 @media screen and (max-width: 805px) {
     .nav{
-        display: none;
+        flex-flow: column nowrap;
+    }
+    .item{
+        padding-top: 15px;
     }
 }
